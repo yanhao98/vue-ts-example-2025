@@ -1,0 +1,4 @@
+# 此钩子在 git merge 或 git pull 成功完成后运行。
+echo "🔗 [Post-merge] 正在安装依赖..."
+pnpm install
+echo "✅ [Post-merge] 依赖安装完成！"

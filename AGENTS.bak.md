@@ -1,0 +1,1 @@
+- **vite-plugin-fake-server**: Mock API under `/fake-api` (dev only) from `fake/` directory

@@ -1,0 +1,85 @@
+defaults:
+  run:
+    shell: bash
+
+env:
+  TZ: Asia/Shanghai
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "30 22 * * *" # 22:30 UTC = 6:30 CST
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    container: gitea/runner-images:ubuntu-latest-slim # https://github.com/cloudflare/wrangler-action/issues/329#issuecomment-3046747722
+
+    steps:
+      - uses: actions/checkout@main
+        with:
+          # fetch-depth: 0 # 0 代表完整检出，semantic-release 需要
+          filter: blob:none # 我们不需要所有 blob，只需要完整的树
+          show-progress: false
+      - run: rm pnpm-lock.yaml
+      - uses: pnpm/action-setup@master # https://github.com/pnpm/action-setup?tab=readme-ov-file#inputs
+
+      - uses: actions/setup-node@main # https://github.com/actions/setup-node?tab=readme-ov-file#usage
+        with:
+          cache: ""
+
+      - run: pnpm up --latest
+      - run: pnpm outdated
+
+      - name: 🔍 静态代码分析
+        run: pnpm run lint
+
+      - name: 📦 构建项目
+        run: pnpm run build-only
+        env:
+          VITE_APP_BUILD_COMMIT: ${{ github.sha }}
+
+      - name: 🧪 单元测试
+        run: pnpm run test:unit
+
+      - name: 📊 计算构建大小
+        run: |
+          echo "📊 构建大小统计:"
+          echo "----------------------------------------"
+          echo "🔹 人类可读格式: $(du -sh dist | cut -f1)"
+          echo "🔹 以MB为单位:  $(du -sm dist | cut -f1) MB"
+          echo "🔹 以KB为单位:  $(du -sk dist | cut -f1) KB"
+          echo "🔹 文件总数:    $(find dist -type f | wc -l) 个文件"
+          echo "----------------------------------------"
+
+      - name: ✅ 类型检查
+        run: pnpm run type-check # 要先 build，保证 components.d.ts 存在
+
+  playwright:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.56.0-noble
+    steps:
+      - uses: actions/checkout@main
+        with:
+          # fetch-depth: 0 # 0 代表完整检出，semantic-release 需要
+          filter: blob:none # 我们不需要所有 blob，只需要完整的树
+          show-progress: false
+
+      - run: rm pnpm-lock.yaml
+
+      - uses: pnpm/action-setup@master # https://github.com/pnpm/action-setup?tab=readme-ov-file#inputs
+
+      - uses: actions/setup-node@main # https://github.com/actions/setup-node?tab=readme-ov-file#usage
+        with:
+          cache: ""
+
+      - run: pnpm up --latest
+      - run: pnpm outdated
+
+      - name: 📦 构建项目
+        run: pnpm run build-only
+
+      - name: ▶️ 运行 Playwright 测试
+        run: pnpm exec playwright test

@@ -1,0 +1,66 @@
+name: CI/CD Pipeline
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  TZ: Asia/Shanghai
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    container: gitea/runner-images:ubuntu-latest-slim # https://github.com/cloudflare/wrangler-action/issues/329#issuecomment-3046747722
+
+    steps:
+      - name: 🛠️ 设置Node环境
+        uses: yanhao98/composite-actions/setup-node-environment@25eb4dc0c134cc9df2b7c569aa54140a366b45a8
+
+      - name: 🔍 静态代码分析
+        run: pnpm run lint
+
+      - name: 📦 构建项目
+        run: pnpm run build-only
+        env:
+          VITE_APP_BUILD_COMMIT: ${{ github.sha }}
+
+      - name: 🧪 单元测试
+        run: pnpm run test:unit
+
+      - name: 📊 计算构建大小
+        run: |
+          echo "📊 构建大小统计:"
+          echo "----------------------------------------"
+          echo "🔹 人类可读格式: $(du -sh dist | cut -f1)"
+          echo "🔹 以MB为单位:  $(du -sm dist | cut -f1) MB"
+          echo "🔹 以KB为单位:  $(du -sk dist | cut -f1) KB"
+          echo "🔹 文件总数:    $(find dist -type f | wc -l) 个文件"
+          echo "----------------------------------------"
+
+      - name: ✅ 类型检查
+        run: pnpm run type-check # 要先 build，保证 components.d.ts 存在
+
+      - name: 🚀 部署到 Cloudflare
+        if: github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+  playwright:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.56.0-noble
+    steps:
+      - name: ⚙️ 设置 Node 环境
+        uses: yanhao98/composite-actions/setup-node-environment@25eb4dc0c134cc9df2b7c569aa54140a366b45a8
+      # - name: 📥 安装 Playwright 浏览器
+      #   run: pnpm exec playwright install --with-deps
+      - name: 📦 构建项目
+        run: pnpm run build-only
+      - name: ▶️ 运行 Playwright 测试
+        run: pnpm exec playwright test
