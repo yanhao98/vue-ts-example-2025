@@ -12,25 +12,25 @@ const appStore = useAppStore();
       <BaseLayoutHeader v-model:collapsed="siderCollapse" />
     </template>
     <template #tab>
-      <div class="bg-green-100 dark:bg-green-900 text-green-900 dark:text-green-100 p-4">
+      <div class="bg-green-100/80 dark:bg-green-900/80 text-green-900 dark:text-green-100 p-4">
         2#GlobalTab
       </div>
     </template>
     <template #sider>
       <div
-        class="bg-purple-100 dark:bg-purple-900 text-purple-900 dark:text-purple-100 p-4 h-full overflow-hidden"
+        class="bg-purple-100/80 dark:bg-purple-900/80 text-purple-900 dark:text-purple-100 p-4 h-full overflow-hidden"
       >
         3#GlobalSider
       </div>
     </template>
-    <div class="bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-100 p-4">
+    <div class="bg-yellow-100/80 dark:bg-yellow-900/80 text-yellow-900 dark:text-yellow-100 p-4">
       4#GlobalMenu
     </div>
     <!-- <div>GlobalContent</div> -->
     <RouterView />
     <!-- <div>ThemeDrawer</div> -->
     <template #footer>
-      <div class="bg-red-100 dark:bg-red-900 text-red-900 dark:text-red-100 h-full">
+      <div class="bg-red-100/80 dark:bg-red-900/80 text-red-900 dark:text-red-100 h-full">
         5#GlobalFooter
       </div>
     </template>
