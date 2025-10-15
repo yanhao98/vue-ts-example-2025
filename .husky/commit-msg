@@ -1,5 +1,13 @@
 # 此钩子在 pre-commit 钩子成功完成后，用于检查提交消息。
 echo "📝 [Commit-msg] 正在运行 commit-msg 钩子..."
-echo "检查提交消息：$1"
-pnpm exec commitlint --edit $1
+
+echo "🟢 检查提交消息：$1"
+cat $1
+
+# node -v
+echo "🟢 [Commit-msg] Node 版本：$(node -v)"
+
+# pnpm exec commitlint --edit $1
+node node_modules/@commitlint/cli/cli.js --edit $1
+
 echo "✅ [Commit-msg] commit-msg 钩子完成！"
