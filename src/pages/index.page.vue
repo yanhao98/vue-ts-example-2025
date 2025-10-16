@@ -418,7 +418,7 @@ onUnmounted(() => {
                 placeholder="输入要发送的消息..."
                 :disabled="!wsConnected"
                 :aria-describedby="!wsConnected ? 'ws-status' : undefined"
-                class="flex-1 border-2 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:text-gray-500 transition-all duration-300 border-gray-200 dark:border-gray-600 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm text-gray-800 dark:text-gray-100 disabled:bg-gray-100/60 dark:disabled:bg-gray-800/60 hover:border-gray-300 dark:hover:border-gray-500"
+                class="flex-1 w-full border-2 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:text-gray-500 transition-all duration-300 border-gray-200 dark:border-gray-600 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm text-gray-800 dark:text-gray-100 disabled:bg-gray-100/60 dark:disabled:bg-gray-800/60 hover:border-gray-300 dark:hover:border-gray-500"
               />
               <button
                 @click="sendMessage"
