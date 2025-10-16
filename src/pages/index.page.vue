@@ -83,7 +83,10 @@ const connectWebSocket = async () => {
 
     ws.value.onerror = (error) => {
       wsLoading.value = false;
-      wsMessages.value.push(`⚠️ WebSocket连接错误: ${error} (${new Date().toLocaleTimeString()})`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      wsMessages.value.push(
+        `⚠️ WebSocket连接错误: ${errorMessage} (${new Date().toLocaleTimeString()})`,
+      );
       scrollToBottom();
     };
   } catch {
