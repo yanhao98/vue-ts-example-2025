@@ -45,7 +45,7 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "{src,e2e}/**/*.{js,jsx,ts,tsx,vue}": [
+    "{server,src,e2e}/**/*.{js,jsx,ts,tsx,vue}": [
       "prettier --write",
       "eslint --fix",
       "oxlint --fix"
