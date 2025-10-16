@@ -1,12 +1,16 @@
+// @ts-check
+/// <reference types="@stylelint-types/stylelint-scss" />
+/// <reference types="@stylelint-types/stylelint-order" />
+
 /**
  * Stylelint 配置
  *
- * [Add support for TypeScript configuration files](https://github.com/stylelint/stylelint/issues/4940)
  * @see https://stylelint.io/user-guide/configure
  */
 
-/** @type {import('stylelint').Config} */
-export default {
+import defineConfig from 'stylelint-define-config'; // [Add support for TypeScript configuration files](https://github.com/stylelint/stylelint/issues/4940)
+
+module.exports = defineConfig({
   extends: [
     'stylelint-config-standard',
     'stylelint-config-recess-order',
@@ -38,4 +42,4 @@ export default {
     // 'scss/at-rule-no-unknown': true,
     // <<<<<
   },
-};
+});
