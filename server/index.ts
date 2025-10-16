@@ -9,14 +9,17 @@ export default {
 
     // API 路由处理
     if (url.pathname.startsWith('/api/')) {
-      await env.KV.put('events:api:last-call', `${new Date().toISOString()} ${request.method} ${url.pathname}`);
+      await env.KV.put(
+        'events:api:last-call',
+        `${new Date().toISOString()} ${request.method} ${url.pathname}`,
+      );
 
       // 获取所有可用的键名
       const availableKeys = [
         'events:api:last-call',
         'events:ws:connection',
         'events:ws:message',
-        'events:ws:disconnection'
+        'events:ws:disconnection',
       ];
 
       return Response.json({
@@ -28,7 +31,7 @@ export default {
           wsConnection: await env.KV.get('events:ws:connection'),
           wsMessage: await env.KV.get('events:ws:message'),
           wsDisconnection: await env.KV.get('events:ws:disconnection'),
-        }
+        },
       });
     }
 
@@ -50,7 +53,9 @@ export default {
         await new Promise((r) => setTimeout(r, 250));
       }
 
-      server.send(`欢迎连接到WebSocket服务器！连接时间: ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`);
+      server.send(
+        `欢迎连接到WebSocket服务器！连接时间: ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`,
+      );
 
       server.addEventListener('message', async (event) => {
         console.log('收到客户端消息:', event.data);
@@ -61,12 +66,15 @@ export default {
           await new Promise((r) => setTimeout(r, 250));
         }
 
-        server.send(`服务器收到: ${event.data} (时间: ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })})`)
+        server.send(
+          `服务器收到: ${event.data} (时间: ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })})`,
+        );
       });
 
       server.addEventListener('close', () => {
         console.log('WebSocket连接关闭');
         env.KV.put('events:ws:disconnection', `${new Date().toISOString()} ${url.pathname}`);
+        server.close();
       });
 
       return new Response(null, {
