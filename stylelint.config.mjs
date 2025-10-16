@@ -10,7 +10,7 @@
 
 import defineConfig from 'stylelint-define-config'; // [Add support for TypeScript configuration files](https://github.com/stylelint/stylelint/issues/4940)
 
-module.exports = defineConfig({
+export default defineConfig({
   extends: [
     'stylelint-config-standard',
     'stylelint-config-recess-order',
