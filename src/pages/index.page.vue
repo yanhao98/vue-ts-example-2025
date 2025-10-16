@@ -47,7 +47,8 @@ const connectWebSocket = async () => {
 
     ws.value = new WebSocket(wsUrl);
 
-    ws.value.onopen = () => {
+    ws.value.onopen = (event) => {
+      console.log('[onopen] event :>> ', event);
       wsConnected.value = true;
       wsLoading.value = false;
       connectionAttempts.value = 0;
@@ -56,11 +57,14 @@ const connectWebSocket = async () => {
     };
 
     ws.value.onmessage = (event) => {
+      console.log('[onmessage] event :>> ', event);
       wsMessages.value.push(`📨 收到: ${event.data}`);
       scrollToBottom();
     };
 
     ws.value.onclose = (event) => {
+      console.log('[onclose] event :>> ', event);
+
       wsConnected.value = false;
       wsLoading.value = false;
       const reason = event.reason || '连接意外断开';
@@ -82,6 +86,7 @@ const connectWebSocket = async () => {
     };
 
     ws.value.onerror = (error) => {
+      console.error('[onerror] error :>> ', error);
       wsLoading.value = false;
       const errorMessage = error instanceof Error ? error.message : String(error);
       wsMessages.value.push(
