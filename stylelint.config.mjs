@@ -1,3 +1,10 @@
+/**
+ * Stylelint 配置
+ *
+ * [Add support for TypeScript configuration files](https://github.com/stylelint/stylelint/issues/4940)
+ * @see https://stylelint.io/user-guide/configure
+ */
+
 /** @type {import('stylelint').Config} */
 export default {
   extends: [
