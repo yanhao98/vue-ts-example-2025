@@ -74,7 +74,7 @@ export default {
       server.addEventListener('close', (event) => {
         console.log('WebSocket连接关闭');
         env.KV.put('events:ws:disconnection', `${new Date().toISOString()} ${url.pathname}`);
-        server.close(event.code, event.reason);
+        server.close(event.code, `连接关闭: ${event.reason}`);
       });
 
       return new Response(null, {
