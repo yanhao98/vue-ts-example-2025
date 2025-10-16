@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import process from 'node:process';
 
 // const runningInVSCode = process.env.TERM_PROGRAM === 'vscode'
-const baseURL = 'http://localhost:4173';
+const baseURL = 'http://localhost:4731';
 
 /**
  * Read environment variables from file.

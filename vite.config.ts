@@ -73,6 +73,7 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     css: {
+      devSourcemap: true,
       preprocessorOptions: {
         scss: {
           // 使用 Sass 的现代编译器 API，提供更好的性能和新功能支持

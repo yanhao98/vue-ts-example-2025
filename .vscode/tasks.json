@@ -2,32 +2,48 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "type": "npm",
+      "script": "dev",
       "label": "🚀 dev",
-      "type": "shell",
-      "command": "pnpm run dev",
-      "isBackground": true,
+      "detail": "启动开发服务器",
       "problemMatcher": {
-        "owner": "vite",
-        "pattern": {
-          "regexp": "."
-        },
+        "pattern": { "regexp": "." },
         "background": {
           "activeOnStart": true,
-          "beginsPattern": ".*VITE.*",
-          "endsPattern": ".*ready in.*"
+          "beginsPattern": "VITE.*ready in",
+          "endsPattern": "(Local|Network):.*http"
         }
       },
-      "group": {
-        "kind": "build",
-        "isDefault": true
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "group": { "kind": "build", "isDefault": false }
+    },
+    {
+      "type": "npm",
+      "script": "build-only",
+      "label": "🔨 build-only",
+      "detail": "" /* 如果为空或省略，VSCode 将自动使用 package.json 中 scripts[scriptName] 的值作为 detail */,
+      "problemMatcher": ["$tsc"],
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "group": { "kind": "none", "isDefault": false }
+    },
+    {
+      "type": "npm",
+      "script": "wrangler:dev",
+      "label": "☁️ wrangler:dev",
+      "detail": "启动 Cloudflare Workers 开发服务器，相当于预览",
+      "dependsOn": ["🔨 build-only"],
+      "problemMatcher": {
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "wrangler dev",
+          "endsPattern": "Ready on"
+        }
       },
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "runOptions": {
-        "instanceLimit": 1
-      }
+      "isBackground": true,
+      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "group": { "kind": "build", "isDefault": false }
     }
   ]
 }

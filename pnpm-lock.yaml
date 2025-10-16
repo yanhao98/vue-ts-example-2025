@@ -147,9 +147,6 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
-      jiti:
-        specifier: ^2.5.1
-        version: 2.6.1
       jsdom:
         specifier: ^27.0.0
         version: 27.0.0(postcss@8.5.6)

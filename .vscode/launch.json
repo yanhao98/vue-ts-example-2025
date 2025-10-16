@@ -8,7 +8,18 @@
       "url": "http://localhost:4730/",
       "webRoot": "${workspaceFolder}",
       "firefoxExecutable": "/Applications/Firefox Nightly.app/Contents/MacOS/firefox",
-      "preLaunchTask": "🚀 dev"
+      "preLaunchTask": "🚀 dev",
+      "pathMappings": [
+        {
+          "url": "http://localhost:4730",
+          "path": "${workspaceFolder}"
+        }
+      ],
+      "reAttach": true,
+      "reloadOnChange": {
+        "watch": "${workspaceFolder}/src/**/*.{js,jsx,ts,tsx,vue}",
+        "ignore": "**/node_modules/**"
+      }
     }
   ]
 }
