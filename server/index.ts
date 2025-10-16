@@ -71,10 +71,10 @@ export default {
         );
       });
 
-      server.addEventListener('close', () => {
+      server.addEventListener('close', (event) => {
         console.log('WebSocket连接关闭');
         env.KV.put('events:ws:disconnection', `${new Date().toISOString()} ${url.pathname}`);
-        server.close();
+        server.close(event.code, event.reason);
       });
 
       return new Response(null, {
