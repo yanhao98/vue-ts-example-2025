@@ -104,7 +104,7 @@ const connectWebSocket = async () => {
 // 断开WebSocket连接
 const disconnectWebSocket = () => {
   if (ws.value) {
-    ws.value.close(1000, '用户主动断开连接');
+    ws.value.close(4000, '用户主动断开连接');
     ws.value = null;
   }
 };
