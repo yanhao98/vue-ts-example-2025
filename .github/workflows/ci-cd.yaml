@@ -54,7 +54,7 @@ jobs:
 
   playwright:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.56.0-noble
+    container: mcr.microsoft.com/playwright:v1.56.1-noble
     steps:
       - name: ⚙️ 设置 Node 环境
         uses: yanhao98/composite-actions/setup-node-environment@25eb4dc0c134cc9df2b7c569aa54140a366b45a8
