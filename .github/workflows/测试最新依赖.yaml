@@ -1,3 +1,4 @@
+name: 测试最新依赖
 defaults:
   run:
     shell: bash
