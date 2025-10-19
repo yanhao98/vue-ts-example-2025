@@ -2,15 +2,55 @@
 <html lang="zh-CN" data-build-time="%VITE_APP_BUILD_TIME%" data-commit="%VITE_APP_BUILD_COMMIT%">
   <head>
     <meta charset="UTF-8" />
+
     <!-- <link rel="icon" href="data:;base64,iVBORw0KGgo=" /> -->
     <link rel="icon" href="/favicon.ico" />
+
+    <!-- viewport-fit=cover, -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover, user-scalable=no"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        window.ontouchstart = function () {};
+        window.ontouchend = function () {};
+      });
+
+      window.onloadX = function () {
+        // 禁止双指缩放
+        document.addEventListener('touchstart', function (event) {
+          if (event.touches.length > 1) {
+            event.preventDefault();
+          }
+        });
+
+        // 禁止双击放大
+        var lastTouchEnd = 0;
+        document.addEventListener(
+          'touchend',
+          function (event) {
+            var now = new Date().getTime();
+            if (now - lastTouchEnd <= 300) {
+              event.preventDefault();
+            }
+            lastTouchEnd = now;
+          },
+          false,
+        );
+
+        // 禁止手势事件
+        document.addEventListener('gesturestart', function (event) {
+          event.preventDefault();
+        });
+      };
+    </script>
+
     <meta name="color-scheme" content="light dark" />
     <meta name="format-detection" content="telephone=no" />
+
     <title>%VITE_APP_TITLE%</title>
+
     <style type="text/css">
       *,
       ::before,
@@ -35,6 +75,7 @@
         -moz-osx-font-smoothing: grayscale;
       }
     </style>
+
     <style type="text/css">
       #app {
         min-height: 100vh;
@@ -48,7 +89,6 @@
     </style>
   </head>
 
-  <!-- ontouchstart ontouchend -->
   <body>
     <div id="app">
       <style type="text/css">

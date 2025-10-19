@@ -1,23 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed, nextTick } from 'vue';
+import { ref, onUnmounted, computed, nextTick } from 'vue';
+import { NButton } from 'naive-ui';
 
-// API 调用相关状态
+// ========== API 模块 ==========
 const apiResult = ref<string>('');
 const loading = ref(false);
 
-// WebSocket 相关状态
-const ws = ref<WebSocket | null>(null);
-const wsConnected = ref(false);
-const wsMessages = ref<string[]>([]);
-const messageInput = ref('');
-const wsLoading = ref(false);
-const connectionAttempts = ref(0);
-const maxReconnectAttempts = 3;
-
-// 消息容器引用，用于自动滚动
-const messagesContainer = ref<HTMLElement | null>(null);
-
-// API 调用功能
 const callApi = async () => {
   loading.value = true;
   try {
@@ -31,20 +19,32 @@ const callApi = async () => {
   }
 };
 
-// WebSocket 连接管理
-const connectWebSocket = async () => {
-  if (ws.value?.readyState === WebSocket.OPEN) {
-    return;
+// ========== WebSocket 模块 ==========
+const ws = ref<WebSocket | null>(null);
+const wsConnected = ref(false);
+const wsMessages = ref<string[]>([]);
+const messageInput = ref('');
+const wsLoading = ref(false);
+const connectionAttempts = ref(0);
+const maxReconnectAttempts = 3;
+const messagesContainer = ref<HTMLElement | null>(null);
+
+const scrollToBottom = async () => {
+  await nextTick();
+  if (messagesContainer.value) {
+    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
   }
+};
+
+const connectWebSocket = async () => {
+  if (ws.value?.readyState === WebSocket.OPEN) return;
 
   wsLoading.value = true;
   connectionAttempts.value++;
 
   try {
-    // 根据当前环境确定WebSocket URL
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.host}/ws`;
-
     ws.value = new WebSocket(wsUrl);
 
     ws.value.onopen = (event) => {
@@ -64,7 +64,6 @@ const connectWebSocket = async () => {
 
     ws.value.onclose = (event) => {
       console.log('[onclose] event :>> ', event);
-
       wsConnected.value = false;
       wsLoading.value = false;
       const reason = event.reason || '连接意外断开';
@@ -73,7 +72,6 @@ const connectWebSocket = async () => {
       );
       scrollToBottom();
 
-      // 自动重连逻辑
       if (connectionAttempts.value < maxReconnectAttempts && !event.wasClean) {
         setTimeout(() => {
           wsMessages.value.push(
@@ -101,7 +99,6 @@ const connectWebSocket = async () => {
   }
 };
 
-// 断开WebSocket连接
 const disconnectWebSocket = () => {
   if (ws.value) {
     ws.value.close(4000, '用户主动断开连接');
@@ -109,7 +106,6 @@ const disconnectWebSocket = () => {
   }
 };
 
-// 发送WebSocket消息
 const sendMessage = () => {
   if (ws.value?.readyState === WebSocket.OPEN && messageInput.value.trim()) {
     const message = messageInput.value.trim();
@@ -120,7 +116,6 @@ const sendMessage = () => {
   }
 };
 
-// 发送模拟数据
 const sendMockData = () => {
   if (ws.value?.readyState === WebSocket.OPEN) {
     const mockMessages = [
@@ -142,18 +137,9 @@ const sendMockData = () => {
   }
 };
 
-// 消息记录管理
 const clearMessages = async () => {
   wsMessages.value = [];
   await scrollToBottom();
-};
-
-// 自动滚动到底部
-const scrollToBottom = async () => {
-  await nextTick();
-  if (messagesContainer.value) {
-    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight;
-  }
 };
 
 const exportMessages = () => {
@@ -169,21 +155,18 @@ const exportMessages = () => {
   URL.revokeObjectURL(url);
 };
 
-// 键盘快捷键支持
-const handleKeydown = (event: KeyboardEvent) => {
-  // Ctrl/Cmd + K 清空消息
-  if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
-    event.preventDefault();
-    clearMessages();
-  }
-  // Ctrl/Cmd + E 导出消息
-  if ((event.ctrlKey || event.metaKey) && event.key === 'e') {
-    event.preventDefault();
-    exportMessages();
-  }
+// ========== 计数器模块 ==========
+const clickCount = ref(0);
+
+const incrementCount = () => {
+  clickCount.value++;
 };
 
-// 计算属性优化性能
+const resetCount = () => {
+  clickCount.value = 0;
+};
+
+// ========== 计算属性 ==========
 const canSendMessage = computed(() => wsConnected.value && messageInput.value.trim());
 const connectionStatusText = computed(() => {
   if (wsLoading.value) return '连接中...';
@@ -191,11 +174,7 @@ const connectionStatusText = computed(() => {
   return '未连接';
 });
 
-// 生命周期钩子
-onMounted(() => {
-  document.addEventListener('keydown', handleKeydown);
-});
-
+// ========== 生命周期钩子 ==========
 onUnmounted(() => {
   if (ws.value) {
     ws.value.close();
@@ -491,7 +470,7 @@ onUnmounted(() => {
                 <button
                   @click="exportMessages"
                   class="text-xs text-gray-500 hover:text-blue-500 transition-colors duration-200 flex items-center"
-                  title="导出消息 (Ctrl+E)"
+                  title="导出消息"
                 >
                   <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -506,7 +485,7 @@ onUnmounted(() => {
                 <button
                   @click="clearMessages"
                   class="text-xs text-gray-500 hover:text-red-500 transition-colors duration-200 flex items-center"
-                  title="清空消息 (Ctrl+K)"
+                  title="清空消息"
                 >
                   <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
@@ -570,53 +549,151 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- 快捷键提示 -->
+      <!-- 计数器示例 -->
       <div
-        class="mt-4 sm:mt-6 backdrop-blur-sm rounded-2xl shadow-lg border p-3 sm:p-4 bg-white/70 dark:bg-gray-800/70 border-white dark:border-gray-700"
+        class="mt-4 sm:mt-6 backdrop-blur-sm rounded-2xl shadow-lg border p-4 sm:p-5 bg-white dark:bg-gray-800 border-white dark:border-gray-700 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500"
       >
-        <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 flex items-center">
-          <svg
-            class="w-4 h-4 mr-2 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-          快捷键提示:
-        </h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
-          <div
-            class="flex items-center justify-between p-1.5 rounded-lg bg-gray-50/70 dark:bg-gray-700"
-          >
-            <span class="text-gray-600 dark:text-gray-300">发送消息:</span>
-            <kbd
-              class="px-1.5 py-0.5 rounded text-xs bg-white dark:bg-gray-600 border-gray-200 dark:border-gray-500 text-gray-700 dark:text-gray-200"
-              >Enter</kbd
+        <div class="mb-4">
+          <div class="flex items-center mb-2">
+            <div
+              class="w-8 h-8 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg flex items-center justify-center mr-2"
             >
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"
+                />
+              </svg>
+            </div>
+            <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100">点击计数器</h2>
           </div>
+
+          <!-- 说明文字 -->
           <div
-            class="flex items-center justify-between p-1.5 rounded-lg bg-gray-50/70 dark:bg-gray-700"
+            class="text-sm text-gray-600 dark:text-gray-400 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3"
           >
-            <span class="text-gray-600 dark:text-gray-300">清空消息:</span>
-            <kbd
-              class="px-1.5 py-0.5 rounded text-xs bg-white dark:bg-gray-600 border-gray-200 dark:border-gray-500 text-gray-700 dark:text-gray-200"
-              >Ctrl+K</kbd
-            >
+            <div class="flex items-start">
+              <svg
+                class="w-4 h-4 mr-2 mt-0.5 text-blue-500 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <span class="font-semibold text-blue-700 dark:text-blue-300">测试说明：</span>
+                <span class="text-gray-700 dark:text-gray-300"
+                  >用于测试移动端连点和页面缩放对按钮点击事件的影响</span
+                >
+              </div>
+            </div>
           </div>
+        </div>
+
+        <div class="flex flex-col items-center justify-center space-y-4">
+          <!-- 计数显示 -->
           <div
-            class="flex items-center justify-between p-1.5 rounded-lg bg-gray-50/70 dark:bg-gray-700"
+            class="w-full p-6 rounded-xl bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/30 dark:to-red-900/30 border-2 border-orange-200 dark:border-orange-700"
           >
-            <span class="text-gray-600 dark:text-gray-300">导出消息:</span>
-            <kbd
-              class="px-1.5 py-0.5 rounded text-xs bg-white dark:bg-gray-600 border-gray-200 dark:border-gray-500 text-gray-700 dark:text-gray-200"
-              >Ctrl+E</kbd
+            <div class="text-center">
+              <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">当前点击次数</div>
+              <div
+                class="text-6xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent"
+              >
+                {{ clickCount }}
+              </div>
+            </div>
+          </div>
+
+          <!-- 操作按钮 -->
+          <div class="w-full flex flex-col gap-3">
+            <!-- 原生按钮 (带 touch 事件) -->
+            <button
+              @touchstart="() => {}"
+              @touchend="() => {}"
+              @click="incrementCount"
+              class="w-full bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-orange-600 hover:via-orange-700 hover:to-red-700 transition-all duration-500 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-lg"
             >
+              <span class="flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                点击 +1 (带 touch)
+              </span>
+            </button>
+
+            <!-- 原生按钮 (无 touch 事件) -->
+            <button
+              @click="incrementCount"
+              class="w-full bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-600 hover:via-blue-700 hover:to-purple-700 transition-all duration-500 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-lg"
+            >
+              <span class="flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+                点击 +1 (无 touch)
+              </span>
+            </button>
+
+            <!-- Naive UI 按钮 -->
+            <n-button
+              @click="incrementCount"
+              type="warning"
+              size="large"
+              block
+              strong
+              secondary
+              class="text-lg"
+            >
+              <template #icon>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </template>
+              点击 +1 (Naive UI)
+            </n-button>
+
+            <!-- 重置按钮 -->
+            <button
+              @click="resetCount"
+              :disabled="clickCount === 0"
+              class="w-full bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 text-white font-semibold py-3 px-6 rounded-xl hover:from-gray-600 hover:via-gray-700 hover:to-gray-800 transition-all duration-500 disabled:opacity-50 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02]"
+            >
+              <span class="flex items-center justify-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                  />
+                </svg>
+                重置计数器
+              </span>
+            </button>
           </div>
         </div>
       </div>
