@@ -7,8 +7,8 @@ env:
   TZ: Asia/Shanghai
 
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   schedule:
     - cron: "30 22 * * *" # 22:30 UTC = 6:30 CST
   workflow_dispatch:
