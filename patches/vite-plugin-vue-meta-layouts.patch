@@ -1,0 +1,20 @@
+diff --git a/client.d.ts b/client.d.ts
+index 05b92f32d1ba3df543d46fb1e93d53c6a5834583..81952e9cf3d4ebe5ca7c354e977354a120707fa8 100644
+--- a/client.d.ts
++++ b/client.d.ts
+@@ -2,12 +2,12 @@ declare module "virtual:meta-layouts" {
+   import type {
+     Router,
+     RouteRecordNormalized,
+-    RouteRecordRaw,
++    RouterOptions,
+   } from "vue-router";
+ 
+   export const setupLayouts: (
+-    routes: RouteRecordRaw[],
+-  ) => RouteRecordRaw[];
++    routes: RouterOptions['routes'],
++  ) => RouterOptions['routes'];
+ 
+   export const createGetRoutes: (
+     router: Router,

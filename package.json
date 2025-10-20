@@ -38,6 +38,9 @@
   "pnpm": {
     "overrides": {
       "vue-tsc": "$vue-tsc"
+    },
+    "patchedDependencies": {
+      "vite-plugin-vue-meta-layouts": "patches/vite-plugin-vue-meta-layouts.patch"
     }
   },
   "dependencies": {
