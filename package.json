@@ -38,9 +38,6 @@
   "pnpm": {
     "overrides": {
       "vue-tsc": "$vue-tsc"
-    },
-    "patchedDependencies": {
-      "vite-plugin-vue-meta-layouts": "patches/vite-plugin-vue-meta-layouts.patch"
     }
   },
   "dependencies": {
@@ -120,7 +117,7 @@
     "vite-plugin-fake-server": "^2.2.0",
     "vite-plugin-image-optimizer": "^2.0.2",
     "vite-plugin-vue-devtools": "^8.0.1",
-    "vite-plugin-vue-meta-layouts": "^0.6.0",
+    "vite-plugin-vue-meta-layouts": "^0.6.1",
     "vite-plugin-webfont-dl": "^3.11.1",
     "vitest": "^3.2.4",
     "vue-macros": "3.1.1",
