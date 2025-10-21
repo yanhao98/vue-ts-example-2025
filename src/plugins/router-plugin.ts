@@ -13,7 +13,7 @@ const router = createRouter({
   },
   strict: true,
 });
-if (import.meta.hot) handleHotUpdate(router);
+
 if (__DEV__) Object.assign(globalThis, { router });
 router.onError((error) => {
   console.debug('🚨 [router error]:', error);
@@ -56,3 +56,6 @@ declare module 'vue-router' {
 }
 
 export { createGetRoutes } from 'virtual:meta-layouts';
+
+// This will update routes at runtime without reloading the page
+if (import.meta.hot) handleHotUpdate(router);
