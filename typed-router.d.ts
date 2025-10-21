@@ -44,6 +44,20 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    'PageDeepDeep': RouteRecordInfo<
+      'PageDeepDeep',
+      '/page/deep/deep',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'PageDeepDeep2': RouteRecordInfo<
+      'PageDeepDeep2',
+      '/page/deep/deep2',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     'PageDemoApi': RouteRecordInfo<
       'PageDemoApi',
       '/page/demo-api',
@@ -86,6 +100,18 @@ declare module 'vue-router/auto-routes' {
     'src/pages/Home.page.vue': {
       routes:
         | 'Home'
+      views:
+        | never
+    }
+    'src/pages/page/deep/deep.page.vue': {
+      routes:
+        | 'PageDeepDeep'
+      views:
+        | never
+    }
+    'src/pages/page/deep/deep2.page.vue': {
+      routes:
+        | 'PageDeepDeep2'
       views:
         | never
     }

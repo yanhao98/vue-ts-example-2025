@@ -18,11 +18,7 @@ const appStore = useAppStore();
       </div>
     </template>
     <template #sider>
-      <div
-        class="bg-purple-100/28 dark:bg-purple-900/28 text-purple-900 dark:text-purple-100 h-full overflow-hidden"
-      >
-        <BaseLayoutSider />
-      </div>
+      <BaseLayoutSider />
     </template>
     <div class="bg-yellow-100/28 dark:bg-yellow-900/28 text-yellow-900 dark:text-yellow-100 p-4">
       4#GlobalMenu

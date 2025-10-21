@@ -15,8 +15,8 @@ function convertRoutesToMenuOptions(routes: RouteRecordNormalized[]): MenuOption
       if (!route.name || route.meta?.hidden === true || route.meta?.layout === false) {
         return false;
       }
-      // 过滤掉根路径和通配符路径
-      if (route.path === '/' || route.path.includes('*')) {
+      // 过滤掉通配符路径
+      if (route.path.includes('*')) {
         return false;
       }
       return true;
@@ -31,8 +31,8 @@ function convertRoutesToMenuOptions(routes: RouteRecordNormalized[]): MenuOption
       key: route.path,
     };
 
-    // 如果只有一级路径，直接添加到根菜单
-    if (pathSegments.length === 1) {
+    // 如果是根路径或只有一级路径，直接添加到根菜单
+    if (pathSegments.length === 0 || pathSegments.length === 1) {
       rootMenus.push(menuOption);
       menuMap.set(route.path, menuOption);
     } else {
