@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { AdminLayout } from '@sa/materials';
 import BaseLayoutHeader from './base-layout-header.vue';
+import BaseLayoutSider from './base-layout-sider.vue';
 
 const siderCollapse = ref(false);
 const appStore = useAppStore();
@@ -18,9 +19,9 @@ const appStore = useAppStore();
     </template>
     <template #sider>
       <div
-        class="bg-purple-100/28 dark:bg-purple-900/28 text-purple-900 dark:text-purple-100 p-4 h-full overflow-hidden"
+        class="bg-purple-100/28 dark:bg-purple-900/28 text-purple-900 dark:text-purple-100 h-full overflow-hidden"
       >
-        3#GlobalSider
+        <BaseLayoutSider />
       </div>
     </template>
     <div class="bg-yellow-100/28 dark:bg-yellow-900/28 text-yellow-900 dark:text-yellow-100 p-4">
