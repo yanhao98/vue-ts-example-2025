@@ -30,7 +30,13 @@ import { ViteWebfontDownload } from 'vite-plugin-webfont-dl';
 import VueMacros from 'vue-macros/vite';
 import { IndexHtmlPlugin } from './vite.config.plugin.index-html-plugin';
 
-export function Plugins({ mode }: { mode: string }): PluginOption[] {
+export function Plugins({
+  mode,
+  env,
+}: {
+  mode: string;
+  env: Record<string, string>;
+}): PluginOption[] {
   const plugins: PluginOption[] = [
     VueMacros({
       plugins: {
@@ -165,8 +171,11 @@ export function Plugins({ mode }: { mode: string }): PluginOption[] {
     );
   }
 
+  if (env.VITE_ENABLE_VUE_DEVTOOLS === 'true') {
+    plugins.push(vueDevTools());
+  }
+
   plugins.push(
-    vueDevTools(),
     // https://vite-plugin-checker.netlify.app/introduction/introduction.html
     checker({
       eslint: {

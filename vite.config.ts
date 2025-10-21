@@ -82,7 +82,7 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
-    plugins: Plugins({ mode }),
+    plugins: Plugins({ mode, env }),
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
