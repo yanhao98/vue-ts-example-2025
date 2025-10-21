@@ -1,4 +1,4 @@
 # 此钩子在执行 git commit 命令时，在创建提交之前运行。
 echo "🧹 [Pre-commit] 正在运行 lint-staged..."
-pnpm exec lint-staged
-echo "✅ [Pre-commit] lint-staged 完成！"
+time pnpm exec lint-staged
+echo "🧹 [Pre-commit] lint-staged 完成！"

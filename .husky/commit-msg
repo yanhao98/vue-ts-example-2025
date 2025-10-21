@@ -8,6 +8,6 @@ cat $1
 echo "🟢 [Commit-msg] Node 版本：$(node -v)"
 
 # pnpm exec commitlint --edit $1
-node node_modules/@commitlint/cli/cli.js --edit $1
+time node node_modules/@commitlint/cli/cli.js --edit $1
 
-echo "✅ [Commit-msg] commit-msg 钩子完成！"
+echo "📝 [Commit-msg] commit-msg 钩子完成！"
