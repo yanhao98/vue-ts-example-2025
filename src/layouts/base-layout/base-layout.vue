@@ -24,7 +24,11 @@ const appStore = useAppStore();
       4#GlobalMenu
     </div>
     <!-- <div>GlobalContent</div> -->
-    <RouterView />
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
     <!-- <div>ThemeDrawer</div> -->
     <template #footer>
       <div class="bg-red-100/28 dark:bg-red-900/28 text-red-900 dark:text-red-100 h-full">
@@ -37,5 +41,15 @@ const appStore = useAppStore();
 <style lang="scss">
 #__SCROLL_EL_ID__ {
   @include scrollbar;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

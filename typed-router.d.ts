@@ -37,6 +37,27 @@ declare module 'vue-router/auto-routes' {
       { path: ParamValue<false> },
       | never
     >,
+    'DemosApiDemo': RouteRecordInfo<
+      'DemosApiDemo',
+      '/demos/api-demo',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'DemosCounterDemo': RouteRecordInfo<
+      'DemosCounterDemo',
+      '/demos/counter-demo',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'DemosWebsocketDemo': RouteRecordInfo<
+      'DemosWebsocketDemo',
+      '/demos/websocket-demo',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     'Home': RouteRecordInfo<
       'Home',
       '/Home',
@@ -94,6 +115,24 @@ declare module 'vue-router/auto-routes' {
     'src/pages/[...path].page.vue': {
       routes:
         | '$Path'
+      views:
+        | never
+    }
+    'src/pages/demos/api-demo.page.vue': {
+      routes:
+        | 'DemosApiDemo'
+      views:
+        | never
+    }
+    'src/pages/demos/counter-demo.page.vue': {
+      routes:
+        | 'DemosCounterDemo'
+      views:
+        | never
+    }
+    'src/pages/demos/websocket-demo.page.vue': {
+      routes:
+        | 'DemosWebsocketDemo'
       views:
         | never
     }
