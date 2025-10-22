@@ -50,7 +50,7 @@ export default defineConfig(async ({ command, mode }) => {
           },
 
           // https://www.npmjs.com/package/utils4u/v/2.19.2?activeTab=code
-          manualChunks: (id: string, meta: ManualChunkMeta) => {
+          manualChunks: (id: string, _meta: ManualChunkMeta) => {
             if (id.includes('node_modules')) {
               // 处理 pnpm 的特殊路径结构
               let packageName;
