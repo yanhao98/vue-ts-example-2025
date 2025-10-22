@@ -23,6 +23,9 @@
   "i18n-ally.displayLanguage": "zh-CN", // 显示语言 (显示文件/翻译文件)
   "i18n-ally.keystyle": "nested",
 
+  // https://github.com/copilot/share/8a1a019a-0180-80e7-8141-a40be02c4006
+  // "iconify.customCollectionJsonPaths": ["https://example.com/my-icons.json", "./local/icons.json"],
+
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.autoImportFileExcludePatterns": ["vue-router/auto$"]
 }
