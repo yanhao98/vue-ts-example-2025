@@ -2,7 +2,7 @@
 definePage({
   meta: {
     title: '首页',
-    hidden: false,
+    hideInMenu: false,
   },
 });
 </script>

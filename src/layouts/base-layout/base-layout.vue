@@ -3,14 +3,13 @@ import { AdminLayout } from '@sa/materials';
 import BaseLayoutHeader from './base-layout-header.vue';
 import BaseLayoutSider from './base-layout-sider.vue';
 
-const siderCollapse = ref(false);
 const appStore = useAppStore();
 </script>
 
 <template>
-  <AdminLayout :is-mobile="appStore.isMobile" v-model:sider-collapse="siderCollapse">
+  <AdminLayout :is-mobile="appStore.isMobile" v-model:sider-collapse="appStore.sidebarCollapsed">
     <template #header>
-      <BaseLayoutHeader v-model:collapsed="siderCollapse" />
+      <BaseLayoutHeader />
     </template>
     <template #tab>
       <div class="bg-green-100/28 dark:bg-green-900/28 text-green-900 dark:text-green-100 p-4">

@@ -1,4 +1,4 @@
-import { useMediaQuery, usePreferredColorScheme } from '@vueuse/core';
+import { useLocalStorage, useMediaQuery, usePreferredColorScheme } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed, watch } from 'vue';
 
@@ -10,6 +10,9 @@ const DARK_CLASS = 'app-dark';
 export const useAppStore = defineStore('app', () => {
   const themeMode = useLocalStorage<AppThemeMode>('app-theme-mode', 'system');
   const preferredColor = usePreferredColorScheme();
+
+  // 侧边栏展开/收起状态
+  const sidebarCollapsed = useLocalStorage<boolean>('app-sidebar-collapsed', false);
 
   // 计算实际使用的主题
   const actualTheme = computed(() =>
@@ -31,16 +34,16 @@ export const useAppStore = defineStore('app', () => {
     document.documentElement.classList.toggle(DARK_CLASS, isDark.value);
   }
 
-  // 设置主题
-  function setTheme(mode: AppThemeMode) {
-    themeMode.value = mode;
-  }
-
   // 循环切换主题
   function cycleTheme() {
     const currentIndex = APP_THEME_MODES.indexOf(themeMode.value);
     const nextIndex = (currentIndex + 1) % APP_THEME_MODES.length;
-    setTheme(APP_THEME_MODES[nextIndex]!);
+    themeMode.value = APP_THEME_MODES[nextIndex]!;
+  }
+
+  // 切换侧边栏展开/收起
+  function toggleSidebar() {
+    sidebarCollapsed.value = !sidebarCollapsed.value;
   }
 
   // 监听主题变化，更新 DOM
@@ -48,11 +51,11 @@ export const useAppStore = defineStore('app', () => {
 
   return {
     themeMode,
-    actualTheme,
     isDark,
     isMobile,
-    setTheme,
     cycleTheme,
+    sidebarCollapsed,
+    toggleSidebar,
   };
 });
 

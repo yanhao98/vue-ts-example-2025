@@ -2,7 +2,8 @@
 import { createGetRoutes, router } from '@/plugins/router-plugin';
 import type { MenuOption } from 'naive-ui';
 import { RouterLink, type RouteRecordRaw } from 'vue-router';
-
+import IconMenuRounded from '~icons/material-symbols/menu-rounded';
+import { useAppStore } from '../../stores/app-store';
 // 路由转换为菜单树的辅助函数
 function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOption[] {
   const menuMap = new Map<string, MenuOption>();
@@ -12,7 +13,7 @@ function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOpt
   const validRoutes = routes
     .filter((route) => {
       // 过滤掉不需要显示的路由
-      if (route.meta?.hidden === true || route.meta?.layout === false) {
+      if (route.meta?.hideInMenu === true || route.meta?.layout === false) {
         return false;
       }
       // 过滤掉通配符路径
@@ -26,11 +27,11 @@ function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOpt
   // 构建菜单树
   for (const route of validRoutes) {
     const pathSegments = route.path.split('/').filter(Boolean);
+    const text = route.meta?.title || route.name;
     const menuOption: MenuOption = {
-      label: () => (
-        <RouterLink to={route}>{route.meta?.title || (route.name as string)}</RouterLink>
-      ),
+      label: () => (route.meta?.link === false ? text : <RouterLink to={route}>{text}</RouterLink>),
       key: route.path,
+      icon: () => <IconMenuRounded style="width: 1em; height: 1em;" />,
     };
 
     // 如果是根路径或只有一级路径，直接添加到根菜单
@@ -52,6 +53,8 @@ function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOpt
           parent.children = [];
         }
         parent.children.push(menuOption);
+      } else {
+        console.warn(`未找到父菜单项: ${parentPath}，无法将子菜单项添加到其下。`);
       }
 
       menuMap.set(route.path, menuOption);
@@ -79,14 +82,22 @@ watch(
   },
   { immediate: true },
 );
+
+const appStore = useAppStore();
 </script>
 
 <template>
   <!-- @update:value="handleMenuUpdate" -->
   <NMenu
-    v-model:value="selectedKey"
     ref="menuInstRef"
+    mode="vertical"
+    :collapsed="appStore.sidebarCollapsed"
+    :collapsed-width="64"
+    :icon-size="20"
+    :collapsed-icon-size="24"
+    v-model:value="selectedKey"
     :options="menuOptions"
+    :inverted="false"
     :root-indent="32"
     :indent="32"
   />

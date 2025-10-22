@@ -41,7 +41,7 @@ declare module 'vue-router' {
     /**
      * @description 是否在菜单中隐藏
      */
-    hidden?: boolean;
+    hideInMenu?: boolean;
     /**
      * @description 菜单标题
      */
@@ -51,6 +51,13 @@ declare module 'vue-router' {
      * @description 使用的布局，设置为 false 则表示不使用布局
      */
     layout?: string | false;
+
+    /**
+     * @description 菜单项是否渲染为可点击链接，默认为 true
+     * - true: 使用 RouterLink 包装，可点击跳转
+     * - false: 仅渲染纯文本标签，不可点击（适用于分组标题）
+     */
+    link?: boolean;
   }
 }
 

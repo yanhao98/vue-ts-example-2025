@@ -64,6 +64,7 @@
     "@commitlint/types": "^20.0.0",
     "@iconify-json/carbon": "^1.2.13",
     "@iconify-json/line-md": "^1.2.11",
+    "@iconify-json/material-symbols": "^1.2.42",
     "@intlify/unplugin-vue-i18n": "^11.0.0",
     "@playwright/test": "^1.55.0",
     "@prettier/plugin-oxc": "^0.0.4",
