@@ -1,10 +1,10 @@
-<script setup lang="ts">
-import type { MenuOption } from 'naive-ui';
-import type { RouteRecordNormalized } from 'vue-router';
+<script setup lang="tsx">
 import { createGetRoutes, router } from '@/plugins/router-plugin';
+import type { MenuOption } from 'naive-ui';
+import { RouterLink, type RouteRecordRaw } from 'vue-router';
 
 // 路由转换为菜单树的辅助函数
-function convertRoutesToMenuOptions(routes: RouteRecordNormalized[]): MenuOption[] {
+function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOption[] {
   const menuMap = new Map<string, MenuOption>();
   const rootMenus: MenuOption[] = [];
 
@@ -12,7 +12,7 @@ function convertRoutesToMenuOptions(routes: RouteRecordNormalized[]): MenuOption
   const validRoutes = routes
     .filter((route) => {
       // 过滤掉不需要显示的路由
-      if (!route.name || route.meta?.hidden === true || route.meta?.layout === false) {
+      if (route.meta?.hidden === true || route.meta?.layout === false) {
         return false;
       }
       // 过滤掉通配符路径
@@ -27,7 +27,9 @@ function convertRoutesToMenuOptions(routes: RouteRecordNormalized[]): MenuOption
   for (const route of validRoutes) {
     const pathSegments = route.path.split('/').filter(Boolean);
     const menuOption: MenuOption = {
-      label: route.meta?.title || (route.name as string),
+      label: () => (
+        <RouterLink to={route}>{route.meta?.title || (route.name as string)}</RouterLink>
+      ),
       key: route.path,
     };
 
@@ -40,32 +42,6 @@ function convertRoutesToMenuOptions(routes: RouteRecordNormalized[]): MenuOption
       let currentPath = '';
       for (let i = 0; i < pathSegments.length - 1; i++) {
         currentPath += `/${pathSegments[i]}`;
-
-        if (!menuMap.has(currentPath)) {
-          // 创建父菜单节点
-          const parentMenu: MenuOption = {
-            label: pathSegments[i],
-            key: currentPath,
-            children: [],
-          };
-
-          if (i === 0) {
-            // 顶级父节点
-            rootMenus.push(parentMenu);
-          } else {
-            // 找到祖父节点并添加
-            const grandParentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
-            const grandParent = menuMap.get(grandParentPath);
-            if (grandParent) {
-              if (!grandParent.children) {
-                grandParent.children = [];
-              }
-              grandParent.children.push(parentMenu);
-            }
-          }
-
-          menuMap.set(currentPath, parentMenu);
-        }
       }
 
       // 将当前菜单项添加到父菜单
@@ -85,22 +61,33 @@ function convertRoutesToMenuOptions(routes: RouteRecordNormalized[]): MenuOption
   return rootMenus;
 }
 
+// 获取路由表但是不包含布局路由
 const routes = createGetRoutes(router)();
 const menuOptions = computed(() => convertRoutesToMenuOptions(routes));
 
-console.debug('原始路由:', JSON.stringify(routes, null, 2));
-console.debug('转换后的菜单:', JSON.stringify(menuOptions.value, null, 2));
+console.debug('原始路由:', JSON.stringify(routes, null, 0));
+console.debug('转换后的菜单:', JSON.stringify(menuOptions.value, null, 0));
 
-// 处理菜单点击，导航到对应路由
-const handleMenuUpdate = (key: string) => {
-  // 只有当 key 对应一个实际路由时才导航
-  const route = routes.find((r) => r.path === key);
-  if (route && !route.children?.length) {
-    router.push(key);
-  }
-};
+const menuInstRef = useTemplateRef('menuInstRef');
+const selectedKey = ref('');
+
+watch(
+  () => router.currentRoute.value.path,
+  (newPath) => {
+    menuInstRef.value?.showOption(newPath);
+    selectedKey.value = newPath;
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
-  <NMenu :options="menuOptions" @update:value="handleMenuUpdate" />
+  <!-- @update:value="handleMenuUpdate" -->
+  <NMenu
+    v-model:value="selectedKey"
+    ref="menuInstRef"
+    :options="menuOptions"
+    :root-indent="32"
+    :indent="32"
+  />
 </template>

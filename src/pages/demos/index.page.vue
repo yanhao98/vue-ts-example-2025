@@ -1,4 +1,4 @@
 <script setup lang="ts">
 definePage({ meta: { title: '示例演示' } });
 </script>
-<template>这个文件只是为了给菜单渲染标题</template>
+<template><div>此页面文件仅用于在侧边栏菜单中显示示例演示分组标题</div></template>
