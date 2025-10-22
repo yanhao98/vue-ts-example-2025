@@ -2,6 +2,12 @@
 import { ref } from 'vue';
 import { NButton } from 'naive-ui';
 
+definePage({
+  meta: {
+    title: '点击计数器',
+  },
+});
+
 // ========== 计数器模块 ==========
 const clickCount = ref(0);
 

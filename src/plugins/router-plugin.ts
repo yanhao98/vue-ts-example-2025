@@ -52,6 +52,11 @@ declare module 'vue-router' {
      * @description 菜单标题
      */
     title?: string;
+
+    /**
+     * @description 使用的布局，设置为 false 则表示不使用布局
+     */
+    layout?: string | false;
   }
 }
 

@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+definePage({
+  meta: {
+    title: 'API 调用示例',
+  },
+});
+
 // ========== API 模块 ==========
 const apiResult = ref<string>('');
 const loading = ref(false);

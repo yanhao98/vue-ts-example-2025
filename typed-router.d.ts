@@ -37,6 +37,13 @@ declare module 'vue-router/auto-routes' {
       { path: ParamValue<false> },
       | never
     >,
+    'Demos': RouteRecordInfo<
+      'Demos',
+      '/demos',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     'DemosApiDemo': RouteRecordInfo<
       'DemosApiDemo',
       '/demos/api-demo',
@@ -61,34 +68,6 @@ declare module 'vue-router/auto-routes' {
     'Home': RouteRecordInfo<
       'Home',
       '/Home',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    'PageDeepDeep': RouteRecordInfo<
-      'PageDeepDeep',
-      '/page/deep/deep',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    'PageDeepDeep2': RouteRecordInfo<
-      'PageDeepDeep2',
-      '/page/deep/deep2',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    'PageDemoApi': RouteRecordInfo<
-      'PageDemoApi',
-      '/page/demo-api',
-      Record<never, never>,
-      Record<never, never>,
-      | never
-    >,
-    'PageDemoIcons': RouteRecordInfo<
-      'PageDemoIcons',
-      '/page/demo-icons',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -118,6 +97,12 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
+    'src/pages/demos/index.page.vue': {
+      routes:
+        | 'Demos'
+      views:
+        | never
+    }
     'src/pages/demos/api-demo.page.vue': {
       routes:
         | 'DemosApiDemo'
@@ -139,30 +124,6 @@ declare module 'vue-router/auto-routes' {
     'src/pages/Home.page.vue': {
       routes:
         | 'Home'
-      views:
-        | never
-    }
-    'src/pages/page/deep/deep.page.vue': {
-      routes:
-        | 'PageDeepDeep'
-      views:
-        | never
-    }
-    'src/pages/page/deep/deep2.page.vue': {
-      routes:
-        | 'PageDeepDeep2'
-      views:
-        | never
-    }
-    'src/pages/page/demo-api.page.vue': {
-      routes:
-        | 'PageDemoApi'
-      views:
-        | never
-    }
-    'src/pages/page/demo-icons.page.vue': {
-      routes:
-        | 'PageDemoIcons'
       views:
         | never
     }

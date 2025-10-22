@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { ref, onUnmounted, computed, nextTick } from 'vue';
 
+definePage({
+  meta: {
+    title: 'WebSocket 示例',
+  },
+});
+
 // ========== WebSocket 模块 ==========
 const ws = ref<WebSocket | null>(null);
 const wsConnected = ref(false);
