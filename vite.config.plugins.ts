@@ -1,5 +1,5 @@
 import { cloudflare } from '@cloudflare/vite-plugin';
-import VueI18n from '@intlify/unplugin-vue-i18n/vite';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 import { VantResolver } from '@vant/auto-import-resolver';
 import vue from '@vitejs/plugin-vue';
@@ -146,7 +146,7 @@ export function Plugins({
     }),
 
     // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
-    VueI18n({
+    VueI18nPlugin({
       /* options */
       // locale messages resource pre-compile option
       include: [path.resolve(import.meta.dirname, './src/locales/**')],

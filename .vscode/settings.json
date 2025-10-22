@@ -18,6 +18,11 @@
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
+  "i18n-ally.localesPaths": ["src/locales"],
+  "i18n-ally.sourceLanguage": "zh-CN", // 翻译源语言 (源文件) 根据此语言文件翻译其他语言文件的变量和内容
+  "i18n-ally.displayLanguage": "zh-CN", // 显示语言 (显示文件/翻译文件)
+  "i18n-ally.keystyle": "nested",
+
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.autoImportFileExcludePatterns": ["vue-router/auto$"]
 }
