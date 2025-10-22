@@ -12,7 +12,21 @@ on:
   workflow_dispatch:
 
 jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.56.1-noble
+    steps:
+      - name: ⚙️ 设置 Node 环境
+        uses: yanhao98/composite-actions/setup-node-environment@25eb4dc0c134cc9df2b7c569aa54140a366b45a8
+      # - name: 📥 安装 Playwright 浏览器
+      #   run: pnpm exec playwright install --with-deps
+      - name: 📦 构建项目
+        run: pnpm run build-only
+      - name: ▶️ 运行 Playwright 测试
+        run: pnpm exec playwright test
+
   build-and-deploy:
+    needs: playwright
     runs-on: ubuntu-latest
     container: gitea/runner-images:ubuntu-latest-slim # https://github.com/cloudflare/wrangler-action/issues/329#issuecomment-3046747722
 
@@ -51,16 +65,3 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy
-
-  playwright:
-    runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.56.1-noble
-    steps:
-      - name: ⚙️ 设置 Node 环境
-        uses: yanhao98/composite-actions/setup-node-environment@25eb4dc0c134cc9df2b7c569aa54140a366b45a8
-      # - name: 📥 安装 Playwright 浏览器
-      #   run: pnpm exec playwright install --with-deps
-      - name: 📦 构建项目
-        run: pnpm run build-only
-      - name: ▶️ 运行 Playwright 测试
-        run: pnpm exec playwright test
