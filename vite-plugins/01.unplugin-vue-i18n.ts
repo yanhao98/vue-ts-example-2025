@@ -1,13 +1,12 @@
-import type { PluginOption } from 'vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
-import path from 'node:path';
+import type { PluginOption } from 'vite';
 
 export default [
   // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
   VueI18nPlugin({
     /* options */
     // locale messages resource pre-compile option
-    include: [path.resolve(import.meta.dirname, 'src/locales/**')],
+    include: ['src/locales/**'],
 
     // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n#transformi18nblock
     // transformI18nBlock(src) {
