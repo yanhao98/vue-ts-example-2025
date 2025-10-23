@@ -8,8 +8,10 @@ const appStore = useAppStore();
 
 <template>
   <AdminLayout
+    mode="horizontal"
     :footer-visible="!false"
-    :tab-visible="false"
+    :tab-visible="!false"
+    scroll-mode="content"
     :is-mobile="appStore.isMobile"
     v-model:sider-collapse="appStore.sidebarCollapsed"
   >
@@ -17,8 +19,10 @@ const appStore = useAppStore();
       <BaseLayoutHeader />
     </template>
     <template #tab>
-      <div class="bg-green-100/28 dark:bg-green-900/28 text-green-900 dark:text-green-100 p-4">
-        2#GlobalTab
+      <div
+        class="bg-green-100/28 dark:bg-green-900/28 text-green-900 dark:text-green-100 p-4 flex items-center justify-center"
+      >
+        GlobalTab
       </div>
     </template>
     <template #sider>

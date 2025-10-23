@@ -1,7 +1,7 @@
 import type { RouteLocalizationFlags } from '@/plugins/router-plugin';
 
 export default {
-  Root: 'Root',
+  Root: 'Index',
   $Path: '$Path',
   Demos: 'Demos',
   DemosApiDemo: 'API Demo',
