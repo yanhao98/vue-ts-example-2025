@@ -7,7 +7,7 @@ export default [
   VueI18nPlugin({
     /* options */
     // locale messages resource pre-compile option
-    include: [path.resolve(import.meta.dirname, '../src/locales/**')],
+    include: [path.resolve(import.meta.dirname, 'src/locales/**')],
 
     // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n#transformi18nblock
     // transformI18nBlock(src) {
