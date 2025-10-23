@@ -1,8 +1,6 @@
 <script setup lang="ts">
 definePage({
-  meta: {
-    title: '国际化示例',
-  },
+  meta: {},
 });
 const { t, locale } = useI18n();
 

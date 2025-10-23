@@ -2,9 +2,7 @@
 import { ref, onUnmounted, computed, nextTick } from 'vue';
 
 definePage({
-  meta: {
-    title: 'WebSocket 示例',
-  },
+  meta: {},
 });
 
 // ========== WebSocket 模块 ==========

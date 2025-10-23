@@ -2,6 +2,7 @@ import { DataLoaderPlugin } from 'unplugin-vue-router/data-loaders';
 import { setupLayouts } from 'virtual:meta-layouts';
 // import { createGetRoutes, setupLayouts } from 'virtual:generated-layouts';
 import { createRouter, createWebHistory } from 'vue-router';
+import type { RouteNamedMap } from 'vue-router/auto-routes';
 import { routes, handleHotUpdate } from 'vue-router/auto-routes';
 
 const setupLayoutsResult = setupLayouts(routes);
@@ -63,6 +64,7 @@ declare module 'vue-router' {
 
 export { router, setupLayoutsResult };
 export { createGetRoutes } from 'virtual:meta-layouts';
+export type RouteLocalizationFlags = Record<keyof RouteNamedMap, string>;
 
 if (__DEV__) Object.assign(globalThis, { router });
 // This will update routes at runtime without reloading the page

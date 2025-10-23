@@ -11,6 +11,14 @@ export function install({ app }: { app: import('vue').App<Element> }) {
     createI18n({
       legacy: false, // you must set `false`, to use Composition API
       locale: navigator.language,
+      fallbackRoot: false,
+      // flatJson: true,
+      missing: (locale, key /* , instance, type */) => {
+        consola.warn(`缺少国际化内容: locale='${locale}', key='${key}'`);
+        return `[${key}]`;
+      },
+      missingWarn: !true,
+      fallbackWarn: !true,
       messages,
     }),
   );

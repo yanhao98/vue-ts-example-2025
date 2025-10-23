@@ -138,6 +138,9 @@ export default defineConfig(async (configEnv) => {
 
               if (packageName) {
                 // 根据包名分组
+                if (packageName.includes('consola')) {
+                  return 'consola';
+                }
                 if (packageName.includes('naive-ui')) {
                   return 'naive-ui';
                 }

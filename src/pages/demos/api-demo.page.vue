@@ -2,9 +2,7 @@
 import { ref } from 'vue';
 
 definePage({
-  meta: {
-    title: 'API 调用示例',
-  },
+  meta: {},
 });
 
 // ========== API 模块 ==========

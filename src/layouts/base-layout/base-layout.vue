@@ -7,7 +7,12 @@ const appStore = useAppStore();
 </script>
 
 <template>
-  <AdminLayout :is-mobile="appStore.isMobile" v-model:sider-collapse="appStore.sidebarCollapsed">
+  <AdminLayout
+    :footer-visible="!false"
+    :tab-visible="false"
+    :is-mobile="appStore.isMobile"
+    v-model:sider-collapse="appStore.sidebarCollapsed"
+  >
     <template #header>
       <BaseLayoutHeader />
     </template>
@@ -19,9 +24,6 @@ const appStore = useAppStore();
     <template #sider>
       <BaseLayoutSider />
     </template>
-    <div class="bg-yellow-100/28 dark:bg-yellow-900/28 text-yellow-900 dark:text-yellow-100 p-4">
-      4#GlobalMenu
-    </div>
     <!-- <div>GlobalContent</div> -->
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
@@ -30,8 +32,10 @@ const appStore = useAppStore();
     </router-view>
     <!-- <div>ThemeDrawer</div> -->
     <template #footer>
-      <div class="bg-red-100/28 dark:bg-red-900/28 text-red-900 dark:text-red-100 h-full">
-        5#GlobalFooter
+      <div
+        class="bg-red-100/28 dark:bg-red-900/28 text-red-900 dark:text-red-100 h-full flex items-center justify-center"
+      >
+        GlobalFooter
       </div>
     </template>
   </AdminLayout>

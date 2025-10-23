@@ -3,7 +3,25 @@ import { createGetRoutes, router } from '@/plugins/router-plugin';
 import type { MenuOption } from 'naive-ui';
 import { RouterLink, type RouteRecordRaw } from 'vue-router';
 import IconMenuRounded from '~icons/material-symbols/menu-rounded';
-import { useAppStore } from '../../stores/app-store';
+import { useAppStore } from '@/stores/app-store';
+
+import zhCN from '@/pages/_page-title-locales/zh-CN';
+import enUS from '@/pages/_page-title-locales/en-US';
+
+const { t, te } = useI18n({
+  inheritLocale: true,
+  useScope: 'local',
+  missing: (locale, key) => {
+    consola.warn(`菜单翻译缺失: locale=${locale}, key=${key}`);
+    return key;
+  },
+  fallbackRoot: true,
+  messages: {
+    'zh-CN': zhCN,
+    'en-US': enUS,
+  },
+});
+
 // 路由转换为菜单树的辅助函数
 function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOption[] {
   const menuMap = new Map<string, MenuOption>();
@@ -31,7 +49,9 @@ function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOpt
   // 构建菜单树
   for (const route of validRoutes) {
     const pathSegments = route.path.split('/').filter(Boolean);
-    const text = route.meta?.title || route.name;
+    const routeName = route.name as string;
+    const text = te(routeName) ? t(routeName) : route.meta?.title || routeName;
+
     const menuOption: MenuOption = {
       label: () => (route.meta?.link === false ? text : <RouterLink to={route}>{text}</RouterLink>),
       key: route.path,
@@ -72,8 +92,8 @@ function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOpt
 const routes = createGetRoutes(router)();
 const menuOptions = computed(() => convertRoutesToMenuOptions(routes));
 
-console.debug('原始路由:', JSON.stringify(routes, null, 0));
-console.debug('转换后的菜单:', JSON.stringify(menuOptions.value, null, 0));
+// console.debug('原始路由:', JSON.stringify(routes, null, 0));
+// console.debug('转换后的菜单:', JSON.stringify(menuOptions.value, null, 0));
 
 const menuInstRef = useTemplateRef('menuInstRef');
 const selectedKey = ref('');

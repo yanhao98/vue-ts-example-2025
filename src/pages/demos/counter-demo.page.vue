@@ -3,9 +3,7 @@ import { ref } from 'vue';
 import { NButton } from 'naive-ui';
 
 definePage({
-  meta: {
-    title: '点击计数器',
-  },
+  meta: {},
 });
 
 // ========== 计数器模块 ==========
