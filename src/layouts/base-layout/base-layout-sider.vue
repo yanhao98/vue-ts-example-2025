@@ -20,6 +20,10 @@ function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOpt
       if (route.path.includes('*')) {
         return false;
       }
+      // 根据环境变量判断是否显示 /demos 开头的路由
+      if (route.path.startsWith('/demos') && import.meta.env.VITE_MENU_SHOW_DEMOS !== 'true') {
+        return false;
+      }
       return true;
     })
     .sort((a, b) => a.path.localeCompare(b.path));
