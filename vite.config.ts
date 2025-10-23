@@ -1,12 +1,80 @@
-import type { ManualChunkMeta, PreRenderedAsset } from 'rollup';
 import { fileURLToPath, URL } from 'node:url';
+import type { ManualChunkMeta, PreRenderedAsset } from 'rollup';
 import { createViteProxy } from 'utils4u/vite';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, type ConfigEnv, type PluginOption } from 'vite';
 import { optimizeDeps } from './vite.config.optimizeDeps';
-import { Plugins } from './vite.config.plugins';
+
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { glob } from 'tinyglobby';
+import consola from 'consola';
+
+async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
+  const plugins: PluginOption[] = [];
+
+  consola.start('开始加载 Vite 插件...');
+
+  const pluginEntries = await glob('**/*.ts', {
+    absolute: true,
+    cwd: path.resolve(import.meta.dirname, 'vite-plugins'),
+    ignore: [
+      '**/*.d.ts',
+      '**/*.disabled.ts',
+      '**/x-*.ts', // 禁用以 x- 开头的插件文件
+      '**/_*',
+    ],
+  });
+
+  consola.info(`找到 ${pluginEntries.length} 个插件文件`);
+
+  // 计算最长的文件名长度，用于对齐输出
+  const maxNameLength = Math.max(...pluginEntries.map((entry) => path.basename(entry).length));
+
+  for (const entry of pluginEntries) {
+    const pluginName = path.basename(entry);
+    const paddedName = pluginName.padEnd(maxNameLength, ' ');
+    const imported = await import(pathToFileURL(entry).href);
+
+    const loadPluginFn = imported.loadPlugin as (configEnv: ConfigEnv) => PluginOption;
+    let plugin: PluginOption | undefined;
+    let loadMethod = '';
+
+    // 优先使用 loadPlugin 函数（接收 configEnv 参数）
+    if (loadPluginFn && typeof loadPluginFn === 'function') {
+      const result = loadPluginFn(configEnv);
+      plugin = result;
+      loadMethod = 'loadPlugin';
+    } else if (imported.default) {
+      plugin = imported.default;
+      loadMethod = 'default';
+    } else {
+      consola.warn(`插件未导出有效内容: ${paddedName}`);
+      continue; // 跳过无效插件
+    }
+
+    if (plugin) {
+      const pluginArray = Array.isArray(plugin) ? plugin : [plugin];
+      const validPlugins = pluginArray.filter(Boolean); // 过滤掉 null/undefined
+      const pluginCount = validPlugins.length;
+
+      if (pluginCount > 0) {
+        plugins.push(...validPlugins);
+        consola.success(`${paddedName} → ${pluginCount} 个实例 (${loadMethod})`);
+      } else {
+        consola.warn(`${paddedName} 返回了空数组或无效值`);
+      }
+    }
+  }
+
+  consola.success(`✅ 总共加载了 ${plugins.length} 个插件实例`);
+
+  return plugins;
+}
 
 // https://vite.dev/config/
-export default defineConfig(async ({ command, mode }) => {
+export default defineConfig(async (configEnv) => {
+  const { command, mode } = configEnv;
+
   const isBuild = command === 'build';
   const env = loadEnv(mode, process.cwd());
 
@@ -79,9 +147,9 @@ export default defineConfig(async ({ command, mode }) => {
                 if (packageName.includes('@juggle+resize-observer')) {
                   return 'resize-observer';
                 }
-                if (packageName.includes('date-fns')) {
-                  return 'date-fns';
-                }
+                // if (packageName.includes('date-fns')) {
+                //   return 'date-fns';
+                // }
                 if (
                   ['primelocale', 'primevue', '@primeuix'].some((name) =>
                     packageName!.includes(name),
@@ -136,7 +204,7 @@ export default defineConfig(async ({ command, mode }) => {
         },
       },
     },
-    plugins: Plugins({ mode, env }),
+    plugins: await loadPlugins(configEnv),
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -150,6 +218,10 @@ export default defineConfig(async ({ command, mode }) => {
     server: {
       allowedHosts: ['.NWCT.DEV'],
       proxy: createViteProxy(),
+      watch: {
+        // 监听 vite-plugins 目录的变化，触发配置文件重新加载
+        ignored: ['!**/vite-plugins/**'],
+      },
     },
     optimizeDeps: optimizeDeps(),
   };

@@ -6,7 +6,11 @@ import type { DepOptimizationOptions } from 'vite';
 // })();
 export function optimizeDeps(): DepOptimizationOptions {
   return {
-    entries: ['src/main.ts', 'src/pages/**/*.vue'],
+    entries: [
+      'src/main.ts',
+      'src/pages/**/*.vue',
+      'packages/materials/src/index.ts', // > simplebar-vue
+    ],
     // include: [
     //   ...primevuecomponents,
     //   '@primeuix/themes',
