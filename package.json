@@ -39,7 +39,15 @@
   "pnpm": {
     "overrides": {
       "vue-tsc": "$vue-tsc"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild",
+      "oxc-resolver",
+      "sharp",
+      "vue-demi",
+      "workerd"
+    ]
   },
   "dependencies": {
     "@commitlint/cli": "^20.0.0",
