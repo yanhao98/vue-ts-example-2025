@@ -1,12 +1,10 @@
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
-import { createHead } from '@unhead/vue/client';
 
 export function install({ app }: { app: import('vue').App<Element> }) {
   app.config.globalProperties.__DEV__ = __DEV__;
 
   app.use(autoAnimatePlugin); // v-auto-animate="{ duration: 100 }"
 
-  app.use(createHead());
   app.config.errorHandler = (error, instance, info) => {
     console.error('Global error:', error);
     console.error('Component:', instance);

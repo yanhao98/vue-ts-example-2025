@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { createGetRoutes, router } from '@/plugins/router-plugin';
+import { createGetRoutes, router } from '@/plugins/00.router-plugin';
 import type { MenuOption } from 'naive-ui';
 import { RouterLink, type RouteRecordRaw } from 'vue-router';
 import IconMenuRounded from '~icons/material-symbols/menu-rounded';

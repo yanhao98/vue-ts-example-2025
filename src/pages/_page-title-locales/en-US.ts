@@ -1,5 +1,3 @@
-import type { RouteLocalizationFlags } from '@/plugins/router-plugin';
-
 export default {
   Root: 'Index',
   $Path: '$Path',
@@ -9,4 +7,4 @@ export default {
   DemosI18nDemo: 'i18n Demo',
   DemosWebsocketDemo: 'WebSocket Demo',
   Home: 'Home',
-} satisfies RouteLocalizationFlags;
+} satisfies PageTitleLocalizations;

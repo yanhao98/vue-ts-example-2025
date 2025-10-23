@@ -64,7 +64,9 @@ declare module 'vue-router' {
 
 export { router, setupLayoutsResult };
 export { createGetRoutes } from 'virtual:meta-layouts';
-export type RouteLocalizationFlags = Record<keyof RouteNamedMap, string>;
+declare global {
+  type PageTitleLocalizations = Record<keyof RouteNamedMap, string>;
+}
 
 if (__DEV__) Object.assign(globalThis, { router });
 // This will update routes at runtime without reloading the page

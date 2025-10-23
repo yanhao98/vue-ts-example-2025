@@ -1,5 +1,3 @@
-import type { RouteLocalizationFlags } from '@/plugins/router-plugin';
-
 export default {
   Root: '根 (Gēn)',
   $Path: '$Path',
@@ -9,4 +7,4 @@ export default {
   DemosI18nDemo: '国际化示例',
   DemosWebsocketDemo: 'WebSocket 示例',
   Home: '首页',
-} satisfies RouteLocalizationFlags;
+} satisfies PageTitleLocalizations;
