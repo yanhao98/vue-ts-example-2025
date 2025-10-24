@@ -43,8 +43,10 @@ declare module 'vue-router' {
      * @description 是否在菜单中隐藏
      */
     hideInMenu?: boolean;
+
     /**
      * @description 菜单标题
+     * @deprecated //!⚠️请通过多语言标题方案（搜`PageTitleLocalizations`）维护标题
      */
     title?: string;
 
@@ -59,6 +61,11 @@ declare module 'vue-router' {
      * - false: 仅渲染纯文本标签，不可点击（适用于分组标题）
      */
     link?: boolean;
+
+    /**
+     * @description 菜单排序权重，数值越小越靠前，未设置则按路径字母顺序排序
+     */
+    order?: number;
   }
 }
 

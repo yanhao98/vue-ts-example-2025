@@ -44,7 +44,42 @@ function convertRoutesToMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOpt
       }
       return true;
     })
-    .sort((a, b) => a.path.localeCompare(b.path));
+    // 排序路由，确保父路由总是在子路由之前，同级路由则根据 `meta.order` 排序
+    .sort((a: RouteRecordRaw, b: RouteRecordRaw) => {
+      const pathA = a.path;
+      const pathB = b.path;
+      const segmentsA = pathA.split('/').filter(Boolean);
+      const segmentsB = pathB.split('/').filter(Boolean);
+      const parentAPath = `/${segmentsA.slice(0, -1).join('/')}`;
+      const parentBPath = `/${segmentsB.slice(0, -1).join('/')}`;
+
+      // 如果不是同级路由，则按路径排序，确保父路由在前
+      if (parentAPath !== parentBPath) {
+        return pathA.localeCompare(pathB);
+      }
+
+      // 同级路由，处理 `meta.order`
+      const orderA = a.meta?.order;
+      const orderB = b.meta?.order;
+      const hasOrderA = orderA !== undefined;
+      const hasOrderB = orderB !== undefined;
+
+      // 当一个有 order 而另一个没有时，有 order 的排在前面
+      if (hasOrderA !== hasOrderB) {
+        return hasOrderA ? -1 : 1;
+      }
+
+      // 当两个都有 order 时，按 order 值升序排序
+      if (hasOrderA && hasOrderB) {
+        const orderDiff = orderA - orderB;
+        if (orderDiff !== 0) {
+          return orderDiff;
+        }
+      }
+
+      // order 相同或都没有 order，按路径字母顺序排序
+      return pathA.localeCompare(pathB);
+    });
 
   // 构建菜单树
   for (const route of validRoutes) {

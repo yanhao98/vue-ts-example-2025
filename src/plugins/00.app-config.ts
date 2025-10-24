@@ -1,9 +1,5 @@
-import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
-
 export function install({ app }: { app: import('vue').App<Element> }) {
   app.config.globalProperties.__DEV__ = __DEV__;
-
-  app.use(autoAnimatePlugin); // v-auto-animate="{ duration: 100 }"
 
   app.config.errorHandler = (error, instance, info) => {
     console.error('Global error:', error);

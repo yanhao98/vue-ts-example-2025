@@ -1,6 +1,8 @@
 <script setup lang="ts">
 definePage({
-  meta: {},
+  meta: {
+    order: 1,
+  },
 });
 const { t, locale } = useI18n();
 
