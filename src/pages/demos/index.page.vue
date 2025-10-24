@@ -5,13 +5,7 @@ import hljs from 'highlight.js/lib/core';
 import json from 'highlight.js/lib/languages/json';
 hljs.registerLanguage('json', json);
 
-definePage({
-  meta: {
-    link: true,
-    title: 'Functional Component Demo',
-  },
-});
-
+definePage({ meta: { link: true } });
 const FComponent: FunctionalComponent<{ prop: string }> = (props /* context */) => (
   <>
     <NBlockquote>

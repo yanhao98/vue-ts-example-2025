@@ -41,7 +41,7 @@ async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
 
     // 优先使用 loadPlugin 函数（接收 configEnv 参数）
     if (loadPlugin && typeof loadPlugin === 'function') {
-      const result = await loadPlugin(configEnv);
+      const result = loadPlugin(configEnv);
       plugin = result;
       loadMethod = 'loadPlugin';
     } else if (imported.default) {
