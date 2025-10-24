@@ -57,6 +57,7 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
   return [
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
+      dtsMode: 'overwrite',
       dirs: [
         // 'src/utils',
         'src/composables',
@@ -88,10 +89,11 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
     }),
     // https://github.com/antfu/unplugin-vue-components
     Components({
+      syncMode: 'default',
       // `__`开头的
       excludeNames: [/^__/],
       // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md', 'tsx'],
+      extensions: ['vue', 'md'],
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       resolvers: [
