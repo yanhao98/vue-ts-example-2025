@@ -135,8 +135,8 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
   watch(
     () => router.currentRoute.value.path,
     (newPath) => {
-      menuInstRef.value?.showOption(newPath);
       selectedKey.value = newPath;
+      menuInstRef.value?.showOption(newPath); // 展开菜单，确保设定的元素被显示，如果不传入 key 会展示当前选中元素
     },
     { immediate: true },
   );
@@ -146,5 +146,6 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
   return {
     options,
     selectedKey,
+    // expanded-keys // 展开的子菜单标识符数组，如果设定了，菜单的展开将会进入受控状态，default-expanded-keys 不会生效
   };
 }
