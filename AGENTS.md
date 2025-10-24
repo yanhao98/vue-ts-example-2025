@@ -26,12 +26,13 @@ Multiple auto-import systems are active:
   - ❌ Avoid: `<component :is="`icon-${name}`" />`
   - ✅ Use: `<icon-foo v-if="condition" />` with `v-if`/`v-else-if`/`v-else` directives
 - **In TypeScript/TSX files**: Auto-import does NOT work. You must explicitly import icons using the `~icons/` prefix:
+
   ```tsx
   import IconMenuRounded from '~icons/material-symbols/menu-rounded';
 
   // Then use in JSX/TSX
   const menuOption = {
-    icon: () => <IconMenuRounded />
+    icon: () => <IconMenuRounded />,
   };
   ```
 
@@ -40,6 +41,26 @@ Multiple auto-import systems are active:
 Project has multiple UI frameworks configured:
 
 - **Naive UI**
+  - **Form Layout**: When using `NGrid` for form layouts, prefer `NFormItemGi` over nesting `NFormItem` inside `NGridItem` for more concise code.
+
+    ```vue
+    <!-- ❌ Avoid: Verbose nesting -->
+    <NGrid :cols="4">
+      <NGridItem>
+        <NFormItem label="Username">
+          <NInput />
+        </NFormItem>
+      </NGridItem>
+    </NGrid>
+
+    <!-- ✅ Use: Concise and direct -->
+    <NGrid :cols="4">
+      <NFormItemGi label="Username">
+        <NInput />
+      </NFormItemGi>
+    </NGrid>
+    ```
+
 - **PrimeVue**:
 
 ### Styling
