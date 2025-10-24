@@ -1,13 +1,11 @@
-import { fileURLToPath, URL } from 'node:url';
+import consola from 'consola';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL, URL } from 'node:url';
 import type { ManualChunkMeta, PreRenderedAsset } from 'rollup';
+import { glob } from 'tinyglobby';
 import { createViteProxy } from 'utils4u/vite';
 import { defineConfig, loadEnv, type ConfigEnv, type PluginOption } from 'vite';
 import { optimizeDeps } from './vite.config.optimizeDeps';
-
-import path from 'node:path';
-import { pathToFileURL } from 'node:url';
-import { glob } from 'tinyglobby';
-import consola from 'consola';
 
 async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
   const plugins: PluginOption[] = [];
@@ -81,6 +79,8 @@ export default defineConfig(async (configEnv) => {
   return {
     base: env.VITE_APP_BASE,
     build: {
+      // minify: false, // 默认：	'terser'
+
       sourcemap: env.VITE_APP_BUILD_SOURCE_MAP === 'true',
       rollupOptions: {
         /* onwarn: (warning, warn) => {
@@ -90,10 +90,11 @@ export default defineConfig(async (configEnv) => {
           if (warning.code === 'EVAL' && warning.id?.includes('node_modules/protobufjs')) return;
           warn(warning);
         }, */
+
         output: {
           // Keep hashed file names predictable across entry, chunk, and asset outputs.
-          entryFileNames: '_entry/[name].[hash].js',
-          chunkFileNames: '_chunk/[name].[hash].js',
+          // entryFileNames: '_entry/[name].[hash].js',
+          // chunkFileNames: '_chunk/[name].[hash].js',
           // https://cn.rollupjs.org/configuration-options/#output-assetfilenames
           assetFileNames(chunkInfo: PreRenderedAsset) {
             const names = chunkInfo.names;
@@ -119,81 +120,42 @@ export default defineConfig(async (configEnv) => {
 
           // https://www.npmjs.com/package/utils4u/v/2.19.2?activeTab=code
           manualChunks: (id: string, _meta: ManualChunkMeta) => {
-            if (id.includes('node_modules')) {
-              // 处理 pnpm 的特殊路径结构
-              let packageName;
-              if (id.includes('.pnpm')) {
-                // pnpm 路径: .pnpm/naive-ui@2.43.1_vue@3.5.22/node_modules/naive-ui/...
-                const pnpmMatch = id.match(/\.pnpm\/(.+?)@/);
-                if (pnpmMatch) {
-                  packageName = pnpmMatch[1];
-                }
-              } else {
-                // 普通路径: node_modules/lodash/...
-                const normalMatch = id.match(/node_modules\/(@[^/]+\/[^/]+|[^/]+)\//);
-                if (normalMatch) {
-                  packageName = normalMatch[1];
-                }
+            if (!id.includes('node_modules')) return;
+
+            // 处理 pnpm 的特殊路径结构
+            let packageName;
+            if (id.includes('.pnpm')) {
+              // pnpm 路径: .pnpm/naive-ui@2.43.1_vue@3.5.22/node_modules/naive-ui/...
+              const pnpmMatch = id.match(/\.pnpm\/(.+?)@/);
+              if (pnpmMatch) {
+                packageName = pnpmMatch[1];
               }
+            } else {
+              // 普通路径: node_modules/lodash/...
+              const normalMatch = id.match(/node_modules\/(@[^/]+\/[^/]+|[^/]+)\//);
+              if (normalMatch) {
+                packageName = normalMatch[1];
+              }
+            }
 
-              if (packageName) {
-                // 根据包名分组
-                if (packageName.includes('consola')) {
-                  return 'consola';
-                }
-                if (packageName.includes('naive-ui')) {
-                  return 'naive-ui';
-                }
-                if (packageName.includes('lodash')) {
-                  return 'lodash';
-                }
-                if (packageName.includes('@juggle+resize-observer')) {
-                  return 'resize-observer';
-                }
-                // if (packageName.includes('date-fns')) {
-                //   return 'date-fns';
-                // }
-                if (
-                  ['primelocale', 'primevue', '@primeuix'].some((name) =>
-                    packageName!.includes(name),
-                  )
-                ) {
-                  return 'primevue';
-                }
-                // console.log('packageName :>> ', packageName);
-                // console.log('id :>> ', id);
-                if (['vue', 'vue-router', 'pinia', 'vue-demi', 'vue-i18n'].includes(packageName)) {
-                  return 'vue-vendor';
-                }
-
-                // return 'vendor';
+            if (packageName) {
+              // 根据包名分组
+              if (['consola', 'lodash', '@juggle+resize-observer'].includes(packageName)) {
+                return 'lib-vendor';
+              }
+              if (['naive-ui', 'vueuc'].includes(packageName)) {
+                return 'lib-naive-ui';
+              }
+              if (
+                ['primelocale', 'primevue', '@primeuix'].some((name) => packageName!.includes(name))
+              ) {
+                return 'lib-primevue';
+              }
+              if (['vue', 'vue-router', 'pinia', 'vue-demi', 'vue-i18n'].includes(packageName)) {
+                return 'lib-vue-vendor';
               }
             }
           },
-          // // Split key dependency groups to improve long-term caching.
-          // manualChunks: (id) => {
-          //   if (!id.includes('node_modules')) return;
-          //   if (
-          //     id.includes('node_modules/vue') ||
-          //     id.includes('node_modules/@vue/') ||
-          //     id.includes('node_modules/vue-router')
-          //   ) {
-          //     return 'vue-vendor';
-          //   }
-          //   if (id.includes('pinia') || id.includes('vue-i18n')) {
-          //     return 'state-i18n';
-          //   }
-          //   if (id.includes('naive-ui')) {
-          //     return 'naive-ui';
-          //   }
-          //   if (id.includes('primevue')) {
-          //     return 'primevue';
-          //   }
-          //   if (id.includes('@vueuse')) {
-          //     return 'vueuse';
-          //   }
-          //   return 'vendor';
-          // },
         },
       },
     },

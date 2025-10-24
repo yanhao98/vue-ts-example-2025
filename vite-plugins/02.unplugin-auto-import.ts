@@ -1,8 +1,8 @@
 import type { ConfigEnv, PluginOption } from 'vite';
 
 import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
 import Icons from 'unplugin-icons/vite';
+import Components from 'unplugin-vue-components/vite';
 
 import { VueRouterAutoImports } from 'unplugin-vue-router';
 import { createUtils4uAutoImports } from 'utils4u/auto-imports';
@@ -23,6 +23,7 @@ import IconsResolver from 'unplugin-icons/resolver';
 import { VantResolver } from '@vant/auto-import-resolver';
 // <<<<<
 
+import consola from 'consola';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -33,7 +34,7 @@ function _getNaiveUiComponentNames() {
     const webTypes = JSON.parse(fs.readFileSync(webTypesPath, 'utf-8'));
     const components = webTypes.contributions.html['vue-components'];
     const componentNames = components.map((component: { name: string }) => component.name);
-    console.log('naive-ui components count (from web-types.json):', componentNames.length);
+    consola.info('naive-ui components count (from web-types.json):', componentNames.length);
     return componentNames;
   }
 
@@ -45,11 +46,11 @@ function _getNaiveUiComponentNames() {
     const regex = /^\s+(N\w+):/gm;
     const matches = [...volarContent.matchAll(regex)];
     const componentNames = matches.map((match) => match[1]);
-    console.log('naive-ui components count (from volar.d.ts):', componentNames.length);
+    consola.info('naive-ui components count (from volar.d.ts):', componentNames.length);
     return componentNames;
   }
 
-  console.warn('Could not find naive-ui component metadata files');
+  consola.warn('Could not find naive-ui component metadata files');
   return [];
 }
 
