@@ -20,7 +20,7 @@ const appStore = useAppStore();
     </template>
     <template #tab>
       <div
-        class="bg-green-100/28 dark:bg-green-900/28 text-green-900 dark:text-green-100 p-4 flex items-center justify-center"
+        class="bg-green-100/28 dark:bg-green-900/28 text-green-900 dark:text-green-100 flex h-full items-center justify-center"
       >
         GlobalTab
       </div>
