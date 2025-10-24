@@ -35,13 +35,13 @@ async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
     const paddedName = pluginName.padEnd(maxNameLength, ' ');
     const imported = await import(pathToFileURL(entry).href);
 
-    const loadPluginFn = imported.loadPlugin as (configEnv: ConfigEnv) => PluginOption;
+    const loadPlugin = imported.loadPlugin as (configEnv: ConfigEnv) => PluginOption;
     let plugin: PluginOption | undefined;
     let loadMethod = '';
 
     // 优先使用 loadPlugin 函数（接收 configEnv 参数）
-    if (loadPluginFn && typeof loadPluginFn === 'function') {
-      const result = loadPluginFn(configEnv);
+    if (loadPlugin && typeof loadPlugin === 'function') {
+      const result = await loadPlugin(configEnv);
       plugin = result;
       loadMethod = 'loadPlugin';
     } else if (imported.default) {
@@ -162,7 +162,7 @@ export default defineConfig(async (configEnv) => {
                 }
                 // console.log('packageName :>> ', packageName);
                 // console.log('id :>> ', id);
-                if (['vue', 'vue-router', 'pinia', 'vue-demi'].includes(packageName)) {
+                if (['vue', 'vue-router', 'pinia', 'vue-demi', 'vue-i18n'].includes(packageName)) {
                   return 'vue-vendor';
                 }
 

@@ -58,6 +58,7 @@
     "@sa/materials": "workspace:*",
     "@unhead/vue": "^2.0.14",
     "@vueuse/core": "^13.9.0",
+    "highlight.js": "^11.11.1",
     "naive-ui": "^2.43.1",
     "pinia": "^3.0.3",
     "primelocale": "^2.1.7",

@@ -6,7 +6,8 @@
     "src/**/*.vue",
     "./auto-imports.d.ts",
     "./typed-router.d.ts",
-    "./components.d.ts"
+    "./components.d.ts",
+    "node_modules/naive-ui/volar.d.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
