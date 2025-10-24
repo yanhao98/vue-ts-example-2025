@@ -7,7 +7,7 @@ export default [
   // https://github.com/antfu/unplugin-auto-import
   AutoImport({
     dirs: [
-      // 'src/composables',
+      'src/composables',
       // 'src/utils',
       'src/stores',
     ],

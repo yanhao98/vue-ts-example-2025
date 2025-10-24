@@ -70,7 +70,7 @@ declare module 'vue-router' {
 }
 
 export { router, setupLayoutsResult };
-export { createGetRoutes } from 'virtual:meta-layouts';
+
 declare global {
   type PageTitleLocalizations = Record<keyof RouteNamedMap, string>;
 }

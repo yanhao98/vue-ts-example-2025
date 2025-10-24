@@ -224,6 +224,7 @@ declare global {
   const useMemoize: typeof import('@vueuse/core')['useMemoize']
   const useMemory: typeof import('@vueuse/core')['useMemory']
   const useMessage: typeof import('naive-ui')['useMessage']
+  const useMetaLayoutsNMenuOptions: typeof import('./src/composables/useMetaLayoutsMenuOptions')['useMetaLayoutsNMenuOptions']
   const useModal: typeof import('naive-ui')['useModal']
   const useModel: typeof import('vue')['useModel']
   const useMounted: typeof import('@vueuse/core')['useMounted']
@@ -560,6 +561,7 @@ declare module 'vue' {
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
     readonly useMessage: UnwrapRef<typeof import('naive-ui')['useMessage']>
+    readonly useMetaLayoutsNMenuOptions: UnwrapRef<typeof import('./src/composables/useMetaLayoutsMenuOptions')['useMetaLayoutsNMenuOptions']>
     readonly useModal: UnwrapRef<typeof import('naive-ui')['useModal']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useMounted: UnwrapRef<typeof import('@vueuse/core')['useMounted']>
