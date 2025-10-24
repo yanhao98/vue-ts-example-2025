@@ -45,9 +45,7 @@ export default defineConfigWithVueTs(
       ],
       'vue/define-macros-order': [
         'error',
-        {
-          order: ['defineOptions', 'defineProps', 'defineEmits', 'defineSlots'],
-        },
+        { order: ['defineOptions', 'defineModel', 'defineProps', 'defineEmits', 'defineSlots'] },
       ],
       'vue/multi-word-component-names': 'off',
     },
