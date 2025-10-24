@@ -10,6 +10,9 @@
 
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue"],
+  "scss.lint.unknownAtRules": "ignore",
+  "css.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
 
   "eslint.enable": true,
   "oxc.enable": true,
