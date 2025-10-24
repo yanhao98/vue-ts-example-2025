@@ -7,9 +7,11 @@ export default [
   // https://github.com/antfu/unplugin-auto-import
   AutoImport({
     dirs: [
-      'src/composables',
       // 'src/utils',
+      'src/composables',
       'src/stores',
+      // 匹配所有 -auto-imports.ts / -auto-imports.tsx 结尾的文件
+      'src/**/*-auto-imports.{ts,tsx}',
     ],
     imports: [
       'vue',

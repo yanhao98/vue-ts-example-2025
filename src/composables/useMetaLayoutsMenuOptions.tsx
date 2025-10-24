@@ -1,6 +1,3 @@
-import enUS from '@/pages/_page-title-locales/en-US';
-import zhCN from '@/pages/_page-title-locales/zh-CN';
-
 import type { Ref } from 'vue';
 import type { MenuInst, MenuOption } from 'naive-ui';
 import { createGetRoutes } from 'virtual:meta-layouts';
@@ -120,10 +117,7 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
       return key;
     },
     fallbackRoot: true,
-    messages: {
-      'zh-CN': zhCN,
-      'en-US': enUS,
-    },
+    messages: locales4RouteMessages,
   });
 
   // 获取路由表但是不包含布局路由
