@@ -185,7 +185,7 @@ function handleClickMask() {
       <!-- Mobile Sider -->
       <template v-if="showMobileSider">
         <aside
-          class="absolute left-0 top-0 h-full bg-white dark:bg-gray-800"
+          class="absolute left-0 top-0 h-full w-0 bg-white dark:bg-gray-800"
           :class="[
             commonClass,
             mobileSiderClass,
