@@ -1,6 +1,14 @@
-import type { PluginOption } from 'vite';
+import consola from 'consola';
+import { loadEnv, type ConfigEnv, type PluginOption } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
-// env.VITE_ENABLE_VUE_DEVTOOLS === 'true'
+export function loadPlugin(configEnv: ConfigEnv): PluginOption {
+  const env = loadEnv(configEnv.mode, process.cwd());
 
-export default [vueDevTools()] satisfies PluginOption;
+  if (env.VITE_ENABLE_VUE_DEVTOOLS === 'true') {
+    return [vueDevTools()];
+  } else {
+    consola.info('VITE_ENABLE_VUE_DEVTOOLS is not enabled.');
+    return [];
+  }
+}

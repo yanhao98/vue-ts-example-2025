@@ -5,7 +5,7 @@ import { vitePluginFakeServer } from 'vite-plugin-fake-server';
 
 export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
   if (_configEnv.mode !== 'development') {
-    consola.info('fake server plugin disabled in test mode');
+    consola.info('fake server plugin is disabled in non-development mode.');
     return [];
   }
   return vitePluginFakeServer({

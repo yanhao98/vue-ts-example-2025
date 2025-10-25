@@ -7,6 +7,7 @@ import { createViteProxy } from 'utils4u/vite';
 import { defineConfig, loadEnv, type ConfigEnv, type PluginOption } from 'vite';
 import { optimizeDeps } from './vite.config.optimizeDeps';
 
+type LoadPluginFunction = (configEnv: ConfigEnv) => PluginOption;
 async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
   const plugins: PluginOption[] = [];
 
@@ -33,14 +34,13 @@ async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
     const paddedName = pluginName.padEnd(maxNameLength, ' ');
     const imported = await import(pathToFileURL(entry).href);
 
-    const loadPlugin = imported.loadPlugin as (configEnv: ConfigEnv) => PluginOption;
+    const loadPlugin = imported.loadPlugin as LoadPluginFunction | undefined;
     let plugin: PluginOption | undefined;
     let loadMethod = '';
 
     // 优先使用 loadPlugin 函数（接收 configEnv 参数）
     if (loadPlugin && typeof loadPlugin === 'function') {
-      const result = loadPlugin(configEnv);
-      plugin = result;
+      plugin = loadPlugin(configEnv);
       loadMethod = 'loadPlugin';
     } else if (imported.default) {
       plugin = imported.default;
@@ -59,7 +59,7 @@ async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
         plugins.push(...validPlugins);
         consola.success(`${paddedName} → ${pluginCount} 个实例 (${loadMethod})`);
       } else {
-        consola.warn(`${paddedName} 返回了空数组或无效值`);
+        consola.info(`${paddedName} 返回了空数组或无效值`);
       }
     }
   }
@@ -93,8 +93,9 @@ export default defineConfig(async (configEnv) => {
 
         output: {
           // Keep hashed file names predictable across entry, chunk, and asset outputs.
-          // entryFileNames: '_entry/[name].[hash].js',
-          // chunkFileNames: '_chunk/[name].[hash].js',
+          entryFileNames: 'entry/[name].[hash].js', // 默认：	"[name].js"
+          chunkFileNames: 'chunk/[name].[hash].js', // 默认：	"[name]-[hash].js"
+          // assetFileNames:'', // 默认：	"assets/[name]-[hash][extname]"
           // https://cn.rollupjs.org/configuration-options/#output-assetfilenames
           assetFileNames(chunkInfo: PreRenderedAsset) {
             const names = chunkInfo.names;
@@ -177,8 +178,8 @@ export default defineConfig(async (configEnv) => {
     },
     define: {
       __DEV__: JSON.stringify(!isBuild),
-      // https://github.com/fi3ework/vite-plugin-checker/issues/569#issuecomment-3254311799
-      'process.env.NODE_ENV': JSON.stringify('production'),
+      // // https://github.com/fi3ework/vite-plugin-checker/issues/569#issuecomment-3254311799
+      // 'process.env.NODE_ENV': JSON.stringify('production'),
     },
     server: {
       allowedHosts: ['.NWCT.DEV'],
