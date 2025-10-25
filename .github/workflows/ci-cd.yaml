@@ -42,9 +42,6 @@ jobs:
         env:
           VITE_APP_BUILD_COMMIT: ${{ github.sha }}
 
-      - name: 🧪 单元测试
-        run: pnpm exec vitest run
-
       - name: 📊 计算构建大小
         run: |
           echo "📊 构建大小统计:"
@@ -54,6 +51,9 @@ jobs:
           echo "🔹 以KB为单位:  $(du -sk dist | cut -f1) KB"
           echo "🔹 文件总数:    $(find dist -type f | wc -l) 个文件"
           echo "----------------------------------------"
+
+      - name: 🧪 单元测试
+        run: pnpm exec vitest run
 
       - name: ✅ 类型检查
         run: pnpm run type-check # 要先 build，保证 components.d.ts 存在
