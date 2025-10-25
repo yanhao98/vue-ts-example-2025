@@ -5,8 +5,45 @@ import { RouterLink, type RouteRecordRaw } from 'vue-router';
 import IconMenuRounded from '~icons/material-symbols/menu-rounded';
 
 export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<MenuInst | null> }) {
+  const router = useRouter();
+
+  const { t, te } = useI18n({
+    inheritLocale: true,
+    useScope: 'local',
+    missing: (locale, key) => {
+      consola.warn(`菜单翻译缺失: locale=${locale}, key=${key}`);
+      return key;
+    },
+    fallbackRoot: true,
+    messages: locales4RouteMessages,
+  });
+
+  // 获取路由表但是不包含布局路由
+  const routes = createGetRoutes(router)();
+
+  const options = computed(() => convertRoutesToNMenuOptions(routes));
+  const selectedKey = ref('');
+
+  watch(
+    () => router.currentRoute.value.path,
+    (newPath) => {
+      selectedKey.value = newPath;
+      menuInstRef.value?.showOption(newPath); // 展开菜单，确保设定的元素被显示，如果不传入 key 会展示当前选中元素
+    },
+    { immediate: true },
+  );
+
   // 路由转换为菜单树的辅助函数
   function convertRoutesToNMenuOptions(routes: Readonly<RouteRecordRaw[]>): MenuOption[] {
+    const orderMaxLength = routes.reduce((max, route) => {
+      const order = route.meta?.order;
+      if (order !== undefined) {
+        const orderLength = String(order).length;
+        return orderLength > max ? orderLength : max;
+      }
+      return max;
+    }, 0);
+
     const menuMap = new Map<string, MenuOption>();
     const rootMenus: MenuOption[] = [];
 
@@ -22,7 +59,7 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
           return false;
         }
         // 根据环境变量判断是否显示 /demos 开头的路由
-        if (route.path.startsWith('/demos') && import.meta.env.VITE_MENU_SHOW_DEMOS !== 'true') {
+        if (import.meta.env.VITE_MENU_SHOW_DEMOS !== 'true' && route.path.startsWith('/demos')) {
           return false;
         }
         return true;
@@ -68,7 +105,12 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
     for (const route of validRoutes) {
       const pathSegments = route.path.split('/').filter(Boolean);
       const routeName = route.name as string;
-      const text = te(routeName) ? t(routeName) : route.meta?.title || routeName;
+
+      let text = te(routeName) ? t(routeName) : route.meta?.title || routeName;
+      if (import.meta.env.VITE_MENU_SHOW_ORDER === 'true' && route.meta?.order) {
+        const order = String(route.meta.order).padStart(orderMaxLength, '0');
+        text = `${order}. ${text}`;
+      }
 
       const menuOption: MenuOption = {
         label: () =>
@@ -106,34 +148,6 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
 
     return rootMenus;
   }
-
-  const router = useRouter();
-
-  const { t, te } = useI18n({
-    inheritLocale: true,
-    useScope: 'local',
-    missing: (locale, key) => {
-      consola.warn(`菜单翻译缺失: locale=${locale}, key=${key}`);
-      return key;
-    },
-    fallbackRoot: true,
-    messages: locales4RouteMessages,
-  });
-
-  // 获取路由表但是不包含布局路由
-  const routes = createGetRoutes(router)();
-
-  const options = computed(() => convertRoutesToNMenuOptions(routes));
-  const selectedKey = ref('');
-
-  watch(
-    () => router.currentRoute.value.path,
-    (newPath) => {
-      selectedKey.value = newPath;
-      menuInstRef.value?.showOption(newPath); // 展开菜单，确保设定的元素被显示，如果不传入 key 会展示当前选中元素
-    },
-    { immediate: true },
-  );
 
   // console.debug('原始路由:', JSON.stringify(routes, null, 0));
   // console.debug('转换后的菜单:', JSON.stringify(menuOptions.value, null, 0));

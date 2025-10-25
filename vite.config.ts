@@ -79,7 +79,7 @@ export default defineConfig(async (configEnv) => {
   return {
     base: env.VITE_APP_BASE,
     build: {
-      // minify: false, // 默认：	'terser'
+      minify: env.VITE_APP_BUILD_MINIFY === 'true' ? undefined /* 即默认 */ : false, // 默认：	'terser'
 
       sourcemap: env.VITE_APP_BUILD_SOURCE_MAP === 'true',
       rollupOptions: {
