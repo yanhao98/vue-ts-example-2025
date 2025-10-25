@@ -6,6 +6,10 @@ This file provides guidance to AI when working with code in this repository.
 
 Vue 3 TypeScript application with Vite.
 
+## 开发服务器
+
+- **不要启动开发服务器**: 开发服务器通常已经由用户启动。除非特别要求，否则不要执行 `pnpm dev` 之类的命令。
+
 ### Routing & Layouts
 
 - **File-based routing**: Uses `unplugin-vue-router` with `.page.vue` and `.page.md` extensions in `src/pages/`

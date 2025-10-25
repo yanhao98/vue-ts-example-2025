@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AdminLayout } from '@sa/materials';
-import BaseLayoutHeader from './base-layout-header.vue';
+import BaseLayoutHeader from './base-layout-header/base-layout-header.vue';
 import BaseLayoutSider from './base-layout-sider.vue';
 
 const appStore = useAppStore();

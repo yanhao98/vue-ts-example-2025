@@ -3,23 +3,23 @@
  * at once using the import syntax
  */
 import messages from '@intlify/unplugin-vue-i18n/messages';
+
 import { createI18n } from 'vue-i18n';
 
 export function install({ app }: { app: import('vue').App<Element> }) {
-  app.use(
-    // https://vue-i18n.intlify.dev/guide/essentials/started.html#registering-the-i18n-plugin
-    createI18n({
-      legacy: false, // you must set `false`, to use Composition API
-      locale: navigator.language,
-      fallbackRoot: false,
-      // flatJson: true,
-      missing: (locale, key /* , instance, type */) => {
-        consola.warn(`缺少国际化内容: locale='${locale}', key='${key}'`);
-        return `[${key}]`;
-      },
-      missingWarn: !true,
-      fallbackWarn: !true,
-      messages,
-    }),
-  );
+  // https://vue-i18n.intlify.dev/guide/essentials/started.html#registering-the-i18n-plugin
+  const i18n = createI18n({
+    legacy: false, // you must set `false`, to use Composition API
+    locale: navigator.language,
+    fallbackRoot: false,
+    // flatJson: true,
+    missing: (locale, key /* , instance, type */) => {
+      consola.warn(`缺少国际化内容: locale='${locale}', key='${key}'`);
+      return `[${key}]`;
+    },
+    missingWarn: !true,
+    fallbackWarn: !true,
+    messages,
+  });
+  app.use(i18n);
 }

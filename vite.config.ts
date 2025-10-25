@@ -121,8 +121,18 @@ export default defineConfig(async (configEnv) => {
 
           // https://www.npmjs.com/package/utils4u/v/2.19.2?activeTab=code
           manualChunks: (id: string, _meta: ManualChunkMeta) => {
-            if (!id.includes('node_modules')) return;
+            /* 有一个问题: dynamic import will not move module into another chunk.
+              if (['/src/layouts'].some((prefix) => id.includes(prefix))) {
+                return 'layouts';
+              }
+            */
 
+            if (id.includes('index.page.vue')) {
+              const parentDir = path.basename(path.dirname(id));
+              return `${parentDir}-index.page`;
+            }
+
+            if (!id.includes('node_modules')) return;
             // 处理 pnpm 的特殊路径结构
             let packageName;
             if (id.includes('.pnpm')) {
@@ -140,6 +150,10 @@ export default defineConfig(async (configEnv) => {
             }
 
             if (packageName) {
+              if (['highlight.js'].includes(packageName)) {
+                return 'lib-hljs';
+              }
+
               // 根据包名分组
               if (['consola', 'lodash', '@juggle+resize-observer'].includes(packageName)) {
                 return 'lib-vendor';

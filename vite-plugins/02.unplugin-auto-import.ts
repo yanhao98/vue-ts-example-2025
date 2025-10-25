@@ -112,6 +112,9 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
         NaiveUiResolver(),
       ],
     }),
+
+    // https://github.com/unplugin/unplugin-icons?tab=readme-ov-file
+    // https://icon-sets.iconify.design
     Icons({
       autoInstall: true,
       customCollections: {
