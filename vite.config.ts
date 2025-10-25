@@ -3,7 +3,7 @@ import { createViteProxy } from 'utils4u/vite';
 import { defineConfig, loadEnv } from 'vite';
 import { loadPlugins } from './vite-plugins/_loadPlugins';
 import { optimizeDeps } from './vite.config.optimizeDeps';
-import { viteConfigRollupOptions } from './vite.config.rollup.output';
+import { viteConfigRollupOptions } from './vite.config.rollup';
 
 // https://vite.dev/config/
 export default defineConfig(async (configEnv) => {
