@@ -6,6 +6,7 @@ const modules = import.meta.glob(['./*.ts', '!./_messages-auto-imports.ts'], {
 });
 
 type MessageType = Record<string, string>;
+
 export const locales4RouteMessages: I18nOptions['messages'] = Object.entries(modules).reduce(
   (messages, [path, mod]) => {
     const locale = path.replace(/(\.\/|\.ts)/g, '');

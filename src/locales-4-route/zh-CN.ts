@@ -7,4 +7,4 @@ export default {
   DemosI18nDemo: '国际化示例',
   DemosWebsocketDemo: 'WebSocket 示例',
   Home: '首页',
-} satisfies PageTitleLocalizations;
+} as const satisfies PageTitleLocalizations;

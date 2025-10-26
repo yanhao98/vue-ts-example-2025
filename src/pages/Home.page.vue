@@ -1,10 +1,5 @@
 <script setup lang="ts">
-definePage({
-  meta: {
-    title: '首页',
-    hideInMenu: false,
-  },
-});
+definePage({ meta: { hideInMenu: false } });
 </script>
 
 <template>
