@@ -1,5 +1,6 @@
 import { cloudflare } from '@cloudflare/vite-plugin';
-import { loadEnv, type ConfigEnv, type PluginOption } from 'vite';
+import { loadEnv   } from 'vite';
+import type {ConfigEnv, PluginOption} from 'vite';
 
 export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
   const env = loadEnv(_configEnv.mode, process.cwd());
