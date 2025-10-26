@@ -81,7 +81,6 @@ export const viteConfigRollupOptions: RollupOptions = {
         }
 
         if (['naive-ui'].includes(packageName) && id.includes('_internal')) {
-          console.debug(`id :>> `, id);
           return 'lib-naive-ui-internal';
         }
 
