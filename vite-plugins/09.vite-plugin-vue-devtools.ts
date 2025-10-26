@@ -6,11 +6,12 @@ export function loadPlugin(configEnv: ConfigEnv): PluginOption {
   const env = loadEnv(configEnv.mode, process.cwd());
 
   if (configEnv.command === 'build') {
-    consola.info('VITE_ENABLE_VUE_DEVTOOLS is not enabled in build mode.');
+    consola.info('vue-devtools plugin is not used in build mode.');
     return [];
   }
 
-  if (env.VITE_ENABLE_VUE_DEVTOOLS === 'true') {
+  if (env.VITE_ENABLE_VUE_DEVTOOLS !== 'true') {
+    consola.info('vue-devtools plugin disabled by env');
     return [];
   }
 

@@ -7,5 +7,9 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
     console.log('cloudflare plugin disabled in test mode');
     return [];
   }
+  if (process.env.VITE_CLOUDFLARE_SERVER_ENABLED !== 'true') {
+    console.log('cloudflare plugin disabled by env');
+    return [];
+  }
   return [cloudflare()];
 }

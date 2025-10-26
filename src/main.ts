@@ -5,6 +5,7 @@ import './styles/index.ts';
 
 import App from './App.vue';
 
+/* `import.meta.glob(${g}, { eager: ${isSync} })`; */
 const autoInstallModules = import.meta.glob('./plugins/!(index).ts', { eager: true });
 
 import { setupPlugins } from './plugins';

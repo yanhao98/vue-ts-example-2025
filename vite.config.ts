@@ -4,9 +4,11 @@ import { defineConfig, loadEnv } from 'vite';
 import { loadPlugins } from './vite-plugins/_loadPlugins';
 import { optimizeDeps } from './vite.config.optimizeDeps';
 import { viteConfigRollupOptions } from './vite.config.rollup';
+import consola from 'consola';
 
 // https://vite.dev/config/
 export default defineConfig(async (configEnv) => {
+  consola.info(`[vite.config.ts] mode: ${configEnv.mode}, command: ${configEnv.command}`);
   const { command, mode } = configEnv;
 
   const isBuild = command === 'build';

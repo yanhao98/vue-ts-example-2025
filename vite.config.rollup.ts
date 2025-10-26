@@ -42,11 +42,15 @@ export const viteConfigRollupOptions: RollupOptions = {
     },
 
     manualChunks: (id: string, _meta: ManualChunkMeta) => {
-      /* 有一个问题: dynamic import will not move module into another chunk.
-              if (['/src/layouts'].some((prefix) => id.includes(prefix))) {
-                return 'layouts';
-              }
-            */
+      if (['/src/layouts'].some((prefix) => id.includes(prefix))) {
+        return 'layouts';
+      }
+
+      if (id.includes('meta-layouts')) {
+        // console.debug(`id :>> `, id); // id :>>  virtual:meta-layouts
+        // 这里很奇怪，打印 id 是`virtual:meta-layouts`，但是 `'virtual:meta-layouts' === id` 却是 false
+        return 'lib-meta-layouts';
+      }
 
       if (id.includes('index.page.vue')) {
         const parentDir = path.basename(path.dirname(id));
