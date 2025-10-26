@@ -39,8 +39,6 @@ export default defineConfig(async (configEnv) => {
     },
     define: {
       __DEV__: JSON.stringify(!isBuild),
-      // // https://github.com/fi3ework/vite-plugin-checker/issues/569#issuecomment-3254311799
-      // 'process.env.NODE_ENV': JSON.stringify('production'),
     },
     server: {
       allowedHosts: ['.NWCT.DEV'],

@@ -1,13 +1,13 @@
 import { cloudflare } from '@cloudflare/vite-plugin';
-
-import type { ConfigEnv, PluginOption } from 'vite';
+import { loadEnv, type ConfigEnv, type PluginOption } from 'vite';
 
 export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
+  const env = loadEnv(_configEnv.mode, process.cwd());
   if (_configEnv.mode === 'test') {
     console.log('cloudflare plugin disabled in test mode');
     return [];
   }
-  if (process.env.VITE_CLOUDFLARE_SERVER_ENABLED !== 'true') {
+  if (env.VITE_CLOUDFLARE_SERVER_ENABLED !== 'true') {
     console.log('cloudflare plugin disabled by env');
     return [];
   }
