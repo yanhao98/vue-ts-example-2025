@@ -1,13 +1,16 @@
+import pluginImport from 'eslint-plugin-import';
 import { globalIgnores } from 'eslint/config';
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
+import {
+  defineConfigWithVueTs,
+  vueTsConfigs,
+  configureVueProject,
+} from '@vue/eslint-config-typescript';
 import pluginVue from 'eslint-plugin-vue';
 import pluginVitest from '@vitest/eslint-plugin';
 import pluginPlaywright from 'eslint-plugin-playwright';
 import pluginOxlint from 'eslint-plugin-oxlint';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 
-// To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
-import { configureVueProject } from '@vue/eslint-config-typescript';
 configureVueProject({ scriptLangs: ['ts', 'tsx'] });
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
@@ -32,7 +35,22 @@ export default defineConfigWithVueTs(
     files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
   },
   ...pluginOxlint.configs['flat/recommended'],
-  skipFormatting,
+  {
+    plugins: {
+      import: pluginImport,
+    },
+    rules: {
+      'import/first': 'error',
+      'import/no-duplicates': 'error',
+      'import/newline-after-import': 'error',
+      'import/no-mutable-exports': 'error',
+      'import/no-named-default': 'error',
+      'import/no-self-import': 'error',
+      'import/no-unresolved': 'off',
+      'import/no-webpack-loader-syntax': 'error',
+      'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
+    },
+  },
 
   {
     rules: {
@@ -50,4 +68,6 @@ export default defineConfigWithVueTs(
       'vue/multi-word-component-names': 'off',
     },
   },
+
+  skipFormatting,
 );

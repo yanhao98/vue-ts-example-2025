@@ -8,7 +8,7 @@
     "node": "^20.19.0 || >=22.12.0"
   },
   "scripts": {
-    "_all": "run-p build-only format:prettier type-check lint test:unit:DisableWatch",
+    "_all": "run-p build-only type-check lint format:prettier test:unit:DisableWatch",
     "dev": "vite --port 4730 --host --strictPort",
     "build": "run-p type-check \"build-only {@}\" --",
     "build-only": "vite build",
@@ -97,6 +97,7 @@
     "@vue/tsconfig": "^0.8.1",
     "consola": "^3.4.2",
     "eslint": "^9.35.0",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-oxlint": "~1.23.0",
     "eslint-plugin-playwright": "^2.2.2",
     "eslint-plugin-vue": "~10.5.0",
