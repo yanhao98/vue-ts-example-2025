@@ -1,7 +1,8 @@
-import type { Ref } from 'vue';
 import type { MenuInst, MenuOption } from 'naive-ui';
 import { createGetRoutes } from 'virtual:meta-layouts';
-import { RouterLink, type RouteRecordRaw } from 'vue-router';
+import type { Ref } from 'vue';
+import type { RouteRecordRaw } from 'vue-router';
+import { RouterLink } from 'vue-router';
 import IconMenuRounded from '~icons/material-symbols/menu-rounded';
 
 export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<MenuInst | null> }) {

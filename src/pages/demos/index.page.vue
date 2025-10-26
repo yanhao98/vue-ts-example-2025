@@ -1,8 +1,8 @@
 <script setup lang="tsx">
-import type { FunctionalComponent } from 'vue';
-
 import hljs from 'highlight.js/lib/core';
 import json from 'highlight.js/lib/languages/json';
+import type { FunctionalComponent } from 'vue';
+
 hljs.registerLanguage('json', json);
 
 definePage({ meta: { link: true } });

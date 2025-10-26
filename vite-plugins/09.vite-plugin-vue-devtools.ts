@@ -1,5 +1,6 @@
 import consola from 'consola';
-import { loadEnv, type ConfigEnv, type PluginOption } from 'vite';
+import type { ConfigEnv, PluginOption } from 'vite';
+import { loadEnv } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
 export function loadPlugin(configEnv: ConfigEnv): PluginOption {

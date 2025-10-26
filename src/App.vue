@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { GlobalThemeOverrides } from 'naive-ui';
+import { darkTheme } from 'naive-ui';
 import { RouterView } from 'vue-router';
-import { darkTheme, type GlobalThemeOverrides } from 'naive-ui';
+
 const appStore = useAppStore();
 
 // https://www.naiveui.com/zh-CN/light/docs/customize-theme

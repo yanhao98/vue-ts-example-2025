@@ -1,19 +1,23 @@
-import type { ConfigEnv, PluginOption } from 'vite';
+import consola from 'consola';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import AutoImport from 'unplugin-auto-import/vite';
+import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import Icons from 'unplugin-icons/vite';
 import Components from 'unplugin-vue-components/vite';
-
 import { VueRouterAutoImports } from 'unplugin-vue-router';
 import { createUtils4uAutoImports } from 'utils4u/auto-imports';
-
-import { FileSystemIconLoader } from 'unplugin-icons/loaders';
+import type { ConfigEnv, PluginOption } from 'vite';
 
 // >>>>>
+// eslint-disable-next-line import/no-duplicates
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
+// eslint-disable-next-line import/no-duplicates
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 
+// eslint-disable-next-line import/no-duplicates
 import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 
 import { PrimeVueResolver } from '@primevue/auto-import-resolver';
@@ -22,10 +26,6 @@ import IconsResolver from 'unplugin-icons/resolver';
 
 import { VantResolver } from '@vant/auto-import-resolver';
 // <<<<<
-
-import consola from 'consola';
-import fs from 'node:fs';
-import path from 'node:path';
 
 function _getNaiveUiComponentNames() {
   // 方法1: 从 web-types.json 读取（推荐）
