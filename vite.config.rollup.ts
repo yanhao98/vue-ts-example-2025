@@ -52,10 +52,10 @@ export const viteConfigRollupOptions: RollupOptions = {
         return 'lib-meta-layouts';
       }
 
-      if (id.includes('index.page.vue')) {
+      /* if (id.includes('index.page.vue')) {
         const parentDir = path.basename(path.dirname(id));
         return `${parentDir}-index.page`;
-      }
+      } */
 
       if (!id.includes('node_modules')) return;
       // 处理 pnpm 的特殊路径结构
