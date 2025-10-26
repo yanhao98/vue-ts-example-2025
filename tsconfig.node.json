@@ -7,6 +7,8 @@
     "nightwatch.conf.*",
     "playwright.config.*",
     "eslint.config.*",
+    "unocss.config.*",
+    "commitlint.config.*",
     "stylelint.config.*",
     "vite-plugins",
     "fake/**/*"

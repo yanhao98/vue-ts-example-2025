@@ -1,4 +1,4 @@
-// 请确保在 `main.ts` 文件中添加以下导入语句：import 'virtual:uno.css';
+// !请确保在 `main.ts` 文件中添加以下导入语句：import 'virtual:uno.css';
 
 // https://github.dev/unocss/unocss/tree/main/examples/vite-vue3
 
