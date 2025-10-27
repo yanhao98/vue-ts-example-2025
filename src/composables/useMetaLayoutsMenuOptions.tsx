@@ -48,62 +48,68 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
     const menuMap = new Map<string, MenuOption>();
     const rootMenus: MenuOption[] = [];
 
-    // 过滤和排序路由
-    const validRoutes = routes
-      .filter((route) => {
-        // 过滤掉不需要显示的路由
-        if (route.meta?.hideInMenu === true || route.meta?.layout === false) {
-          return false;
-        }
-        // 过滤掉通配符路径
-        if (route.path.includes('*')) {
-          return false;
-        }
-        // 根据环境变量判断是否显示 /demos 开头的路由
-        if (import.meta.env.VITE_MENU_SHOW_DEMOS !== 'true' && route.path.startsWith('/demos')) {
-          return false;
-        }
-        return true;
-      })
-      // 排序路由，确保父路由总是在子路由之前，同级路由则根据 `meta.order` 排序
-      .sort((a: RouteRecordRaw, b: RouteRecordRaw) => {
-        const pathA = a.path;
-        const pathB = b.path;
-        const segmentsA = pathA.split('/').filter(Boolean);
-        const segmentsB = pathB.split('/').filter(Boolean);
-        const parentAPath = `/${segmentsA.slice(0, -1).join('/')}`;
-        const parentBPath = `/${segmentsB.slice(0, -1).join('/')}`;
+    // 过滤路由
+    const validRoutes = routes.filter((route) => {
+      // 过滤掉不需要显示的路由
+      if (route.meta?.hideInMenu === true || route.meta?.layout === false) {
+        return false;
+      }
+      // 过滤掉通配符路径
+      if (route.path.includes('*')) {
+        return false;
+      }
+      // 根据环境变量判断是否显示 /demos 开头的路由
+      if (import.meta.env.VITE_MENU_SHOW_DEMOS !== 'true' && route.path.startsWith('/demos')) {
+        return false;
+      }
+      return true;
+    });
 
-        // 如果不是同级路由，则按路径排序，确保父路由在前
-        if (parentAPath !== parentBPath) {
-          return pathA.localeCompare(pathB);
-        }
+    // 排序路由：先按路径深度分组，再按 order 排序
+    const sortedRoutes = validRoutes.slice().sort((a: RouteRecordRaw, b: RouteRecordRaw) => {
+      const pathA = a.path;
+      const pathB = b.path;
 
-        // 同级路由，处理 `meta.order`
-        const orderA = a.meta?.order;
-        const orderB = b.meta?.order;
-        const hasOrderA = orderA !== undefined;
-        const hasOrderB = orderB !== undefined;
+      // 1. 首先按路径深度排序（确保父路由在子路由之前）
+      const depthA = pathA.split('/').filter(Boolean).length;
+      const depthB = pathB.split('/').filter(Boolean).length;
+      if (depthA !== depthB) {
+        return depthA - depthB;
+      }
 
-        // 当一个有 order 而另一个没有时，有 order 的排在前面
-        if (hasOrderA !== hasOrderB) {
-          return hasOrderA ? -1 : 1;
-        }
+      // 2. 获取父路径，判断是否为同一父级下的路由
+      const segmentsA = pathA.split('/').filter(Boolean);
+      const segmentsB = pathB.split('/').filter(Boolean);
+      const parentA = segmentsA.length > 1 ? `/${segmentsA.slice(0, -1).join('/')}` : '/';
+      const parentB = segmentsB.length > 1 ? `/${segmentsB.slice(0, -1).join('/')}` : '/';
 
-        // 当两个都有 order 时，按 order 值升序排序
-        if (hasOrderA && hasOrderB) {
-          const orderDiff = orderA - orderB;
-          if (orderDiff !== 0) {
-            return orderDiff;
-          }
-        }
+      // 如果父路径不同，按父路径字母顺序排序
+      if (parentA !== parentB) {
+        return parentA.localeCompare(parentB);
+      }
 
-        // order 相同或都没有 order，按路径字母顺序排序
-        return pathA.localeCompare(pathB);
-      });
+      // 3. 同一父级下的路由，按 order 排序
+      const orderA = a.meta?.order;
+      const orderB = b.meta?.order;
+      const hasOrderA = typeof orderA === 'number';
+      const hasOrderB = typeof orderB === 'number';
+
+      // 有 order 的排在没有 order 的前面
+      if (hasOrderA && !hasOrderB) return -1;
+      if (!hasOrderA && hasOrderB) return 1;
+
+      // 都有 order 时，按 order 数值升序排序
+      if (hasOrderA && hasOrderB) {
+        const diff = (orderA as number) - (orderB as number);
+        if (diff !== 0) return diff;
+      }
+
+      // order 相同或都没有 order，按路径名字母顺序排序
+      return pathA.localeCompare(pathB);
+    });
 
     // 构建菜单树
-    for (const route of validRoutes) {
+    for (const route of sortedRoutes) {
       const pathSegments = route.path.split('/').filter(Boolean);
       const routeName = route.name as string;
 
@@ -147,30 +153,32 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
       }
     }
 
+    // 添加调试日志
+    if (import.meta.env.DEV) {
+      console.debug(
+        '排序后的路由:',
+        sortedRoutes.map((route) => ({
+          path: route.path,
+          name: route.name,
+          order: route.meta?.order,
+        })),
+      );
+    }
+
     return rootMenus;
   }
 
-  // console.debug(
-  //   '原始路由:',
-  //   JSON.stringify(
-  //     routes.map((route) => ({
-  //       // path
-  //       // name
-  //       // meta
-  //       ...route,
-  //       props: undefined,
-  //       children: undefined,
-  //       instances: undefined,
-  //       leaveGuards: undefined,
-  //       updateGuards: undefined,
-  //       enterCallbacks: undefined,
-  //       components: undefined,
-  //     })),
-  //     null,
-  //     0,
-  //   ),
-  // );
-  // console.debug('转换后的菜单:', JSON.stringify(options.value, null, 0));
+  if (import.meta.env.DEV) {
+    console.debug(
+      '原始路由:',
+      routes.map((route) => ({
+        path: route.path,
+        name: route.name,
+        order: route.meta?.order,
+      })),
+    );
+    console.debug('转换后的菜单:', options.value);
+  }
 
   return {
     options,
