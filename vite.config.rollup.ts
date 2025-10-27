@@ -42,12 +42,13 @@ export const viteConfigRollupOptions: RollupOptions = {
     },
 
     manualChunks: (id: string, _meta: ManualChunkMeta) => {
-      if (['/src/layouts'].some((prefix) => id.includes(prefix))) {
-        const url = new URL(id, 'file://');
-        if (!url.search /* ?vue&type=script&setup=true&lang.ts */) {
-          return 'layouts';
-        }
-      }
+      // https://github.com/unocss/unocss/issues/4917
+      // if (['/src/layouts'].some((prefix) => id.includes(prefix))) {
+      //   const url = new URL(id, 'file://');
+      //   if (!url.search /* ?vue&type=script&setup=true&lang.ts */) {
+      //     return 'layouts';
+      //   }
+      // }
 
       if (id.includes('meta-layouts')) {
         // console.debug(`id :>> `, id); // id :>>  virtual:meta-layouts

@@ -4,5 +4,7 @@ import UnoCSS from 'unocss/vite';
 export default [
   // https://github.com/antfu/unocss
   // see uno.config.ts for config
-  UnoCSS(),
+  UnoCSS({
+    checkImport: true,
+  }),
 ] satisfies PluginOption;
