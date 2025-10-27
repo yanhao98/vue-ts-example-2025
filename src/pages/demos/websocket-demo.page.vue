@@ -227,12 +227,12 @@ onUnmounted(() => {
           <!-- 控制按钮 -->
           <div class="grid grid-cols-2 gap-2">
             <button
-              @click="connectWebSocket"
               :disabled="wsConnected || wsLoading"
               :aria-label="
                 wsLoading ? '正在连接WebSocket' : wsConnected ? 'WebSocket已连接' : '连接WebSocket'
               "
               class="flex items-center justify-center bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:from-green-600 hover:via-green-700 hover:to-emerald-700 transition-all duration-500 disabled:opacity-50 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-sm"
+              @click="connectWebSocket"
             >
               <svg
                 v-if="wsLoading"
@@ -259,10 +259,10 @@ onUnmounted(() => {
             </button>
 
             <button
-              @click="disconnectWebSocket"
               :disabled="!wsConnected || wsLoading"
               :aria-label="!wsConnected ? 'WebSocket未连接' : '断开WebSocket连接'"
               class="flex items-center justify-center bg-gradient-to-br from-red-500 via-red-600 to-pink-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:from-red-600 hover:via-red-700 hover:to-pink-700 transition-all duration-500 disabled:opacity-50 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-sm"
+              @click="disconnectWebSocket"
             >
               <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -284,19 +284,19 @@ onUnmounted(() => {
             <input
               id="messageInput"
               v-model="messageInput"
-              @keyup.enter="sendMessage"
               placeholder="输入要发送的消息..."
               :disabled="!wsConnected"
               :aria-describedby="!wsConnected ? 'ws-status' : undefined"
               class="flex-1 w-full border-2 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:text-gray-500 transition-all duration-300 border-gray-200 dark:border-gray-600 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm text-gray-800 dark:text-gray-100 disabled:bg-gray-100/60 dark:disabled:bg-gray-800/60 hover:border-gray-300 dark:hover:border-gray-500"
+              @keyup.enter="sendMessage"
             />
             <button
-              @click="sendMessage"
               :disabled="!canSendMessage"
               :aria-label="
                 !wsConnected ? 'WebSocket未连接' : canSendMessage ? '发送消息' : '请输入消息内容'
               "
               class="flex items-center bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 transition-all duration-500 disabled:opacity-50 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-sm"
+              @click="sendMessage"
             >
               <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -309,11 +309,11 @@ onUnmounted(() => {
               发送
             </button>
             <button
-              @click="sendMockData"
               :disabled="!wsConnected"
               :aria-label="!wsConnected ? 'WebSocket未连接' : '发送随机模拟数据'"
               class="flex items-center bg-gradient-to-br from-purple-500 via-purple-600 to-violet-600 text-white font-semibold py-2.5 px-4 rounded-xl hover:from-purple-600 hover:via-purple-700 hover:to-violet-700 transition-all duration-500 disabled:opacity-50 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-sm"
               :title="!wsConnected ? 'WebSocket未连接时不可用' : '发送随机模拟数据'"
+              @click="sendMockData"
             >
               <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -354,9 +354,9 @@ onUnmounted(() => {
             </h3>
             <div class="flex gap-1">
               <button
-                @click="exportMessages"
                 class="text-xs text-gray-500 hover:text-blue-500 transition-colors duration-200 flex items-center"
                 title="导出消息"
+                @click="exportMessages"
               >
                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -369,9 +369,9 @@ onUnmounted(() => {
                 导出
               </button>
               <button
-                @click="clearMessages"
                 class="text-xs text-gray-500 hover:text-red-500 transition-colors duration-200 flex items-center"
                 title="清空消息"
+                @click="clearMessages"
               >
                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path

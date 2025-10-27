@@ -65,6 +65,7 @@ export default defineConfigWithVueTs(
         'error',
         { order: ['defineOptions', 'defineModel', 'defineProps', 'defineEmits', 'defineSlots'] },
       ],
+      'vue/attributes-order': 'error',
       'vue/multi-word-component-names': 'off',
     },
   },

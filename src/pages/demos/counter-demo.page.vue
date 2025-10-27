@@ -91,10 +91,10 @@ const resetCount = () => {
           <div class="w-full flex flex-col gap-3">
             <!-- 原生按钮 (带 touch 事件) -->
             <button
+              class="w-full bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-orange-600 hover:via-orange-700 hover:to-red-700 transition-all duration-500 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-lg"
               @touchstart="() => {}"
               @touchend="() => {}"
               @click="incrementCount"
-              class="w-full bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-orange-600 hover:via-orange-700 hover:to-red-700 transition-all duration-500 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-lg"
             >
               <span class="flex items-center justify-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -111,8 +111,8 @@ const resetCount = () => {
 
             <!-- 原生按钮 (无 touch 事件) -->
             <button
-              @click="incrementCount"
               class="w-full bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-600 hover:via-blue-700 hover:to-purple-700 transition-all duration-500 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-lg"
+              @click="incrementCount"
             >
               <span class="flex items-center justify-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,13 +129,13 @@ const resetCount = () => {
 
             <!-- Naive UI 按钮 -->
             <n-button
-              @click="incrementCount"
               type="warning"
               size="large"
               block
               strong
               secondary
               class="text-lg"
+              @click="incrementCount"
             >
               <template #icon>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -152,9 +152,9 @@ const resetCount = () => {
 
             <!-- 重置按钮 -->
             <button
-              @click="resetCount"
               :disabled="clickCount === 0"
               class="w-full bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 text-white font-semibold py-3 px-6 rounded-xl hover:from-gray-600 hover:via-gray-700 hover:to-gray-800 transition-all duration-500 disabled:opacity-50 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02]"
+              @click="resetCount"
             >
               <span class="flex items-center justify-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -8,12 +8,12 @@ const appStore = useAppStore();
 
 <template>
   <AdminLayout
+    v-model:sider-collapse="appStore.sidebarCollapsed"
     mode="horizontal"
     :footer-visible="!false"
     :tab-visible="!false"
     scroll-mode="content"
     :is-mobile="appStore.isMobile"
-    v-model:sider-collapse="appStore.sidebarCollapsed"
   >
     <template #header>
       <BaseLayoutHeader />

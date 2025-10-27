@@ -49,10 +49,10 @@ const callApi = async () => {
         </div>
 
         <button
-          @click="callApi"
           :disabled="loading"
           :aria-label="loading ? '正在调用API' : '调用API接口'"
           class="w-full bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 text-white font-semibold py-3 px-4 rounded-xl hover:from-blue-600 hover:via-blue-700 hover:to-purple-700 transition-all duration-500 disabled:opacity-50 shadow-lg hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] text-sm"
+          @click="callApi"
         >
           <span v-if="loading" class="flex items-center justify-center">
             <svg

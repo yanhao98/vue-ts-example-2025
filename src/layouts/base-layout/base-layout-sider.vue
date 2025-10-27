@@ -12,13 +12,13 @@ const appStore = useAppStore();
 <template>
   <!-- @update:value="handleMenuUpdate" -->
   <NMenu
-    mode="vertical"
     ref="menuInstRef"
+    v-model:value="selectedKey"
+    mode="vertical"
     :collapsed="appStore.sidebarCollapsed"
     :collapsed-width="64"
     :icon-size="20"
     :collapsed-icon-size="24"
-    v-model:value="selectedKey"
     :options="options"
     :inverted="false"
     :root-indent="32"
