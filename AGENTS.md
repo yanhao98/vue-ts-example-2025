@@ -29,7 +29,8 @@ Multiple auto-import systems are active:
 - **Dynamic components**: Auto-imported components cannot be used with `<component :is="..." />` syntax
   - ❌ Avoid: `<component :is="`icon-${name}`" />`
   - ✅ Use: `<icon-foo v-if="condition" />` with `v-if`/`v-else-if`/`v-else` directives
-- **In TypeScript/TSX files**: Auto-import does NOT work. You must explicitly import icons using the `~icons/` prefix:
+
+- **Icons in TypeScript/TSX files**: Auto-import for icons does NOT work. You must explicitly import them using the `~icons/` prefix:
 
   ```tsx
   import IconMenuRounded from '~icons/material-symbols/menu-rounded';
