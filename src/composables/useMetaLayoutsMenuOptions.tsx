@@ -150,8 +150,28 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
     return rootMenus;
   }
 
-  // console.debug('原始路由:', JSON.stringify(routes, null, 0));
-  // console.debug('转换后的菜单:', JSON.stringify(menuOptions.value, null, 0));
+  // console.debug(
+  //   '原始路由:',
+  //   JSON.stringify(
+  //     routes.map((route) => ({
+  //       // path
+  //       // name
+  //       // meta
+  //       ...route,
+  //       props: undefined,
+  //       children: undefined,
+  //       instances: undefined,
+  //       leaveGuards: undefined,
+  //       updateGuards: undefined,
+  //       enterCallbacks: undefined,
+  //       components: undefined,
+  //     })),
+  //     null,
+  //     0,
+  //   ),
+  // );
+  // console.debug('转换后的菜单:', JSON.stringify(options.value, null, 0));
+
   return {
     options,
     selectedKey,
