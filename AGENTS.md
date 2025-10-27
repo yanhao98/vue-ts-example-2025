@@ -22,7 +22,7 @@ Multiple auto-import systems are active:
 
 - **Vue APIs**: Core Vue, VueUse, Pinia, Vue Router, vue-i18n
 - **Components**: Auto-registered from multiple UI libraries (Naive UI, PrimeVue)
-- **Icons**: Uses `unplugin-icons` with `icon-` prefix; custom SVGs from `src/assets/icons/svgs/` available via `icon-svg:filename`
+- **Icons**: Uses `unplugin-icons` with `icon-` prefix; custom SVGs from `src/assets/icons/svgs/` available via `icon-svg-filename`
 
 **IMPORTANT - Auto-Import Limitations**:
 

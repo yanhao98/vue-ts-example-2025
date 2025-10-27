@@ -4,6 +4,7 @@ import path from 'node:path';
 
 import AutoImport from 'unplugin-auto-import/vite';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
+import IconsResolver from 'unplugin-icons/resolver';
 import Icons from 'unplugin-icons/vite';
 import Components from 'unplugin-vue-components/vite';
 import { VueRouterAutoImports } from 'unplugin-vue-router';
@@ -22,12 +23,12 @@ import { TDesignResolver } from 'unplugin-vue-components/resolvers';
 
 import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 
-import IconsResolver from 'unplugin-icons/resolver';
-
 import { VantResolver } from '@vant/auto-import-resolver';
 // <<<<<
 
 function _getNaiveUiComponentNames() {
+  // [dtsTsx](https://github.com/unplugin/unplugin-vue-components/pull/673/files/84e80738885cfe11298f41f070cda94a7a779276)
+
   // 方法1: 从 web-types.json 读取（推荐）
   const webTypesPath = path.resolve('node_modules/naive-ui/web-types.json');
   if (fs.existsSync(webTypesPath)) {
@@ -82,7 +83,7 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
             'useMessage',
             'useNotification',
             'useLoadingBar',
-            ..._getNaiveUiComponentNames(),
+            // ..._getNaiveUiComponentNames(),
           ],
         },
       ],
@@ -91,12 +92,25 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
     // https://github.com/antfu/unplugin-vue-components
     Components({
       syncMode: 'default',
+      dtsTsx: true,
+
       // `__`开头的
       excludeNames: [/^__/],
       // allow auto load markdown components under `./src/components/`
       extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+
+      include: [
+        // https://github.com/unplugin/unplugin-vue-components/blob/c9117ae93f60f81c8b5a41890cb7fa0133f34a12/src/core/unplugin.ts#L17
+
+        /\.vue$/,
+        /\.vue\?vue/,
+        /\.vue\.[tj]sx?\?vue/, // for vue-loader with experimentalInlineMatchResource enabled
+        /\.vue\?v=/,
+        //
+        /\.md$/, // allow auto import and register components used in markdown
+        /\.tsx/,
+      ],
+
       resolvers: [
         AntDesignVueResolver({
           importStyle: false, // css in js
