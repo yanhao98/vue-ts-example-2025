@@ -1,6 +1,6 @@
 import type { ManualChunkMeta, PreRenderedAsset, RollupOptions } from 'rollup';
 
-// import path from 'node:path';
+import path from 'node:path';
 
 // https://www.npmjs.com/package/utils4u/v/2.19.2?activeTab=code
 
@@ -43,7 +43,10 @@ export const viteConfigRollupOptions: RollupOptions = {
 
     manualChunks: (id: string, _meta: ManualChunkMeta) => {
       if (['/src/layouts'].some((prefix) => id.includes(prefix))) {
-        return 'layouts';
+        const url = new URL(id, 'file://');
+        if (!url.search /* ?vue&type=script&setup=true&lang.ts */) {
+          return 'layouts';
+        }
       }
 
       if (id.includes('meta-layouts')) {
@@ -52,10 +55,13 @@ export const viteConfigRollupOptions: RollupOptions = {
         return 'lib-meta-layouts';
       }
 
-      /* if (id.includes('index.page.vue')) {
-        const parentDir = path.basename(path.dirname(id));
-        return `${parentDir}-index.page`;
-      } */
+      if (id.includes('index.page.vue')) {
+        const url = new URL(id, 'file://');
+        if (!url.search /* ?vue&type=script&setup=true&lang.ts */) {
+          const parentDir = path.basename(path.dirname(id));
+          return `${parentDir}-index.page`;
+        }
+      }
 
       if (!id.includes('node_modules')) return;
       // 处理 pnpm 的特殊路径结构
@@ -84,9 +90,10 @@ export const viteConfigRollupOptions: RollupOptions = {
           return 'lib-vendor';
         }
 
-        if (['naive-ui'].includes(packageName) && id.includes('_internal')) {
-          return 'lib-naive-ui-internal';
-        }
+        // // 拆了有问题
+        // if (['naive-ui'].includes(packageName) && id.includes('_internal')) {
+        //   return 'lib-naive-ui-internal';
+        // }
 
         if (['naive-ui'].includes(packageName)) {
           return 'lib-naive-ui';
