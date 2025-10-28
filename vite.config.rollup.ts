@@ -100,7 +100,11 @@ export const viteConfigRollupOptions: RollupOptions = {
           return 'lib-naive-ui';
         }
 
-        if (['primelocale', 'primevue', '@primeuix'].some((name) => packageName!.includes(name))) {
+        if (
+          ['primelocale', 'primevue', '@primeuix', 'primeicons'].some((name) =>
+            packageName!.includes(name),
+          )
+        ) {
           return 'lib-primevue';
         }
 
