@@ -2,4 +2,5 @@
 echo "🧹 [Pre-commit] 正在运行 lint-staged..."
 time pnpm exec lint-staged
 time pnpm run lint:vue-i18n-extract
+# time pnpm run type-check
 echo "🧹 [Pre-commit] lint-staged 完成！"

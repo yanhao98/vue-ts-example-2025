@@ -20,7 +20,7 @@ export const viteConfigRollupOptions: RollupOptions = {
     // assetFileNames:'', // 默认：	"assets/[name]-[hash][extname]"
     // https://cn.rollupjs.org/configuration-options/#output-assetfilenames
     assetFileNames(chunkInfo: PreRenderedAsset) {
-      const names = chunkInfo.names;
+      const names = [...new Set(chunkInfo.names)];
 
       if (names.length !== 1) {
         console.error('Multiple names for asset:', chunkInfo);

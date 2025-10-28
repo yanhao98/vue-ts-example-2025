@@ -1,0 +1,8 @@
+.p-confirmdialog,
+.p-toast {
+  max-width: calc(100% - 50px);
+}
+
+.p-toast .p-toast-message-text {
+  margin-top: -0.2rem;
+}

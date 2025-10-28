@@ -73,7 +73,7 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
         'pinia',
         '@vueuse/core',
         VueRouterAutoImports,
-        createUtils4uAutoImports([]),
+        createUtils4uAutoImports(['primevue']),
         {
           'consola/browser': ['consola'],
           'vue-router/auto': ['useLink'],

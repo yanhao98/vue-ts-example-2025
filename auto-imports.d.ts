@@ -7,7 +7,10 @@
 export {}
 declare global {
   const APP_THEME_MODES: typeof import('./src/stores/app-store')['APP_THEME_MODES']
+  const ConfirmationService: typeof import('utils4u/primevue')['ConfirmationService']
+  const DialogService: typeof import('utils4u/primevue')['DialogService']
   const EffectScope: typeof import('vue')['EffectScope']
+  const ToastService: typeof import('utils4u/primevue')['ToastService']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const arrayToTree: typeof import('utils4u/array')['arrayToTree']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -255,6 +258,7 @@ declare global {
   const usePreferredReducedMotion: typeof import('@vueuse/core')['usePreferredReducedMotion']
   const usePreferredReducedTransparency: typeof import('@vueuse/core')['usePreferredReducedTransparency']
   const usePrevious: typeof import('@vueuse/core')['usePrevious']
+  const usePrimevueDialogRef: typeof import('utils4u/primevue')['usePrimevueDialogRef']
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useRefs: typeof import('utils4u/vue-use')['useRefs']
@@ -345,7 +349,10 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly APP_THEME_MODES: UnwrapRef<typeof import('./src/stores/app-store')['APP_THEME_MODES']>
+    readonly ConfirmationService: UnwrapRef<typeof import('utils4u/primevue')['ConfirmationService']>
+    readonly DialogService: UnwrapRef<typeof import('utils4u/primevue')['DialogService']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ToastService: UnwrapRef<typeof import('utils4u/primevue')['ToastService']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly arrayToTree: UnwrapRef<typeof import('utils4u/array')['arrayToTree']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
@@ -593,6 +600,7 @@ declare module 'vue' {
     readonly usePreferredReducedMotion: UnwrapRef<typeof import('@vueuse/core')['usePreferredReducedMotion']>
     readonly usePreferredReducedTransparency: UnwrapRef<typeof import('@vueuse/core')['usePreferredReducedTransparency']>
     readonly usePrevious: UnwrapRef<typeof import('@vueuse/core')['usePrevious']>
+    readonly usePrimevueDialogRef: UnwrapRef<typeof import('utils4u/primevue')['usePrimevueDialogRef']>
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useRefs: UnwrapRef<typeof import('utils4u/vue-use')['useRefs']>

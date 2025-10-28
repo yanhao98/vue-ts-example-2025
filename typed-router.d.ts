@@ -65,6 +65,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    'DemosPrimevueDemo': RouteRecordInfo<
+      'DemosPrimevueDemo',
+      '/demos/primevue-demo',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     'DemosWebsocketDemo': RouteRecordInfo<
       'DemosWebsocketDemo',
       '/demos/websocket-demo',
@@ -75,6 +82,13 @@ declare module 'vue-router/auto-routes' {
     'Home': RouteRecordInfo<
       'Home',
       '/Home',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
+    'Login': RouteRecordInfo<
+      'Login',
+      '/Login',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -128,6 +142,12 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
+    'src/pages/demos/primevue-demo.page.vue': {
+      routes:
+        | 'DemosPrimevueDemo'
+      views:
+        | never
+    }
     'src/pages/demos/websocket-demo.page.vue': {
       routes:
         | 'DemosWebsocketDemo'
@@ -137,6 +157,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/Home.page.vue': {
       routes:
         | 'Home'
+      views:
+        | never
+    }
+    'src/pages/Login.page.vue': {
+      routes:
+        | 'Login'
       views:
         | never
     }

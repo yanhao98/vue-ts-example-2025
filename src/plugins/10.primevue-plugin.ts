@@ -6,6 +6,7 @@ import Aura from '@primeuix/themes/aura';
 import zhCN from 'primelocale/zh-CN.json';
 import PrimeVue from 'primevue/config';
 import StyleClass from 'primevue/styleclass';
+import ToastService from 'primevue/toastservice';
 
 export function install({ app }: { app: import('vue').App<Element> }) {
   app.directive('styleclass', StyleClass);
@@ -25,4 +26,5 @@ export function install({ app }: { app: import('vue').App<Element> }) {
       preset: Aura,
     },
   });
+  app.use(ToastService);
 }
