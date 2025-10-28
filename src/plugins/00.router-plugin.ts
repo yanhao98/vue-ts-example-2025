@@ -32,7 +32,7 @@ export function install({ app }: { app: import('vue').App<Element> }) {
 {
   // 警告：路由守卫的创建顺序会影响执行流程，请勿调整
   createNProgressGuard(router);
-  createLogGuard(router);
+  if (import.meta.env.VITE_APP_ENABLE_ROUTER_LOG_GUARD === 'true') createLogGuard(router);
   Object.assign(globalThis, { stack: createStackGuard(router) });
 }
 

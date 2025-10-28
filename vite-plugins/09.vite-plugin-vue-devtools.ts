@@ -11,7 +11,7 @@ export function loadPlugin(configEnv: ConfigEnv): PluginOption {
     return [];
   }
 
-  if (env.VITE_ENABLE_VUE_DEVTOOLS !== 'true') {
+  if (env.VITE_APP_ENABLE_VUE_DEVTOOLS !== 'true') {
     consola.info('vue-devtools plugin disabled by env');
     return [];
   }

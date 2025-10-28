@@ -59,7 +59,7 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
         return false;
       }
       // 根据环境变量判断是否显示 /demos 开头的路由
-      if (import.meta.env.VITE_MENU_SHOW_DEMOS !== 'true' && route.path.startsWith('/demos')) {
+      if (import.meta.env.VITE_APP_MENU_SHOW_DEMOS !== 'true' && route.path.startsWith('/demos')) {
         return false;
       }
       return true;
@@ -114,7 +114,7 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
       const routeName = route.name as string;
 
       let text = te(routeName) ? t(routeName) : route.meta?.title || routeName;
-      if (import.meta.env.VITE_MENU_SHOW_ORDER === 'true' && route.meta?.order) {
+      if (import.meta.env.VITE_APP_MENU_SHOW_ORDER === 'true' && route.meta?.order) {
         const order = String(route.meta.order).padStart(orderMaxLength, '0');
         text = `${order}. ${text}`;
       }
