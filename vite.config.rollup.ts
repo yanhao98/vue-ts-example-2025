@@ -101,7 +101,7 @@ export const viteConfigRollupOptions: RollupOptions = {
         }
 
         if (
-          ['primelocale', 'primevue', '@primeuix', 'primeicons'].some((name) =>
+          ['primelocale', 'primevue', 'primeuix', 'primeicons'].some((name) =>
             packageName!.includes(name),
           )
         ) {
