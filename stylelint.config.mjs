@@ -41,5 +41,6 @@ export default defineConfig({
     // SCSS 专用的 at-rule 规则会自动处理 @include, @mixin 等
     // 'scss/at-rule-no-unknown': true,
     // <<<<<
+    'selector-class-pattern': null,
   },
 });
