@@ -7,10 +7,12 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 import { createI18n } from 'vue-i18n';
 
 export function install({ app }: { app: import('vue').App<Element> }) {
+  const locale = useLocalStorage<string>('app-locale', navigator.language);
+
   // https://vue-i18n.intlify.dev/guide/essentials/started.html#registering-the-i18n-plugin
   const i18n = createI18n({
     legacy: false, // you must set `false`, to use Composition API
-    locale: navigator.language,
+    locale: locale.value,
     fallbackRoot: false,
     // flatJson: true,
     missing: (locale, key /* , instance, type */) => {
@@ -20,6 +22,9 @@ export function install({ app }: { app: import('vue').App<Element> }) {
     missingWarn: !true,
     fallbackWarn: !true,
     messages,
+  });
+  watchEffect(() => {
+    locale.value = i18n.global.locale.value;
   });
   app.use(i18n);
 }
