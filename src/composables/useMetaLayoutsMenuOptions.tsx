@@ -16,7 +16,7 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
       return key;
     },
     fallbackRoot: true,
-    messages: locales4RouteMessages,
+    messages: i18nRouteMessages,
   });
 
   // 获取路由表但是不包含布局路由

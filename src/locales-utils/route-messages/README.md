@@ -1,4 +1,4 @@
-# `locales-4-route`
+# route-messages
 
 此目录存放专门用于**路由名称**的国际化（i18n）消息。这些消息通过一套自定义的编译时安全机制，为应用的导航菜单提供标题。
 
@@ -27,7 +27,7 @@
 3.  **编译时检查**：此目录下的每个语言环境文件（如 `en-US.ts`）都必须使用 `satisfies PageTitleLocalizations` 来进行类型断言。
 
     ```typescript
-    // src/locales-4-route/en-US.ts
+    // ./en-US.ts
     export default { ... } satisfies PageTitleLocalizations;
     ```
 
@@ -52,13 +52,13 @@
     使用上一步中自动生成的 `name` 作为键，在此目录的每个语言文件中添加翻译。
 
     ```ts
-    // src/locales-4-route/zh-CN.ts
+    // ./zh-CN.ts
     export default {
       // ... 其他翻译
       DemosApiDemo: 'API 演示',
     } satisfies PageTitleLocalizations;
 
-    // src/locales-4-route/en-US.ts
+    // ./en-US.ts
     export default {
       // ... 其他翻译
       DemosApiDemo: 'API Demo',

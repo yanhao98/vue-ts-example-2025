@@ -1,13 +1,9 @@
 <script setup lang="ts">
-definePage({
-  meta: {
-    order: 1,
-  },
-});
-const { t, locale } = useI18n();
+definePage({ meta: { order: 1 } });
+const { t, locale } = useI18n({});
 
 function setLocale(newLocale: 'en-US' | 'zh-CN') {
-  locale.value = newLocale;
+  i18nInstance.global.locale.value = newLocale;
 }
 </script>
 

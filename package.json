@@ -35,7 +35,7 @@
     "{src,packages}/**/*.{css,less,scss,vue}": [
       "stylelint --fix"
     ],
-    "{src/locales-4-route,src/locales}/**/*": "node scripts/type-check-for-lint-staged.mjs"
+    "{src/locales-utils,src/locales}/**/*": "node scripts/type-check-for-lint-staged.mjs"
   },
   "pnpm": {
     "overrides": {

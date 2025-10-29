@@ -53,6 +53,8 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getCurrentWatcher: typeof import('vue')['getCurrentWatcher']
   const h: typeof import('vue')['h']
+  const i18nInstance: typeof import('./src/locales-utils/i18n-auto-imports')['i18nInstance']
+  const i18nRouteMessages: typeof import('./src/locales-utils/route-messages/route-messages-auto-imports')['i18nRouteMessages']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
@@ -62,7 +64,6 @@ declare global {
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
   const isShallow: typeof import('vue')['isShallow']
-  const locales4RouteMessages: typeof import('./src/locales-4-route/_messages-auto-imports')['locales4RouteMessages']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const mapActions: typeof import('pinia')['mapActions']
   const mapGetters: typeof import('pinia')['mapGetters']
@@ -395,6 +396,8 @@ declare module 'vue' {
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getCurrentWatcher: UnwrapRef<typeof import('vue')['getCurrentWatcher']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly i18nInstance: UnwrapRef<typeof import('./src/locales-utils/i18n-auto-imports')['i18nInstance']>
+    readonly i18nRouteMessages: UnwrapRef<typeof import('./src/locales-utils/route-messages/route-messages-auto-imports')['i18nRouteMessages']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
@@ -404,7 +407,6 @@ declare module 'vue' {
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly isShallow: UnwrapRef<typeof import('vue')['isShallow']>
-    readonly locales4RouteMessages: UnwrapRef<typeof import('./src/locales-4-route/_messages-auto-imports')['locales4RouteMessages']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly mapActions: UnwrapRef<typeof import('pinia')['mapActions']>
     readonly mapGetters: UnwrapRef<typeof import('pinia')['mapGetters']>
