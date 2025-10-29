@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { useAppStore } from '@/stores/app-store';
+import { useAppStore } from '@/stores/app-store-auto-imports';
 
 const menuInstRef = useTemplateRef('menuInstRef');
 const { options, selectedKey } = useMetaLayoutsNMenuOptions({

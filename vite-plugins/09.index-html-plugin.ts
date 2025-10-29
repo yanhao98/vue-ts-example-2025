@@ -1,5 +1,6 @@
-import type { PluginOption } from 'vite';
 import { minify as minifyHtml } from 'html-minifier-terser';
+import { loadEnv } from 'vite';
+import type { ConfigEnv, PluginOption } from 'vite';
 
 function IndexHtmlPlugin(): PluginOption {
   return {
@@ -25,4 +26,7 @@ function IndexHtmlPlugin(): PluginOption {
   };
 }
 
-export default [IndexHtmlPlugin()] satisfies PluginOption[];
+export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
+  const env = loadEnv(_configEnv.mode, process.cwd());
+  if (env.VITE_BUILD_MINIFY === 'true') return IndexHtmlPlugin();
+}

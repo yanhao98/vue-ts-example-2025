@@ -6,7 +6,6 @@
 // biome-ignore lint: disable
 export {}
 declare global {
-  const APP_THEME_MODES: typeof import('./src/stores/app-store')['APP_THEME_MODES']
   const ConfirmationService: typeof import('utils4u/primevue')['ConfirmationService']
   const DialogService: typeof import('utils4u/primevue')['DialogService']
   const EffectScope: typeof import('vue')['EffectScope']
@@ -141,7 +140,7 @@ declare global {
   const until: typeof import('@vueuse/core')['until']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useAnimate: typeof import('@vueuse/core')['useAnimate']
-  const useAppStore: typeof import('./src/stores/app-store')['useAppStore']
+  const useAppStore: typeof import('./src/stores/app-store-auto-imports')['useAppStore']
   const useArrayDifference: typeof import('@vueuse/core')['useArrayDifference']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
   const useArrayFilter: typeof import('@vueuse/core')['useArrayFilter']
@@ -340,8 +339,8 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, ShallowRef, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { AppThemeMode } from './src/stores/app-store'
-  import('./src/stores/app-store')
+  export type { AppThemeMode } from './src/stores/app-store-auto-imports'
+  import('./src/stores/app-store-auto-imports')
 }
 
 // for vue template auto import
@@ -349,7 +348,6 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
-    readonly APP_THEME_MODES: UnwrapRef<typeof import('./src/stores/app-store')['APP_THEME_MODES']>
     readonly ConfirmationService: UnwrapRef<typeof import('utils4u/primevue')['ConfirmationService']>
     readonly DialogService: UnwrapRef<typeof import('utils4u/primevue')['DialogService']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
@@ -484,7 +482,7 @@ declare module 'vue' {
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
-    readonly useAppStore: UnwrapRef<typeof import('./src/stores/app-store')['useAppStore']>
+    readonly useAppStore: UnwrapRef<typeof import('./src/stores/app-store-auto-imports')['useAppStore']>
     readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
     readonly useArrayFilter: UnwrapRef<typeof import('@vueuse/core')['useArrayFilter']>

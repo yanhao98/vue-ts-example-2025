@@ -4,7 +4,7 @@ const appStore = useAppStore();
 const themeLabels: Record<AppThemeMode, string> = {
   light: '浅色',
   dark: '深色',
-  system: '跟随系统',
+  auto: '跟随系统',
 };
 </script>
 
@@ -12,7 +12,7 @@ const themeLabels: Record<AppThemeMode, string> = {
   <NTooltip :disabled="appStore.isMobile" placement="bottom-end">
     {{ themeLabels[appStore.themeMode] }}
     <template #trigger>
-      <NButton quaternary @click="appStore.cycleTheme">
+      <NButton quaternary @click="appStore.cycleTheme()">
         <icon-line-md-sunny-filled-loop-to-moon-filled-loop-transition
           v-if="appStore.themeMode === 'light'"
           w-4.5

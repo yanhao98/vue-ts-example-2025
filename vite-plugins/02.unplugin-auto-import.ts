@@ -63,7 +63,7 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
       dirs: [
         // 'src/utils',
         'src/composables',
-        'src/stores',
+        // 'src/stores',
         // 匹配所有 -auto-imports.ts / -auto-imports.tsx 结尾的文件
         'src/**/*-auto-imports.{ts,tsx}',
       ],
