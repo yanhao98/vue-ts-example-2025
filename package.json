@@ -17,7 +17,7 @@
     "format:prettier": "prettier --write src/",
     "type-check": "vue-tsc --build",
     "lint": "run-s lint:*",
-    "lint:vue-i18n-extract": "vue-i18n-extract report --vueFiles './src/**/*.?(ts|tsx|vue)' --languageFiles './src/locales/*.?(json|yml|yaml|js)' --ci",
+    "lint:vue-i18n-extract": "vue-i18n-extract report --vueFiles './src/**/*.?(ts|tsx|vue)' --languageFiles './src/locales/**/*.?(json|yml|yaml|js)' --ci",
     "lint:stylelint": "stylelint --fix --ignore-path .gitignore \"**/*.{css,less,scss,vue}\"",
     "lint:oxlint": "oxlint . --fix -D correctness --ignore-path .gitignore",
     "lint:eslint": "eslint . --fix",

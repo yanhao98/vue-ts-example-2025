@@ -1,10 +1,1 @@
-{
-  "page": {
-    "i18n-demo": {
-      "title": "Vue I18n Demo",
-      "current-language": "Current Language",
-      "change-language": "Change Language",
-      "hello": "Hello, {name}!"
-    }
-  }
-}
+{}
