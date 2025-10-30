@@ -30,9 +30,6 @@ declare global {
     $nMessage?: import('naive-ui').MessageProviderInst;
     $nNotification?: import('naive-ui').NotificationProviderInst;
   }
-
-  /** Build time of the project */
-  export const BUILD_TIME: string;
 }
 </script>
 
