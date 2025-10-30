@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { GlobalThemeOverrides } from 'naive-ui';
-import { darkTheme } from 'naive-ui';
+import { darkTheme, dateZhCN, zhCN } from 'naive-ui';
 import type { FunctionalComponent } from 'vue';
 import { createTextVNode } from 'vue';
 
@@ -38,6 +38,8 @@ declare global {
 
 <template>
   <NConfigProvider
+    :locale="zhCN"
+    :date-locale="dateZhCN"
     :theme-overrides
     preflight-style-disabled
     :theme="appStore.isDark ? darkTheme : null"
