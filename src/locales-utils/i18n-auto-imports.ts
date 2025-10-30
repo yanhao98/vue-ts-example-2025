@@ -7,6 +7,9 @@ import messages from '@intlify/unplugin-vue-i18n/messages';
 import { createI18n } from 'vue-i18n';
 
 const locale = useLocalStorage<string>('app-locale', navigator.language);
+watchEffect(() => {
+  window.document.documentElement.setAttribute('lang', locale.value);
+});
 
 // https://vue-i18n.intlify.dev/guide/essentials/started.html#registering-the-i18n-plugin
 export const i18nInstance = createI18n({
