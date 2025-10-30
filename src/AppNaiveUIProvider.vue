@@ -13,6 +13,7 @@ const themeOverrides: GlobalThemeOverrides = {
 
 const ContextHolder: FunctionalComponent = () => {
   window.$nLoadingBar = useLoadingBar();
+  window.$nModal = useModal();
   window.$nDialog = useDialog();
   window.$nMessage = useMessage();
   window.$nNotification = useNotification();
@@ -24,6 +25,7 @@ const ContextHolder: FunctionalComponent = () => {
 declare global {
   export interface Window {
     $nLoadingBar?: import('naive-ui').LoadingBarProviderInst;
+    $nModal?: import('naive-ui').ModalProviderInst;
     $nDialog?: import('naive-ui').DialogProviderInst;
     $nMessage?: import('naive-ui').MessageProviderInst;
     $nNotification?: import('naive-ui').NotificationProviderInst;
@@ -41,15 +43,17 @@ declare global {
     :theme="appStore.isDark ? darkTheme : null"
     abstract
   >
-    <NLoadingBarProvider>
-      <NDialogProvider>
-        <NNotificationProvider>
-          <NMessageProvider>
-            <ContextHolder />
-            <slot></slot>
-          </NMessageProvider>
-        </NNotificationProvider>
-      </NDialogProvider>
-    </NLoadingBarProvider>
+    <n-loading-bar-provider>
+      <n-message-provider>
+        <n-notification-provider>
+          <n-modal-provider>
+            <n-dialog-provider>
+              <slot></slot>
+              <ContextHolder />
+            </n-dialog-provider>
+          </n-modal-provider>
+        </n-notification-provider>
+      </n-message-provider>
+    </n-loading-bar-provider>
   </NConfigProvider>
 </template>

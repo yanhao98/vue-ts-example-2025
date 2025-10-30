@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useDialog, useMessage } from 'naive-ui';
+import { useDialog, useMessage, useModal } from 'naive-ui';
 import type { MessageType } from 'naive-ui';
 
 definePage({ meta: {} });
 
 const message = useMessage();
 const dialog = useDialog();
+const modal = useModal();
 
 const messageTypes = ['info', 'success', 'warning', 'error', 'loading'] satisfies MessageType[];
 const dialogTypes = ['info', 'success', 'warning', 'error'] as const;
@@ -33,6 +34,23 @@ const openDialog = (type: (typeof dialogTypes)[number]) => {
     onNegativeClick: () => {
       message.error('点击了取消');
     },
+  });
+};
+
+const openModal = () => {
+  modal.create({
+    title: '命令式 Modal 示例',
+    content: '这是一个命令式 API 创建的 Modal 示例，使用 preset="dialog"。',
+    preset: 'dialog',
+    maskClosable: false,
+    onPositiveClick: () => {
+      message.success('点击了确定');
+    },
+    onNegativeClick: () => {
+      message.error('点击了取消');
+    },
+    positiveText: '确定',
+    negativeText: '取消',
   });
 };
 </script>
@@ -68,6 +86,12 @@ const openDialog = (type: (typeof dialogTypes)[number]) => {
           <NButton v-for="type in dialogTypes" :key="type" @click="openDialog(type)">
             {{ type }}
           </NButton>
+        </NSpace>
+      </NCard>
+
+      <NCard title="Modal 弹窗 (命令式 API)" class="mt-4">
+        <NSpace>
+          <NButton @click="openModal"> 打开 Modal </NButton>
         </NSpace>
       </NCard>
     </NCard>
