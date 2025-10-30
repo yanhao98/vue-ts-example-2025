@@ -14,7 +14,6 @@ const themeOverrides: GlobalThemeOverrides = {
 const ContextHolder: FunctionalComponent = () => {
   window.$nLoadingBar = useLoadingBar();
   window.$nDialog = useDialog();
-  window.$nModal = useModal();
   window.$nMessage = useMessage();
   window.$nNotification = useNotification();
   return createTextVNode();
@@ -26,7 +25,6 @@ declare global {
   export interface Window {
     $nLoadingBar?: import('naive-ui').LoadingBarProviderInst;
     $nDialog?: import('naive-ui').DialogProviderInst;
-    $nModal?: import('naive-ui').ModalProviderInst;
     $nMessage?: import('naive-ui').MessageProviderInst;
     $nNotification?: import('naive-ui').NotificationProviderInst;
   }
@@ -45,14 +43,12 @@ declare global {
   >
     <NLoadingBarProvider>
       <NDialogProvider>
-        <NModalProvider>
-          <NNotificationProvider>
-            <NMessageProvider>
-              <ContextHolder />
-              <slot></slot>
-            </NMessageProvider>
-          </NNotificationProvider>
-        </NModalProvider>
+        <NNotificationProvider>
+          <NMessageProvider>
+            <ContextHolder />
+            <slot></slot>
+          </NMessageProvider>
+        </NNotificationProvider>
       </NDialogProvider>
     </NLoadingBarProvider>
   </NConfigProvider>
