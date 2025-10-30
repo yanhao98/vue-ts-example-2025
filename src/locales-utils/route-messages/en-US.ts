@@ -5,6 +5,7 @@ export default {
   DemosApiDemo: 'API Demo',
   DemosCounterDemo: 'Counter Demo',
   DemosI18nDemo: 'i18n Demo',
+  DemosNaiveUiDemo: 'Naive UI Demo',
   DemosPrimevueDemo: 'PrimeVue Demo',
   DemosWebsocketDemo: 'WebSocket Demo',
   Home: 'Home',
