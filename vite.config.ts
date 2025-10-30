@@ -13,6 +13,11 @@ export default defineConfig(async (configEnv) => {
 
   const isBuild = command === 'build';
   const env = loadEnv(mode, process.cwd());
+  if (process.env.CI) {
+    for (const [key, value] of Object.entries(env)) {
+      consola.info(`[vite.config.ts] env: ${key}: ${value}`);
+    }
+  }
 
   return {
     base: env.VITE_APP_BASE,
