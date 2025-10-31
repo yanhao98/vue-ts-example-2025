@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useDialog, useMessage, useModal } from 'naive-ui';
 import type { MessageType } from 'naive-ui';
+import { useDialog, useMessage } from 'naive-ui';
+import UseSafeNForm from './use-safe-n-form.vue';
 
 definePage({ meta: {} });
 
 const message = useMessage();
 const dialog = useDialog();
-const modal = useModal();
 
 const messageTypes = ['info', 'success', 'warning', 'error', 'loading'] satisfies MessageType[];
 const dialogTypes = ['info', 'success', 'warning', 'error'] as const;
@@ -38,11 +38,10 @@ const openDialog = (type: (typeof dialogTypes)[number]) => {
 };
 
 const openModal = () => {
-  modal.create({
+  window.$nModal!.create({
     title: '命令式 Modal 示例',
     content: '这是一个命令式 API 创建的 Modal 示例，使用 preset="dialog"。',
     preset: 'dialog',
-    maskClosable: false,
     onPositiveClick: () => {
       message.success('点击了确定');
     },
@@ -62,7 +61,9 @@ const openModal = () => {
       <NAlert title="信息" type="info" :bordered="false">
         演示 Naive UI 各种组件的使用方法和功能特性
       </NAlert>
-
+      <n-card title="SafeNForm" mt-4>
+        <UseSafeNForm />
+      </n-card>
       <NCard title="Message 消息" class="mt-4">
         <NSpace>
           <NButton

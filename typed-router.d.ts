@@ -149,7 +149,7 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'src/pages/demos/naive-ui-demo.page.vue': {
+    'src/pages/demos/naive-ui-demo/index.page.vue': {
       routes:
         | 'DemosNaiveUiDemo'
       views:
