@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { formValue, SafeNForm, SafeNFormItem, formRef } = useSafeNForm({
+const { formInst, formValue, SafeNForm, SafeNFormItem } = useSafeNForm({
   initialFormValue: {
     /* ⚠️:
       如果没使用`SafeNFormItem`，
@@ -15,7 +15,7 @@ const { formValue, SafeNForm, SafeNFormItem, formRef } = useSafeNForm({
 });
 
 function handleValidateClick() {
-  formRef.value?.validate((errors) => {
+  formInst.value?.validate((errors) => {
     if (!errors) {
       window.$nMessage!.success('Valid');
     } else {

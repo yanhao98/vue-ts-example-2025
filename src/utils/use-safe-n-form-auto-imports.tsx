@@ -18,7 +18,7 @@ type UseSafeNFormOptions<FormValue> = {
 export function useSafeNForm<T extends Record<string, any> = Record<string, unknown>>(
   options: UseSafeNFormOptions<T> = {},
 ) {
-  const formRef = ref<FormInst | null>(null);
+  const formInst = ref<FormInst | null>(null);
   const formValue = ref<T>(structuredClone(toRaw(options.initialFormValue)) || ({} as T));
 
   // 创建类型安全的 Form 组件
@@ -35,7 +35,7 @@ export function useSafeNForm<T extends Record<string, any> = Record<string, unkn
           {...props}
           model={formValue.value}
           ref={(inst) => {
-            formRef.value = inst as unknown as FormInst;
+            formInst.value = inst as unknown as FormInst;
           }}
         >
           {ctx.slots.default?.({})}
@@ -116,6 +116,6 @@ export function useSafeNForm<T extends Record<string, any> = Record<string, unkn
     formValue,
     SafeNForm,
     SafeNFormItem,
-    formRef,
+    formInst,
   };
 }
