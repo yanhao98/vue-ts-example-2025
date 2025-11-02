@@ -19,6 +19,17 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
     messages: i18nRouteMessages,
   });
 
+  // FIXME: 这个逻辑放在这里不太合适。
+  watch(
+    () => router.currentRoute.value,
+    (currentRoute) => {
+      const routeName = currentRoute.name;
+      const text = te(routeName) ? t(routeName) : routeName;
+      currentRoute.meta!.title = text;
+    },
+    { immediate: true },
+  );
+
   // 获取路由表但是不包含布局路由
   const routes = createGetRoutes(router)();
 
@@ -113,7 +124,7 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
       const pathSegments = route.path.split('/').filter(Boolean);
       const routeName = route.name as string;
 
-      let text = te(routeName) ? t(routeName) : route.meta?.title || routeName;
+      let text = te(routeName) ? t(routeName) : routeName;
       if (import.meta.env.VITE_APP_MENU_SHOW_ORDER === 'true' && route.meta?.order) {
         const order = String(route.meta.order).padStart(orderMaxLength, '0');
         text = `${order}. ${text}`;
