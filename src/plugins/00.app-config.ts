@@ -10,17 +10,4 @@ export function install({ app }: { app: import('vue').App<Element> }) {
     // 2. 显示全局错误提示
     // 3. 进行错误分析和处理
   };
-
-  // if (import.meta.env.MODE === 'development' && '1' === ('2' as never)) {
-  //   // TODO: https://github.com/hu3dao/vite-plugin-debug/
-  //   // https://eruda.liriliri.io/zh/docs/#快速上手
-  //   import('eruda').then(({ default: eruda }) => {
-  //     eruda.init({
-  //       defaults: {
-  //         transparency: 0.9,
-  //       },
-  //     })
-  //     /* eruda.show(); */
-  //   })
-  // }
 }
