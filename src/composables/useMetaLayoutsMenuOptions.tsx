@@ -8,7 +8,7 @@ import IconMenuRounded from '~icons/material-symbols/menu-rounded';
 export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<MenuInst | null> }) {
   const router = useRouter();
 
-  const { t, te } = useI18n({
+  const { t, te, locale } = useI18n({
     inheritLocale: true,
     useScope: 'local',
     missing: (locale, key) => {
@@ -21,8 +21,8 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
 
   // FIXME: 这个逻辑放在这里不太合适。
   watch(
-    () => router.currentRoute.value,
-    (currentRoute) => {
+    () => [router.currentRoute.value, locale.value] as const,
+    ([currentRoute]) => {
       const routeName = currentRoute.name;
       const text = te(routeName) ? t(routeName) : routeName;
       currentRoute.meta!.title = text;
