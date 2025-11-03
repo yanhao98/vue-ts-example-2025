@@ -24,8 +24,6 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
         ? router.resolve({ name: route.meta.activeMenuName }).path
         : route.path;
 
-      console.debug(`route.meta.activeMenuName :>> `, route.meta.activeMenuName);
-
       selectedKey.value = activeMenuPath;
       menuInstRef.value?.showOption(activeMenuPath); // 展开菜单，确保设定的元素被显示
     },
