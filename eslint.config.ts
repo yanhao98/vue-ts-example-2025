@@ -1,15 +1,17 @@
-import pluginImport from 'eslint-plugin-import';
-import { globalIgnores } from 'eslint/config';
+import pluginVitest from '@vitest/eslint-plugin';
+import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 import {
+  configureVueProject,
   defineConfigWithVueTs,
   vueTsConfigs,
-  configureVueProject,
 } from '@vue/eslint-config-typescript';
-import pluginVue from 'eslint-plugin-vue';
-import pluginVitest from '@vitest/eslint-plugin';
-import pluginPlaywright from 'eslint-plugin-playwright';
+import pluginImport from 'eslint-plugin-import';
+import pluginJsonc from 'eslint-plugin-jsonc';
 import pluginOxlint from 'eslint-plugin-oxlint';
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
+import pluginPlaywright from 'eslint-plugin-playwright';
+import pluginVue from 'eslint-plugin-vue';
+import { globalIgnores } from 'eslint/config';
+import jsoncParser from 'jsonc-eslint-parser';
 
 configureVueProject({ scriptLangs: ['ts', 'tsx'] });
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
@@ -50,6 +52,19 @@ export default defineConfigWithVueTs(
       'import/no-webpack-loader-syntax': 'error',
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     },
+  },
+
+  {
+    /**
+     * 启用 sort-keys 规则以强制对象键按字母顺序排序
+     * 原因：
+     * 1. 减少多人协作时的合并冲突
+     * 2. 保持代码一致性，提高可维护性
+     */
+    files: ['src/locales/**/*.json'],
+    languageOptions: { parser: jsoncParser },
+    plugins: { jsonc: pluginJsonc },
+    rules: { 'jsonc/sort-keys': 'error' },
   },
 
   {

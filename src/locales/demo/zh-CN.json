@@ -1,10 +1,10 @@
 {
   "page": {
     "i18n-demo": {
-      "title": "Vue I18n 示例",
-      "current-language": "当前语言",
       "change-language": "切换语言",
-      "hello": "你好, {name}！"
+      "current-language": "当前语言",
+      "hello": "你好, {name}！",
+      "title": "Vue I18n 示例"
     }
   }
 }

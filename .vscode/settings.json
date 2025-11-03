@@ -6,22 +6,23 @@
     "source.fixAll.oxc": "explicit",
     "source.organizeImports": "never"
   },
+  "eslint.enable": true,
+  "stylelint.enable": true,
+  "oxc.enable": true,
   "editor.formatOnSave": true,
 
-  "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue"],
   "scss.lint.unknownAtRules": "ignore",
   "css.lint.unknownAtRules": "ignore",
   "less.lint.unknownAtRules": "ignore",
 
-  "eslint.enable": true,
-  "oxc.enable": true,
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
   // >>>>>
+  "i18n-ally.readonly": true,
   "i18n-ally.namespace": false /* 禁用命名空间（@intlify/unplugin-vue-i18n不支持吧？） */,
   "i18n-ally.localesPaths": ["src/locales/demo", "src/locales"],
   // https://github.com/lokalise/i18n-ally/wiki/Path-Matcher
