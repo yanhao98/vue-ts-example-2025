@@ -21,6 +21,8 @@ function setLocale(newLocale: 'en-US' | 'zh-CN') {
         {{ t('page.i18n-demo.hello', { name: 'Kilo' }) }}
       </n-p>
 
+      <n-p> $route.meta: {{ $route.meta }} </n-p>
+
       <n-space>
         <n-button type="primary" @click="setLocale('en-US')"> English </n-button>
         <n-button type="success" @click="setLocale('zh-CN')"> 简体中文 </n-button>

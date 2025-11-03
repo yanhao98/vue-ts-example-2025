@@ -13,7 +13,7 @@ declare module 'vue-router' {
     hideInMenu?: boolean;
 
     /**
-     * @description 菜单标题 //!⚠️通过多语言标题方案（搜`PageTitleLocalizations`）维护标题
+     * @description 菜单标题 // !⚠️通过多语言标题方案（搜`PageTitleLocalizations`）维护标题
      */
     title?: string;
 

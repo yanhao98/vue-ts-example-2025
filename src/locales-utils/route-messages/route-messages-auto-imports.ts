@@ -1,7 +1,7 @@
 import type { I18nOptions } from 'vue-i18n';
 
 const modules = import.meta.glob(['./*.ts', '!./route-messages-auto-imports'], {
-  eager: true,
+  eager: true /* true 为同步，false 为异步 */,
   import: 'default',
 });
 

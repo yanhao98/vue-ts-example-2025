@@ -8,27 +8,7 @@ import IconMenuRounded from '~icons/material-symbols/menu-rounded';
 export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<MenuInst | null> }) {
   const router = useRouter();
 
-  const { t, te, locale } = useI18n({
-    inheritLocale: true,
-    useScope: 'local',
-    missing: (locale, key) => {
-      consola.warn(`菜单翻译缺失: locale=${locale}, key=${key}`);
-      return key;
-    },
-    fallbackRoot: true,
-    messages: i18nRouteMessages,
-  });
-
-  // FIXME: 这个逻辑放在这里不太合适。
-  watch(
-    () => [router.currentRoute.value, locale.value] as const,
-    ([currentRoute]) => {
-      const routeName = currentRoute.name;
-      const text = te(routeName) ? t(routeName) : routeName;
-      currentRoute.meta!.title = text;
-    },
-    { immediate: true },
-  );
+  const { t, te } = routeI18nInstance.global;
 
   // 获取路由表但是不包含布局路由
   const routes = createGetRoutes(router)();
