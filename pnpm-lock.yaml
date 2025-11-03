@@ -272,7 +272,7 @@ importers:
         version: 2.2.0
       vite-plugin-image-optimizer:
         specifier: ^2.0.2
-        version: 2.0.2(sharp@0.34.4)(svgo@4.0.0)(vite@7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
+        version: 2.0.3(sharp@0.34.4)(svgo@4.0.0)(vite@7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
       vite-plugin-vue-devtools:
         specifier: ^8.0.1
         version: 8.0.3(vite@7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.2))
@@ -5755,8 +5755,8 @@ packages:
   vite-plugin-fake-server@2.2.0:
     resolution: {integrity: sha512-RP691997Q207nenNMhg7cvYyBXZyjqXwApTBa+a9kHmILgcAU2w4TMRDiAhIU0HPLAAR5MHlWTEpxA9Tbf+v8g==}
 
-  vite-plugin-image-optimizer@2.0.2:
-    resolution: {integrity: sha512-BYK27SpSScRIaveJVjbP7EjSrawuCc+ffESGvKVRhByAu6RGvwE3EyGg9ZeqQiLUE8e1hKSCr8v5ZfvQNiqvJQ==}
+  vite-plugin-image-optimizer@2.0.3:
+    resolution: {integrity: sha512-1vrFOTcpSvv6DCY7h8UXab4wqMAjTJB/ndOzG/Kmj1oDOuPF6mbjkNQoGzzCEYeWGe7qU93jc8oQqvoJ57al3A==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       sharp: '>=0.34.0'
@@ -11793,7 +11793,7 @@ snapshots:
       picocolors: 1.1.1
       tinyglobby: 0.2.15
 
-  vite-plugin-image-optimizer@2.0.2(sharp@0.34.4)(svgo@4.0.0)(vite@7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)):
+  vite-plugin-image-optimizer@2.0.3(sharp@0.34.4)(svgo@4.0.0)(vite@7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)):
     dependencies:
       ansi-colors: 4.1.3
       pathe: 2.0.3
