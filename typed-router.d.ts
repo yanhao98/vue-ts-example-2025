@@ -58,6 +58,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    'DemosCreate': RouteRecordInfo<
+      'DemosCreate',
+      '/demos/create',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     'DemosI18nDemo': RouteRecordInfo<
       'DemosI18nDemo',
       '/demos/i18n-demo',
@@ -140,6 +147,12 @@ declare module 'vue-router/auto-routes' {
     'src/pages/demos/counter-demo.page.vue': {
       routes:
         | 'DemosCounterDemo'
+      views:
+        | never
+    }
+    'src/pages/demos/create.page.vue': {
+      routes:
+        | 'DemosCreate'
       views:
         | never
     }

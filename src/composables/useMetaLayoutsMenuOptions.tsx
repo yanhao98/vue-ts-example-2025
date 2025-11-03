@@ -17,10 +17,17 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
   const selectedKey = ref('');
 
   watch(
-    () => router.currentRoute.value.path,
-    (newPath) => {
-      selectedKey.value = newPath;
-      menuInstRef.value?.showOption(newPath); // 展开菜单，确保设定的元素被显示，如果不传入 key 会展示当前选中元素
+    () => router.currentRoute.value,
+    (route) => {
+      // 优先使用 activeMenuName（通过路由名称解析为路径），如果没有则使用当前路径
+      const activeMenuPath = route.meta.activeMenuName
+        ? router.resolve({ name: route.meta.activeMenuName }).path
+        : route.path;
+
+      console.debug(`route.meta.activeMenuName :>> `, route.meta.activeMenuName);
+
+      selectedKey.value = activeMenuPath;
+      menuInstRef.value?.showOption(activeMenuPath); // 展开菜单，确保设定的元素被显示
     },
     { immediate: true },
   );

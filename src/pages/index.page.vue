@@ -2,6 +2,6 @@
 
 <template>
   <div>
-    <h1>Index Page</h1>
+    <n-button @click="$router.push({ name: 'DemosCreate' })">DemosCreate</n-button>
   </div>
 </template>

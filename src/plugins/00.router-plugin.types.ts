@@ -38,5 +38,13 @@ declare module 'vue-router' {
      * @description 是否忽略权限，默认为 false
      */
     ignoreAuth?: boolean;
+
+    /**
+     * @description 当前路由激活时应该高亮的菜单项（通过路由名称指定）
+     * - 用于隐藏在菜单中的子页面，指定其父级菜单项应该高亮
+     * - 使用路由名称而非路径，提供更好的类型安全和重构友好性
+     * - 例如：`activeMenuName: 'Demos'` 会高亮 Demos 菜单项
+     */
+    activeMenuName?: keyof RouteNamedMap;
   }
 }

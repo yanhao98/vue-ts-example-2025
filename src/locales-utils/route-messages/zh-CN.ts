@@ -10,4 +10,5 @@ export default {
   DemosWebsocketDemo: 'WebSocket 示例',
   Home: '首页',
   Login: '登录',
+  DemosCreate: '创建示例',
 } satisfies PageTitleLocalizations;

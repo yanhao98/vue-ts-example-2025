@@ -10,4 +10,5 @@ export default {
   DemosWebsocketDemo: 'WebSocket Demo',
   Home: 'Home',
   Login: 'Login',
+  DemosCreate: 'Create Demo',
 } satisfies PageTitleLocalizations;
