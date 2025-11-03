@@ -49,14 +49,4 @@ const appStore = useAppStore();
 #__SCROLL_EL_ID__ {
   @include scrollbar;
 }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease-in-out;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 </style>

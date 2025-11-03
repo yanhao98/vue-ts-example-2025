@@ -5,12 +5,15 @@ type UserPlugin = (ctx: UserPluginContext) => void;
 type AutoInstallModule = { [K: string]: unknown; install?: UserPlugin };
 type UserPluginContext = { app: import('vue').App<Element> };
 
-const autoInstallModules: AutoInstallModule = import.meta.glob('./!(index).ts', {
-  eager: true /* true 为同步，false 为异步 */,
-});
+const autoInstallModules: AutoInstallModule = import.meta.glob(
+  ['./*.ts', '!./**/*.types.ts', '!./index.ts'],
+  {
+    eager: true /* true 为同步，false 为异步 */,
+  },
+);
 
 export function setupPlugins(app: import('vue').App) {
-  console.group('🔌 Plugins');
+  console.group(`🔌 Installing ${Object.keys(autoInstallModules).length} plugins`);
   for (const path in autoInstallModules) {
     const module = autoInstallModules[path] as AutoInstallModule;
     if (module.install) {

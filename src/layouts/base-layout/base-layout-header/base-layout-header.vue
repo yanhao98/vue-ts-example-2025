@@ -2,6 +2,7 @@
 import LanguageSwitchButton from './components/LanguageSwitchButton.vue';
 import ThemeSwitchButton from './components/ThemeSwitchButton.vue';
 import ToggleSiderButton from './components/ToggleSiderButton.vue';
+import UserDropdown from './components/UserDropdown.vue';
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import ToggleSiderButton from './components/ToggleSiderButton.vue';
     <div class="flex items-center">
       <LanguageSwitchButton />
       <ThemeSwitchButton />
+      <UserDropdown />
     </div>
   </div>
 </template>
