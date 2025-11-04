@@ -21,12 +21,17 @@ function setLocale(newLocale: 'en-US' | 'zh-CN') {
         {{ t('page.i18n-demo.hello', { name: 'Kilo' }) }}
       </n-p>
 
-      <n-p> $route.meta: {{ $route.meta }} </n-p>
-
       <n-space>
         <n-button type="primary" @click="setLocale('en-US')"> English </n-button>
         <n-button type="success" @click="setLocale('zh-CN')"> 简体中文 </n-button>
       </n-space>
     </n-card>
+
+    <!-- 这里响应式有问题: -->
+    <n-p> $route.meta.title: {{ $route.meta.title }} </n-p>
+    <!-- 这样才正常 -->
+    <n-p>
+      routeI18nInstance.global.t($route.name): {{ routeI18nInstance.global.t($route.name) }}
+    </n-p>
   </div>
 </template>

@@ -2,11 +2,12 @@
  * All i18n resources specified in the plugin `include` option can be loaded
  * at once using the import syntax
  */
-import { router } from '@/plugins/00.router-plugin';
 import messages from '@intlify/unplugin-vue-i18n/messages';
-import { createGetRoutes } from 'virtual:meta-layouts';
 
+import { router } from '@/plugins/00.router-plugin';
+import { createGetRoutes } from 'virtual:meta-layouts';
 import { createI18n } from 'vue-i18n';
+import { START_LOCATION } from 'vue-router';
 
 const locale = useLocalStorage<string>('app-locale', navigator.language);
 watchEffect(() => {
@@ -51,18 +52,17 @@ watchEffect(
 watch(
   () => i18nInstance.global.locale.value,
   () => {
+    const { t, te } = routeI18nInstance.global;
+
     routeI18nInstance.global.locale.value = i18nInstance.global.locale.value;
+
+    if (router.currentRoute.value.name && router.currentRoute.value !== START_LOCATION) {
+      router.currentRoute.value.meta.title = t(router.currentRoute.value.name as string);
+    }
 
     const routes = createGetRoutes(router)(); // 获取路由表但是不包含布局路由
 
     routes.forEach((route) => {
-      const { t, te } = routeI18nInstance.global;
-
-      if (router.currentRoute.value.name) {
-        router.currentRoute.value.meta.title = t(router.currentRoute.value.name as string);
-      }
-
-      route.meta = route.meta || {};
       const routeName = route.name as string;
       route.meta.title = te(routeName) ? t(routeName) : routeName;
     });
