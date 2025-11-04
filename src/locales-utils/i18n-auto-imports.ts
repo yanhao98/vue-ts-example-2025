@@ -41,6 +41,7 @@ export const routeI18nInstance = createI18n({
   fallbackRoot: true,
   messages: i18nRouteMessages,
 });
+export const routeI18nT = routeI18nInstance.global.t;
 
 watchEffect(
   () => {
