@@ -143,7 +143,7 @@ importers:
         version: 5.1.1(vite@7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.2))
       '@vitest/eslint-plugin':
         specifier: ^1.3.9
-        version: 1.3.23(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2)(vitest@3.2.4(@types/node@22.18.13)(happy-dom@20.0.7)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
+        version: 1.3.23(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2)(vitest@3.2.4(@types/node@22.18.13)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
       '@vue/eslint-config-prettier':
         specifier: ^10.2.0
         version: 10.2.0(eslint@9.38.0(jiti@2.6.1))(prettier@3.6.2)
@@ -179,7 +179,7 @@ importers:
         version: 10.5.1(@typescript-eslint/parser@8.43.0(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2))(eslint@9.38.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.38.0(jiti@2.6.1)))
       happy-dom:
         specifier: ^20.0.1
-        version: 20.0.7
+        version: 20.0.8
       html-minifier-terser:
         specifier: ^7.2.0
         version: 7.2.0
@@ -290,7 +290,7 @@ importers:
         version: 3.11.1(vite@7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))
       vitest:
         specifier: ^3.2.4
-        version: 3.2.4(@types/node@22.18.13)(happy-dom@20.0.7)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+        version: 3.2.4(@types/node@22.18.13)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
       vue-component-type-helpers:
         specifier: ^3.1.2
         version: 3.1.2
@@ -3780,8 +3780,8 @@ packages:
     resolution: {integrity: sha512-ax7ZYomf6jqPTQ4+XCpUGyXKHk5WweS+e05MBO4/y3WJ5RkmPXNKvX+bx1behVILVwr6JSQvZAku021CHPXG3Q==}
     engines: {node: '>=10'}
 
-  happy-dom@20.0.7:
-    resolution: {integrity: sha512-CywLfzmYxP5OYpuAG0usFY0CpxJtwYR+w8Mms5J8W29Y2Pzf6rbfQS2M523tRZTb0oLA+URopPtnAQX2fupHZQ==}
+  happy-dom@20.0.8:
+    resolution: {integrity: sha512-TlYaNQNtzsZ97rNMBAm8U+e2cUQXNithgfCizkDgc11lgmN4j9CKMhO3FPGKWQYPwwkFcPpoXYF/CqEPLgzfOg==}
     engines: {node: '>=20.0.0'}
 
   has-bigints@1.1.0:
@@ -7950,14 +7950,14 @@ snapshots:
       vite: 7.1.12(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
       vue: 3.5.22(typescript@5.9.2)
 
-  '@vitest/eslint-plugin@1.3.23(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2)(vitest@3.2.4(@types/node@22.18.13)(happy-dom@20.0.7)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))':
+  '@vitest/eslint-plugin@1.3.23(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2)(vitest@3.2.4(@types/node@22.18.13)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1))':
     dependencies:
       '@typescript-eslint/scope-manager': 8.46.2
       '@typescript-eslint/utils': 8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.2)
       eslint: 9.38.0(jiti@2.6.1)
     optionalDependencies:
       typescript: 5.9.2
-      vitest: 3.2.4(@types/node@22.18.13)(happy-dom@20.0.7)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
+      vitest: 3.2.4(@types/node@22.18.13)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9681,7 +9681,7 @@ snapshots:
     dependencies:
       duplexer: 0.1.2
 
-  happy-dom@20.0.7:
+  happy-dom@20.0.8:
     dependencies:
       '@types/node': 20.19.24
       '@types/whatwg-mimetype': 3.0.2
@@ -11876,7 +11876,7 @@ snapshots:
       terser: 5.44.0
       yaml: 2.8.1
 
-  vitest@3.2.4(@types/node@22.18.13)(happy-dom@20.0.7)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1):
+  vitest@3.2.4(@types/node@22.18.13)(happy-dom@20.0.8)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.1)(sass-embedded@1.93.2)(sass@1.93.2)(terser@5.44.0)(yaml@2.8.1):
     dependencies:
       '@types/chai': 5.2.2
       '@vitest/expect': 3.2.4
@@ -11903,7 +11903,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.18.13
-      happy-dom: 20.0.7
+      happy-dom: 20.0.8
       jsdom: 27.0.1
     transitivePeerDependencies:
       - jiti
