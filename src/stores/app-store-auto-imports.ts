@@ -1,13 +1,16 @@
+import type { BasicColorSchema } from '@vueuse/core';
 import { useLocalStorage, useMediaQuery } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed } from 'vue';
 
 // >>>>>
 // https://vueuse.org/core/useColorMode/#advanced-usage
-const { system, store: themeMode } = useColorMode({
+const { system, store: themeMode } = useColorMode<BasicColorSchema>({
   selector: 'html',
+  attribute: 'class',
   modes: { light: '', dark: 'app-dark', auto: '' },
   disableTransition: false,
+  initialValue: 'auto',
 });
 const { state, next: cycleTheme } = useCycleList(['light', 'dark', 'auto'] as const, {
   initialValue: themeMode,
