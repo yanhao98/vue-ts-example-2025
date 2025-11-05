@@ -6,7 +6,7 @@ import AppNaiveUIProvider from './AppNaiveUIProvider.vue';
 <template>
   <DynamicDialog />
   <ConfirmDialog />
-  <Toast />
+  <Toast style="z-index: 5000" />
 
   <AppNaiveUIProvider>
     <router-view v-slot="{ Component }">

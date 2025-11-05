@@ -15,10 +15,10 @@ export function install({ app }: { app: import('vue').App<Element> }) {
   // https://github.com/primefaces/primevue/blob/afe6f58ae55e9caf7f9bc094cd453a21a6113001/packages/core/src/config/PrimeVue.js
   app.use(PrimeVue, {
     zIndex: {
-      modal: 2100,
-      overlay: 2000,
-      menu: 2000,
-      tooltip: 2100,
+      modal: 5100,
+      overlay: 5000,
+      menu: 5000,
+      tooltip: 5100,
     },
     locale: {
       ...zhCN['zh-CN'],

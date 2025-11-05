@@ -1,5 +1,6 @@
 export function install({ app }: { app: import('vue').App<Element> }) {
-  app.config.globalProperties.__DEV__ = __DEV__;
+  app.config.globalProperties.__DEV__ =
+    __DEV__; /* vite.config.ts: define: { __DEV__: JSON.stringify(!isBuild) } */
 
   app.config.errorHandler = (error, instance, info) => {
     console.error('Global error:', error);

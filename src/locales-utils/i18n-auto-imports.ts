@@ -36,6 +36,14 @@ export const routeI18nInstance = createI18n({
   useScope: 'local',
   missing: (locale, key) => {
     consola.warn(`菜单翻译缺失: locale=${locale}, key=${key}`);
+    if (__DEV__) {
+      ToastService.add({
+        severity: 'warn',
+        summary: '菜单翻译缺失',
+        detail: "缺少菜单国际化内容: locale='A', key='B'",
+        life: 5000,
+      });
+    }
     return key;
   },
   fallbackRoot: true,
