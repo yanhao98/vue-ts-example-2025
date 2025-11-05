@@ -5,12 +5,21 @@
 import Aura from '@primeuix/themes/aura';
 import zhCN from 'primelocale/zh-CN.json';
 import PrimeVue from 'primevue/config';
+import type { PrimeVueConfiguration } from 'primevue/config';
 import StyleClass from 'primevue/styleclass';
 import ToastService from 'primevue/toastservice';
 
 export function install({ app }: { app: import('vue').App<Element> }) {
   app.directive('styleclass', StyleClass);
+
+  // https://github.com/primefaces/primevue/blob/afe6f58ae55e9caf7f9bc094cd453a21a6113001/packages/core/src/config/PrimeVue.js
   app.use(PrimeVue, {
+    zIndex: {
+      modal: 2100,
+      overlay: 2000,
+      menu: 2000,
+      tooltip: 2100,
+    },
     locale: {
       ...zhCN['zh-CN'],
       completed: '已上传',
@@ -25,6 +34,6 @@ export function install({ app }: { app: import('vue').App<Element> }) {
       },
       preset: Aura,
     },
-  });
+  } satisfies PrimeVueConfiguration);
   app.use(ToastService);
 }
