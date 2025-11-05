@@ -112,6 +112,7 @@ declare global {
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
   const routeI18nInstance: typeof import('./src/locales-utils/i18n-auto-imports')['routeI18nInstance']
+  const routeI18nT: typeof import('./src/locales-utils/i18n-auto-imports')['routeI18nT']
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const setViewportCSSVars: typeof import('utils4u/browser')['setViewportCSSVars']
@@ -457,6 +458,7 @@ declare module 'vue' {
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
     readonly routeI18nInstance: UnwrapRef<typeof import('./src/locales-utils/i18n-auto-imports')['routeI18nInstance']>
+    readonly routeI18nT: UnwrapRef<typeof import('./src/locales-utils/i18n-auto-imports')['routeI18nT']>
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly setViewportCSSVars: UnwrapRef<typeof import('utils4u/browser')['setViewportCSSVars']>

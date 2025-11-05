@@ -5,6 +5,7 @@ import { computed } from 'vue';
 // >>>>>
 // https://vueuse.org/core/useColorMode/#advanced-usage
 const { system, store: themeMode } = useColorMode({
+  selector: 'html',
   modes: { light: '', dark: 'app-dark', auto: '' },
   disableTransition: false,
 });
