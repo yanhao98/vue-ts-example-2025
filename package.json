@@ -146,7 +146,7 @@
     "vite-plugin-vue-devtools": "^8.0.1",
     "vite-plugin-vue-meta-layouts": "^0.6.1",
     "vite-plugin-webfont-dl": "^3.11.1",
-    "vitest": "^3.2.4",
+    "vitest": "^4.0.0",
     "vue-component-type-helpers": "^3.1.2",
     "vue-i18n-extract": "^2.0.7",
     "vue-macros": "3.1.1",
