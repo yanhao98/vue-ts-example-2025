@@ -1,0 +1,83 @@
+{
+  "name": "Sandbox Dev Container",
+  "forwardPorts": [23730, 23731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
+  "portsAttributes": {
+    "23730": { "label": "开发服务器端口", "onAutoForward": "notify" },
+    "23731": { "label": "预览服务器端口", "onAutoForward": "notify" }
+  },
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "TZ": "${localEnv:TZ:Asia/Shanghai}"
+    }
+  },
+  "runArgs": [
+    // -----
+    // "--network=host",
+    // "--add-host=myservice.local:127.0.0.1",
+    // -----
+    // "--env-file",
+    // ".devcontainer/.env",
+    // -----
+    "--cap-add=NET_ADMIN",
+    "--cap-add=NET_RAW"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "google.gemini-cli-vscode-ide-companion",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "oxc.oxc-vscode",
+        "editorconfig.editorconfig",
+        "vitest.explorer",
+        "vue.volar",
+        "kilocode.kilo-code",
+        "alibaba-cloud.tongyi-lingma",
+        "stylelint.vscode-stylelint",
+        "lokalise.i18n-ally"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          },
+          "zsh": {
+            "path": "zsh",
+            "icon": "terminal-debian"
+          }
+        }
+      }
+    }
+  },
+  "remoteUser": "usr_vscode",
+  "mounts": [
+    // "source=dev-container-config-${devcontainerId},target=/root/.claude,type=volume",
+    // "source=node_modules-u_node-${devcontainerId},target=/workspace/node_modules,type=volume",
+    // "source=dev-container-bashhistory-${devcontainerId},target=/commandhistory,type=volume"
+  ],
+  "containerEnv": {
+    // "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
+    "ANTHROPIC_AUTH_TOKEN": "${localEnv:ANTHROPIC_AUTH_TOKEN}",
+    "ANTHROPIC_BASE_URL": "${localEnv:ANTHROPIC_BASE_URL}",
+    "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
+    "GOOGLE_GEMINI_BASE_URL": "${localEnv:GOOGLE_GEMINI_BASE_URL}",
+    "NODE_OPTIONS": "--max-old-space-size=4096"
+  },
+  // "postCreateCommand": "pnpm install", // 容器创建后执行
+  "postStartCommand": "pnpm -v", // 每次容器启动时执行
+  "postAttachCommand": "pnpm config get store-dir", // 连接到容器后执行
+  // "updateRemoteUserUID": true,
+  // "waitFor": "postStartCommand"
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
+  "workspaceFolder": "/workspace"
+}
