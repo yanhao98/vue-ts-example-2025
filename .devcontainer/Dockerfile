@@ -96,7 +96,8 @@ ARG PATH="$PNPM_HOME:$PATH"
 
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which zsh)" zsh - \
   && pnpm --version \
-  && pnpm env use lts --global
+  && pnpm env use lts --global \
+  && pnpm config set store-dir /home/usr_vscode/.pnpm-store
 
 # Install Claude
 RUN pnpm install -g \
