@@ -1,9 +1,9 @@
 {
   "name": "Sandbox Dev Container",
-  "forwardPorts": [23730, 23731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
+  "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
   "portsAttributes": {
-    "23730": { "label": "开发服务器端口", "onAutoForward": "notify" },
-    "23731": { "label": "预览服务器端口", "onAutoForward": "notify" }
+    "4730": { "label": "开发服务器端口", "onAutoForward": "notify" },
+    "4731": { "label": "预览服务器端口", "onAutoForward": "notify" }
   },
   "build": {
     "dockerfile": "Dockerfile",
