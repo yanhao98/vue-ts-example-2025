@@ -1,6 +1,6 @@
 # 此钩子在执行 git commit 命令时，在创建提交之前运行。
 echo "🧹 [Pre-commit] 正在运行 lint-staged..."
-time pnpm exec lint-staged
-time pnpm run lint:vue-i18n-extract
-# time pnpm run type-check
+pnpm exec lint-staged
+pnpm run lint:vue-i18n-extract
+# pnpm run type-check
 echo "🧹 [Pre-commit] lint-staged 完成！"
