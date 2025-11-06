@@ -1,3 +1,4 @@
+import vueI18n from '@intlify/eslint-plugin-vue-i18n';
 import pluginVitest from '@vitest/eslint-plugin';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 import {
@@ -37,6 +38,20 @@ export default defineConfigWithVueTs(
     files: ['e2e/**/*.{test,spec}.{js,ts,jsx,tsx}'],
   },
   ...pluginOxlint.configs['flat/recommended'],
+
+  // https://eslint-plugin-vue-i18n.intlify.dev/started.html#getting-started
+  ...vueI18n.configs.recommended,
+  {
+    rules: {
+      '@intlify/vue-i18n/no-raw-text': 'off',
+    },
+    settings: {
+      'vue-i18n': {
+        localeDir: './src/locales/**/*.json',
+        messageSyntaxVersion: '^11.0.0',
+      },
+    },
+  },
   {
     plugins: {
       import: pluginImport,
