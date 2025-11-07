@@ -25,19 +25,25 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        // AI
         "anthropic.claude-code",
         "google.gemini-cli-vscode-ide-companion",
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "eamodio.gitlens",
-        "oxc.oxc-vscode",
-        "editorconfig.editorconfig",
-        "vitest.explorer",
-        "vue.volar",
         "kilocode.kilo-code",
         "alibaba-cloud.tongyi-lingma",
+
+        // >>>>>
+        "vue.volar",
+        "lokalise.i18n-ally",
+        "eamodio.gitlens",
+        "vitest.explorer",
+        // <<<<<
+
+        // 代码质量 / 格式化 / Lint
+        "editorconfig.editorconfig",
+        "dbaeumer.vscode-eslint",
         "stylelint.vscode-stylelint",
-        "lokalise.i18n-ally"
+        "oxc.oxc-vscode",
+        "esbenp.prettier-vscode"
       ],
       "settings": {
         "editor.formatOnSave": true,
@@ -47,24 +53,25 @@
         },
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.profiles.linux": {
-          "bash": {
-            "path": "bash",
-            "icon": "terminal-bash"
-          },
-          "zsh": {
-            "path": "zsh",
-            "icon": "terminal-debian"
-          }
-        }
+          "bash": { "path": "bash", "icon": "terminal-bash" },
+          "zsh": { "path": "zsh", "icon": "terminal-debian" }
+        },
+
+        // https://stackoverflow.com/questions/75708866/vscode-dev-container-fails-to-load-ms-vscode-js-debug-extension-correctly
+        // https://davidwesst.com/blog/missing-bootloader-in-vscode-devcontainer/
+        /**
+         * autoAttachFilter 存在问题：会在 NODE_OPTIONS 中注入 bootloader.js 的 --require 参数，
+         * 并错误地重复拼接 --max-old-space-size，形成类似：
+         *   NODE_OPTIONS= --require /home/.../bootloader.js  --max-old-space-size=4096--max-old-space-size=4096
+         * 导致启动时报错：
+         *   Error: illegal value for flag --max-old-space-size=4096--max-old-space-size=4096 of type size_t
+         * 将其设置为 "disabled" 以规避该问题。
+         */
+        "debug.javascript.autoAttachFilter": "disabled"
       }
     }
   },
-  "remoteUser": "usr_vscode",
-  "mounts": [
-    // "source=dev-container-config-${devcontainerId},target=/root/.claude,type=volume",
-    // "source=node_modules-u_node-${devcontainerId},target=/workspace/node_modules,type=volume",
-    // "source=dev-container-bashhistory-${devcontainerId},target=/commandhistory,type=volume"
-  ],
+
   "containerEnv": {
     // "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
     "ANTHROPIC_AUTH_TOKEN": "${localEnv:ANTHROPIC_AUTH_TOKEN}",
@@ -73,9 +80,14 @@
     "GOOGLE_GEMINI_BASE_URL": "${localEnv:GOOGLE_GEMINI_BASE_URL}",
     "NODE_OPTIONS": "--max-old-space-size=4096"
   },
-  // "postCreateCommand": "pnpm install", // 容器创建后执行
+  "remoteUser": "usr_vscode",
+  "mounts": [
+    // "source=dev-container-bashhistory-${devcontainerId},target=/commandhistory,type=volume"
+    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+  ],
+  "postCreateCommand": "sudo chown usr_vscode node_modules", // 容器创建后执行 https://code.visualstudio.com/remote/advancedcontainers/improve-performance
   "postStartCommand": "pnpm -v", // 每次容器启动时执行
-  "postAttachCommand": "pnpm config get store-dir", // 连接到容器后执行
+  // "postAttachCommand": "pnpm config get store-dir", // 连接到容器后执行
   // "updateRemoteUserUID": true,
   // "waitFor": "postStartCommand"
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
