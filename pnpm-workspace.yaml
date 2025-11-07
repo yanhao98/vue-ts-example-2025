@@ -1,2 +1,6 @@
 packages:
-  - "packages/*"
+  - 'packages/*'
+
+useNodeVersion: 24.11.0 # https://pnpm.io/zh/settings#usenodeversion
+shamefullyHoist: true # https://pnpm.io/zh/settings#shamefullyhoist
+# https://pnpm.io/zh/settings#node-mirror ???
