@@ -2,10 +2,11 @@
   "recommendations": [
     "Vue.volar",
     "vitest.explorer",
-    "ms-playwright.playwright",
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
     "oxc.oxc-vscode",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "lokalise.i18n-ally"
   ]
 }
