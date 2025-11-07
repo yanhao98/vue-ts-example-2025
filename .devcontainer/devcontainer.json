@@ -1,3 +1,9 @@
+/**
+ * 一些参考链接：
+ * https://containers.dev/implementors/json_reference/#variables-in-devcontainerjson
+ * https://code.claude.com/docs/zh-CN/devcontainer
+ */
+
 {
   "name": "Sandbox Dev Container",
   "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
@@ -71,25 +77,26 @@
       }
     }
   },
-
   "containerEnv": {
     // "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
     "ANTHROPIC_AUTH_TOKEN": "${localEnv:ANTHROPIC_AUTH_TOKEN}",
     "ANTHROPIC_BASE_URL": "${localEnv:ANTHROPIC_BASE_URL}",
     "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
     "GOOGLE_GEMINI_BASE_URL": "${localEnv:GOOGLE_GEMINI_BASE_URL}",
+    "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
     "NODE_OPTIONS": "--max-old-space-size=4096"
   },
   "remoteUser": "usr_vscode",
   "mounts": [
-    // "source=dev-container-bashhistory-${devcontainerId},target=/commandhistory,type=volume"
+    "source=${localWorkspaceFolderBasename}-bashhistory,target=/commandhistory,type=volume",
+    "source=${localWorkspaceFolderBasename}-claude-code-config,target=/home/usr_vscode/.claude,type=volume",
     "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
   ],
   "postCreateCommand": "sudo chown usr_vscode node_modules", // 容器创建后执行 https://code.visualstudio.com/remote/advancedcontainers/improve-performance
-  "postStartCommand": "pnpm -v", // 每次容器启动时执行
+  "postStartCommand": "pnpm -v; echo '${localWorkspaceFolderBasename}'", // 每次容器启动时执行
   // "postAttachCommand": "pnpm config get store-dir", // 连接到容器后执行
   // "updateRemoteUserUID": true,
-  // "waitFor": "postStartCommand"
+  "waitFor": "postStartCommand",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
   "workspaceFolder": "/workspace"
 }

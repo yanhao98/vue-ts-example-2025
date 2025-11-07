@@ -77,7 +77,8 @@ RUN touch /home/usr_vscode/.zshrc \
        -p fzf \
        -a "source <(fzf --zsh)" \
        -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
-       -x
+       -x \
+    && echo "alias claude='claude --dangerously-skip-permissions'" >> /home/usr_vscode/.zshrc
       # -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
       # -a "source /usr/share/doc/fzf/examples/completion.zsh" \
 
