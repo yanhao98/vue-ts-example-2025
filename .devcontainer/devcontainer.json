@@ -59,8 +59,8 @@
         },
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.profiles.linux": {
-          "bash": { "path": "bash", "icon": "terminal-bash" },
-          "zsh": { "path": "zsh", "icon": "terminal-debian", "overrideName": true }
+          "🐚bash": { "path": "bash", "icon": "terminal-bash" },
+          "💲zsh": { "path": "zsh", "icon": "terminal-cmd", "overrideName": true }
         },
 
         // https://stackoverflow.com/questions/75708866/vscode-dev-container-fails-to-load-ms-vscode-js-debug-extension-correctly
