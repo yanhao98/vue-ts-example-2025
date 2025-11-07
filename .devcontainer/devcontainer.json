@@ -14,7 +14,7 @@
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "TZ": "${localEnv:TZ:Asia/Shanghai}"
+      //
     }
   },
   "runArgs": [
@@ -60,7 +60,7 @@
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.profiles.linux": {
           "bash": { "path": "bash", "icon": "terminal-bash" },
-          "zsh": { "path": "zsh", "icon": "terminal-debian" }
+          "zsh": { "path": "zsh", "icon": "terminal-debian", "overrideName": true }
         },
 
         // https://stackoverflow.com/questions/75708866/vscode-dev-container-fails-to-load-ms-vscode-js-debug-extension-correctly
@@ -83,18 +83,31 @@
     "ANTHROPIC_BASE_URL": "${localEnv:ANTHROPIC_BASE_URL}",
     "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
     "GOOGLE_GEMINI_BASE_URL": "${localEnv:GOOGLE_GEMINI_BASE_URL}",
+    "NODE_OPTIONS": "--max-old-space-size=4096",
     "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
-    "NODE_OPTIONS": "--max-old-space-size=4096"
+    "TZ": "${localEnv:TZ:Asia/Shanghai}"
   },
   "remoteUser": "usr_vscode",
   "mounts": [
     "source=${localWorkspaceFolderBasename}-bashhistory,target=/commandhistory,type=volume",
+    "source=${localWorkspaceFolderBasename}-lingma,target=/home/usr_vscode/.lingma,type=volume",
+    "source=${localWorkspaceFolderBasename}-gemini,target=/home/usr_vscode/.gemini,type=volume",
+    "source=${localWorkspaceFolderBasename}-claude-code-router,target=/home/usr_vscode/.claude-code-router,type=volume",
     "source=${localWorkspaceFolderBasename}-claude-code-config,target=/home/usr_vscode/.claude,type=volume",
+    "source=${localWorkspaceFolderBasename}-pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume",
     "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
   ],
-  "postCreateCommand": "sudo chown usr_vscode node_modules", // 容器创建后执行 https://code.visualstudio.com/remote/advancedcontainers/improve-performance
-  "postStartCommand": "pnpm -v; echo '${localWorkspaceFolderBasename}'", // 每次容器启动时执行
-  // "postAttachCommand": "pnpm config get store-dir", // 连接到容器后执行
+  "postCreateCommand": {
+    "安装依赖": "sudo chown usr_vscode node_modules; pnpm install",
+    "fix-claude-code-router": "sudo chown -R usr_vscode /home/usr_vscode/.claude-code-router",
+    "fix-lingma": "sudo chown -R usr_vscode /home/usr_vscode/.lingma",
+    "fix-claude": "sudo chown -R usr_vscode /home/usr_vscode/.claude",
+    "fix-gemini": "sudo chown -R usr_vscode /home/usr_vscode/.gemini"
+  }, // 容器创建后执行 https://code.visualstudio.com/remote/advancedcontainers/improve-performance
+  "postStartCommand": {
+    "node version": "node -v"
+  }, // 每次容器启动时执行
+  "postAttachCommand": "echo 容器已连接: ${containerWorkspaceFolder}", // 连接到容器后执行
   // "updateRemoteUserUID": true,
   "waitFor": "postStartCommand",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",

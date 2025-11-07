@@ -9,10 +9,12 @@ ARG GIT_DELTA_VERSION=0.18.2
 ARG ZSH_IN_DOCKER_VERSION=1.2.1
 ARG PNPM_HOME="/home/usr_vscode/.local/share/pnpm"
 ARG PATH="$PNPM_HOME:$PATH"
+ARG TZ=Asia/Shanghai
 
 # 环境变量
 ENV LANG=zh_CN.UTF-8 \
     LC_ALL=zh_CN.UTF-8 \
+    TZ=${TZ} \
     # Set `DEVCONTAINER` environment variable to help with orientation
     DEVCONTAINER=true \
     # Set the default shell to zsh rather than sh
@@ -73,14 +75,21 @@ USER usr_vscode
 # Default powerline10k theme
 RUN touch /home/usr_vscode/.zshrc \
     && sh -c "$(curl -L -o - https://github.com/deluan/zsh-in-docker/releases/download/v${ZSH_IN_DOCKER_VERSION}/zsh-in-docker.sh)" -- \
-       -p git \
-       -p fzf \
-       -a "source <(fzf --zsh)" \
-       -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
-       -x \
+        -p git \
+        -p fzf \
+        -a "source <(fzf --zsh)" \
+        -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+        -x \
+        # -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
+        # -a "source /usr/share/doc/fzf/examples/completion.zsh" \
+    # https://github.com/deluan/zsh-in-docker/blob/55a4e476f78f37204af9dfc0290a92e52cf881b1/zsh-in-docker.sh#L121-L123
+    && sed -i 's/^export LANG=.*/export LANG="zh_CN.UTF-8"/' /home/usr_vscode/.zshrc \
+    && sed -i 's/^export LANGUAGE=.*/export LANGUAGE="zh_CN:zh"/' /home/usr_vscode/.zshrc \
+    && sed -i 's/^export LC_ALL=.*/export LC_ALL="zh_CN.UTF-8"/' /home/usr_vscode/.zshrc \
+    # >>>>>
+    && echo "" >> /home/usr_vscode/.zshrc \
+    && echo "alias gemini='gemini --yolo -m gemini-2.5-pro'" >> /home/usr_vscode/.zshrc \
     && echo "alias claude='claude --dangerously-skip-permissions'" >> /home/usr_vscode/.zshrc
-      # -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
-      # -a "source /usr/share/doc/fzf/examples/completion.zsh" \
 
 # 安装 pnpm 和 Node.js
 # https://pnpm.io/installation#in-a-docker-container
