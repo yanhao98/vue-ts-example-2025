@@ -89,27 +89,41 @@
   },
   "remoteUser": "usr_vscode",
   "mounts": [
-    "source=${localWorkspaceFolderBasename}-bashhistory,target=/commandhistory,type=volume",
-    "source=${localWorkspaceFolderBasename}-lingma,target=/home/usr_vscode/.lingma,type=volume",
-    "source=${localWorkspaceFolderBasename}-gemini,target=/home/usr_vscode/.gemini,type=volume",
-    "source=${localWorkspaceFolderBasename}-claude-code-router,target=/home/usr_vscode/.claude-code-router,type=volume",
-    "source=${localWorkspaceFolderBasename}-claude-code-config,target=/home/usr_vscode/.claude,type=volume",
-    "source=${localWorkspaceFolderBasename}-pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume",
-    "source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+    "source=${localWorkspaceFolderBasename}--bashhistory,target=/commandhistory,type=volume",
+    "source=${localWorkspaceFolderBasename}--lingma,target=/home/usr_vscode/.lingma,type=volume",
+    "source=${localWorkspaceFolderBasename}--gemini,target=/home/usr_vscode/.gemini,type=volume",
+    "source=${localWorkspaceFolderBasename}--claude-code-router,target=/home/usr_vscode/.claude-code-router,type=volume",
+    "source=${localWorkspaceFolderBasename}--claude-code-config,target=/home/usr_vscode/.claude,type=volume",
+    "source=${localWorkspaceFolderBasename}--pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume",
+    "source=${localWorkspaceFolderBasename}--node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
   ],
-  "postCreateCommand": {
-    "安装依赖": "sudo chown usr_vscode node_modules; pnpm install",
+
+  /**
+   * 执行顺序总结
+    1. initializeCommand (本地主机)
+    2. 容器创建
+    3. onCreateCommand (容器内，仅首次)
+    4. updateContentCommand (容器内)
+    5. postCreateCommand (容器内)
+    6. 容器启动
+    7. postStartCommand (容器内，每次启动)
+    8. VS Code 附加到容器
+    9. postAttachCommand (容器内，每次附加)
+  */
+  "initializeCommand": /* 本地执行（容器创建前） */ "echo '准备创建容器...'",
+  "onCreateCommand": /* 容器内执行（仅首次创建） */ {
     "fix-claude-code-router": "sudo chown -R usr_vscode /home/usr_vscode/.claude-code-router",
     "fix-lingma": "sudo chown -R usr_vscode /home/usr_vscode/.lingma",
     "fix-claude": "sudo chown -R usr_vscode /home/usr_vscode/.claude",
-    "fix-gemini": "sudo chown -R usr_vscode /home/usr_vscode/.gemini"
-  }, // 容器创建后执行 https://code.visualstudio.com/remote/advancedcontainers/improve-performance
-  "postStartCommand": {
-    "node version": "node -v"
-  }, // 每次容器启动时执行
-  "postAttachCommand": "echo 容器已连接: ${containerWorkspaceFolder}", // 连接到容器后执行
+    "fix-gemini": "sudo chown -R usr_vscode /home/usr_vscode/.gemini",
+    "fix-node_modules": "sudo chown usr_vscode node_modules;"
+  },
+  "updateContentCommand": /* 容器内执行（创建后或内容更新） */ "echo '更新内容...'",
+  "postCreateCommand": /* 容器内执行（创建完成后） */ "pnpm install",
+  "postStartCommand": /* 容器内执行（每次启动） */ "echo '容器已启动！'",
+  "postAttachCommand": /* 容器内执行（每次附加） */ "echo '开发环境已就绪！${containerWorkspaceFolder}'",
   // "updateRemoteUserUID": true,
-  "waitFor": "postStartCommand",
+  "waitFor": "updateContentCommand",
   "workspaceMount": "source=${localWorkspaceFolder},target=/wrkspc,type=bind,consistency=delegated",
   "workspaceFolder": "/wrkspc"
 }
