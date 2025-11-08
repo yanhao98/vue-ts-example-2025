@@ -5,7 +5,7 @@
  */
 
 {
-  "name": "Sandbox Dev Container",
+  "name": "SBX",
   "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
   "portsAttributes": {
     "4730": { "label": "开发服务器端口", "onAutoForward": "notify" },
