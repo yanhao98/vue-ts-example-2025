@@ -1,7 +1,6 @@
 packages:
   - 'packages/*'
-
-useNodeVersion: 24.11.0 # https://pnpm.io/zh/settings#usenodeversion
+# useNodeVersion: 24.11.0 # https://pnpm.io/zh/settings#usenodeversion
 # shamefullyHoist: false # https://pnpm.io/zh/settings#shamefullyhoist
 
 # https://pnpm.io/zh/settings#node-mirror ???

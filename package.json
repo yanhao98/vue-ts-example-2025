@@ -1,11 +1,16 @@
 {
-  "packageManager": "pnpm@10.18.3",
+  "packageManager": "pnpm@10.20.0",
   "name": "vue-ts-example-2025",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^24.11.0",
+      "onFail": "download",
+      "_docs_": "https://pnpm.io/zh/package_json#devenginesruntime"
+    }
   },
   "scripts": {
     "_all": "run-s lint format:prettier type-check test:unit:DisableWatch build-only",

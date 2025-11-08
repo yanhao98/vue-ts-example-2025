@@ -73,15 +73,14 @@ USER usr_vscode
 
 # 配置 Zsh https://github.com/deluan/zsh-in-docker/releases
 # Default powerline10k theme
-RUN touch /home/usr_vscode/.zshrc \
-    && sh -c "$(curl -L -o - https://github.com/deluan/zsh-in-docker/releases/download/v${ZSH_IN_DOCKER_VERSION}/zsh-in-docker.sh)" -- \
-        -p git \
-        -p fzf \
-        -a "source <(fzf --zsh)" \
-        -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
-        -x \
-        # -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
-        # -a "source /usr/share/doc/fzf/examples/completion.zsh" \
+RUN sh -c "$(curl -L -o - https://github.com/deluan/zsh-in-docker/releases/download/v${ZSH_IN_DOCKER_VERSION}/zsh-in-docker.sh)" -- \
+      -p git \
+      -p fzf \
+      -a "source <(fzf --zsh)" \
+      -a "export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
+      -x \
+      # -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
+      # -a "source /usr/share/doc/fzf/examples/completion.zsh" \
     # https://github.com/deluan/zsh-in-docker/blob/55a4e476f78f37204af9dfc0290a92e52cf881b1/zsh-in-docker.sh#L121-L123
     && sed -i 's/^export LANG=.*/export LANG="zh_CN.UTF-8"/' /home/usr_vscode/.zshrc \
     && sed -i 's/^export LANGUAGE=.*/export LANGUAGE="zh_CN:zh"/' /home/usr_vscode/.zshrc \
@@ -95,11 +94,6 @@ RUN touch /home/usr_vscode/.zshrc \
 # https://pnpm.io/installation#in-a-docker-container
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which zsh)" zsh - \
     && pnpm --version \
-    && pnpm env use lts --global \
-    && pnpm config set store-dir /home/usr_vscode/.pnpm-store
-
-# 安装 AI 工具
-RUN pnpm install -g \
-    @google/gemini-cli@latest \
-    @anthropic-ai/claude-code@latest \
-    @musistudio/claude-code-router@latest
+    # /home/usr_vscode/.config/pnpm/rc
+    && pnpm config set store-dir /home/usr_vscode/.pnpm-store \
+    && pnpm env use lts --global
