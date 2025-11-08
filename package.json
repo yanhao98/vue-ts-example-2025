@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "_devenginesruntime_docs": "https://pnpm.io/zh/package_json#devenginesruntime",
   "devEngines": {
     "runtime": {
       "name": "node",
       "version": "^24.11.0",
-      "onFail": "download",
-      "_docs_": "https://pnpm.io/zh/package_json#devenginesruntime"
+      "onFail": "download"
     }
   },
   "scripts": {
