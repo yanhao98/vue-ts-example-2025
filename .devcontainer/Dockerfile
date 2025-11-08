@@ -17,6 +17,7 @@ ENV LANG=zh_CN.UTF-8 \
     TZ=${TZ} \
     # Set `DEVCONTAINER` environment variable to help with orientation
     DEVCONTAINER=true \
+    SANDBOX=sandbox-devcontainer \
     # Set the default shell to zsh rather than sh
     SHELL=/bin/zsh \
     # Set the default editor and visual
