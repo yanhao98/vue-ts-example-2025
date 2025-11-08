@@ -57,8 +57,8 @@ RUN mkdir -p /commandhistory \
     && chown -R usr_vscode:usr_vscode /commandhistory
 
 # 创建工作目录
-RUN mkdir -p /workspace /home/usr_vscode/.claude \
-    && chown -R usr_vscode:usr_vscode /workspace /home/usr_vscode/.claude
+RUN mkdir -p /wrkspc /home/usr_vscode/.claude \
+    && chown -R usr_vscode:usr_vscode /wrkspc /home/usr_vscode/.claude
 
 # 安装 git-delta https://github.com/dandavison/delta/releases
 RUN ARCH=$(dpkg --print-architecture) && \
@@ -66,7 +66,7 @@ RUN ARCH=$(dpkg --print-architecture) && \
   sudo dpkg -i "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb" && \
   rm "git-delta_${GIT_DELTA_VERSION}_${ARCH}.deb"
 
-WORKDIR /workspace
+WORKDIR /wrkspc
 
 # 切换到非 root 用户
 USER usr_vscode

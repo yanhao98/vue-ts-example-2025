@@ -110,6 +110,6 @@
   "postAttachCommand": "echo 容器已连接: ${containerWorkspaceFolder}", // 连接到容器后执行
   // "updateRemoteUserUID": true,
   "waitFor": "postStartCommand",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
-  "workspaceFolder": "/workspace"
+  "workspaceMount": "source=${localWorkspaceFolder},target=/wrkspc,type=bind,consistency=delegated",
+  "workspaceFolder": "/wrkspc"
 }
