@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { MessageType } from 'naive-ui';
 import { useDialog, useMessage } from 'naive-ui';
-import UseSafeNForm from './use-safe-n-form.vue';
 
 definePage({ meta: {} });
 
@@ -61,9 +60,6 @@ const openModal = () => {
       <NAlert title="信息" type="info" :bordered="false">
         演示 Naive UI 各种组件的使用方法和功能特性
       </NAlert>
-      <n-card title="SafeNForm" mt-4>
-        <UseSafeNForm />
-      </n-card>
       <NCard title="Message 消息" class="mt-4">
         <NSpace>
           <NButton
