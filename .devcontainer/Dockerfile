@@ -15,9 +15,6 @@ ARG TZ=Asia/Shanghai
 ENV LANG=zh_CN.UTF-8 \
     LC_ALL=zh_CN.UTF-8 \
     TZ=${TZ} \
-    # Set `DEVCONTAINER` environment variable to help with orientation
-    DEVCONTAINER=true \
-    SANDBOX=sandbox-devcontainer \
     # Set the default shell to zsh rather than sh
     SHELL=/bin/zsh \
     # Set the default editor and visual
@@ -91,7 +88,7 @@ RUN sh -c "$(curl -L -o - https://github.com/deluan/zsh-in-docker/releases/downl
     && echo "alias gemini='gemini --yolo -m gemini-2.5-pro'" >> /home/usr_vscode/.zshrc \
     && echo "alias claude='claude --dangerously-skip-permissions'" >> /home/usr_vscode/.zshrc
 
-# 安装 pnpm 和 Node.js
+# 安装 pnpm
 # https://pnpm.io/installation#in-a-docker-container
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which zsh)" zsh - \
     && pnpm --version \

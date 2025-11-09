@@ -85,6 +85,8 @@
     "GOOGLE_GEMINI_BASE_URL": "${localEnv:GOOGLE_GEMINI_BASE_URL}",
     "NODE_OPTIONS": "--max-old-space-size=4096",
     "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
+    "DEVCONTAINER": "true", // https://github.com/anthropics/claude-code/blob/1fe9e369a7c30805189cbbb72eb69c15ed4ec96b/.devcontainer/Dockerfile#L42
+    "SANDBOX": "sandbox-devcontainer", // gemini 显示这个。
     "TZ": "${localEnv:TZ:Asia/Shanghai}"
   },
   "remoteUser": "usr_vscode",
