@@ -95,8 +95,8 @@
     "source=${localWorkspaceFolderBasename}---gemini,target=/home/usr_vscode/.gemini,type=volume",
     "source=${localWorkspaceFolderBasename}---claude-code-router,target=/home/usr_vscode/.claude-code-router,type=volume",
     "source=${localWorkspaceFolderBasename}---claude-code,target=/home/usr_vscode/.claude,type=volume",
-    "source=${localWorkspaceFolderBasename}---node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
-    "source=pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume"
+    "source=${localWorkspaceFolderBasename}---pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume",
+    "source=${localWorkspaceFolderBasename}---node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
   ],
 
   /**
