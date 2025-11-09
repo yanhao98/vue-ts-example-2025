@@ -46,25 +46,6 @@ Multiple auto-import systems are active:
 Project has multiple UI frameworks configured:
 
 - **Naive UI**
-  - **Form Layout**: When using `NGrid` for form layouts, prefer `NFormItemGi` over nesting `NFormItem` inside `NGridItem` for more concise code.
-
-    ```vue
-    <!-- ❌ Avoid: Verbose nesting -->
-    <NGrid :cols="4">
-      <NGridItem>
-        <NFormItem label="Username">
-          <NInput />
-        </NFormItem>
-      </NGridItem>
-    </NGrid>
-
-    <!-- ✅ Use: Concise and direct -->
-    <NGrid :cols="4">
-      <NFormItemGi label="Username">
-        <NInput />
-      </NFormItemGi>
-    </NGrid>
-    ```
 
 - **PrimeVue**:
 
