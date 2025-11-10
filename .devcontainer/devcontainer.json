@@ -128,6 +128,6 @@
   "postAttachCommand": /* 容器内执行（每次附加） */ "echo '开发环境已就绪！${containerWorkspaceFolder}'",
   // "updateRemoteUserUID": true,
   "waitFor": "updateContentCommand",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/wrkspc,type=bind,consistency=delegated",
-  "workspaceFolder": "/wrkspc"
+  "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind,consistency=delegated",
+  "workspaceFolder": "/${localWorkspaceFolderBasename}"
 }

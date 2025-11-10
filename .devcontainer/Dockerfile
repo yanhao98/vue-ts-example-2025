@@ -93,4 +93,5 @@ RUN sh -c "$(curl -L -o - https://github.com/deluan/zsh-in-docker/releases/downl
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which zsh)" zsh - \
     && pnpm --version \
     # /home/usr_vscode/.config/pnpm/rc
+    && mkdir -p /home/usr_vscode/.pnpm-store \
     && pnpm config --global set store-dir /home/usr_vscode/.pnpm-store
