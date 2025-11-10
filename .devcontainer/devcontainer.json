@@ -43,6 +43,7 @@
         "lokalise.i18n-ally",
         "eamodio.gitlens",
         "vitest.explorer",
+        "antfu.unocss",
         // <<<<<
 
         // 代码质量 / 格式化 / Lint
