@@ -7,11 +7,11 @@ LABEL maintainer="i@oo1.dev" \
 # 构建参数
 ARG GIT_DELTA_VERSION=0.18.2
 ARG ZSH_IN_DOCKER_VERSION=1.2.1
-ARG PNPM_HOME="/home/usr_vscode/.local/share/pnpm"
-ARG PATH="$PNPM_HOME:$PATH"
 ARG TZ=Asia/Shanghai
 
 # 环境变量
+ENV PNPM_HOME="/home/usr_vscode/.local/share/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 ENV LANG=zh_CN.UTF-8 \
     LC_ALL=zh_CN.UTF-8 \
     TZ=${TZ} \
