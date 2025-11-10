@@ -40,7 +40,7 @@ export const routeI18nInstance = createI18n({
       ToastService.add({
         severity: 'warn',
         summary: '菜单翻译缺失',
-        detail: "缺少菜单国际化内容: locale='A', key='B'",
+        detail: `菜单翻译缺失: locale=${locale}, key=${key}`,
         life: 5000,
       });
     }
