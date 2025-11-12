@@ -50,6 +50,7 @@
         "eamodio.gitlens",
         "vitest.explorer",
         "antfu.unocss",
+        "vicanent.gcmp",
         // <<<<<
         // 代码质量 / 格式化 / Lint
         "editorconfig.editorconfig",
