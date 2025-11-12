@@ -2,14 +2,23 @@
  * 一些参考链接：
  * https://containers.dev/implementors/json_reference/#variables-in-devcontainerjson
  * https://code.claude.com/docs/zh-CN/devcontainer
+ * https://github.com/Kilo-Org/kilocode/blob/main/cli/Dockerfile
  */
-
 {
   "name": "SBX",
-  "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
+  "forwardPorts": [
+    4730,
+    4731
+  ], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
   "portsAttributes": {
-    "4730": { "label": "开发服务器端口", "onAutoForward": "notify" },
-    "4731": { "label": "预览服务器端口", "onAutoForward": "notify" }
+    "4730": {
+      "label": "开发服务器端口",
+      "onAutoForward": "notify"
+    },
+    "4731": {
+      "label": "预览服务器端口",
+      "onAutoForward": "notify"
+    }
   },
   "build": {
     "dockerfile": "Dockerfile",
@@ -38,7 +47,6 @@
         "google.gemini-cli-vscode-ide-companion",
         "kilocode.kilo-code",
         "alibaba-cloud.tongyi-lingma",
-
         // >>>>>
         "vue.volar",
         "lokalise.i18n-ally",
@@ -46,7 +54,6 @@
         "vitest.explorer",
         "antfu.unocss",
         // <<<<<
-
         // 代码质量 / 格式化 / Lint
         "editorconfig.editorconfig",
         "dbaeumer.vscode-eslint",
@@ -62,10 +69,16 @@
         },
         "terminal.integrated.defaultProfile.linux": "zsh",
         "terminal.integrated.profiles.linux": {
-          "🐚bash": { "path": "bash", "icon": "terminal-bash" },
-          "💲zsh": { "path": "zsh", "icon": "terminal-cmd", "overrideName": true }
+          "🐚bash": {
+            "path": "bash",
+            "icon": "terminal-bash"
+          },
+          "💲zsh": {
+            "path": "zsh",
+            "icon": "terminal-cmd",
+            "overrideName": true
+          }
         },
-
         // https://stackoverflow.com/questions/75708866/vscode-dev-container-fails-to-load-ms-vscode-js-debug-extension-correctly
         // https://davidwesst.com/blog/missing-bootloader-in-vscode-devcontainer/
         /**
@@ -101,7 +114,6 @@
     "source=${localWorkspaceFolderBasename}---pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume",
     "source=${localWorkspaceFolderBasename}---node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
   ],
-
   /**
    * 执行顺序总结
     1. initializeCommand (本地主机)
