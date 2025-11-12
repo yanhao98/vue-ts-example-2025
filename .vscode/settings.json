@@ -10,19 +10,22 @@
   "stylelint.enable": true,
   "oxc.enable": true,
   "editor.formatOnSave": true,
-
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue"],
   "scss.lint.unknownAtRules": "ignore",
   "css.lint.unknownAtRules": "ignore",
   "less.lint.unknownAtRules": "ignore",
-
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-
   // >>>>>
-  "i18n-ally.readonly": true,
+  "i18n-ally.readonly": false,
   "i18n-ally.namespace": false /* 禁用命名空间（@intlify/unplugin-vue-i18n不支持吧？） */,
   "i18n-ally.localesPaths": ["src/locales/demo", "src/locales"],
   // https://github.com/lokalise/i18n-ally/wiki/Path-Matcher
@@ -33,10 +36,8 @@
   "i18n-ally.sourceLanguage": "zh-CN", // 翻译源语言 (源文件) 根据此语言文件翻译其他语言文件的变量和内容
   "i18n-ally.displayLanguage": "zh-CN", // 显示语言 (显示文件/翻译文件)
   // <<<<<
-
   // https://github.com/copilot/share/8a1a019a-0180-80e7-8141-a40be02c4006
   // "iconify.customCollectionJsonPaths": ["https://example.com/my-icons.json", "./local/icons.json"],
-
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.preferences.autoImportFileExcludePatterns": ["vue-router/auto$"]
 }
