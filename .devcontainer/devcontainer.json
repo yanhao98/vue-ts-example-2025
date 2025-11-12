@@ -23,7 +23,7 @@
   ],
   "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
   "portsAttributes": {
-    "4730": { "label": "开发服务器端口", "onAutoForward": "openPreview" },
+    "4730": { "label": "开发服务器端口", "onAutoForward": "notify" },
     "4731": { "label": "预览服务器端口", "onAutoForward": "notify" }
   },
   "customizations": {
@@ -53,6 +53,17 @@
         "esbenp.prettier-vscode"
       ],
       "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+
+        "chat.tools.autoApprove": true,
+        "chat.tools.terminal.autoApprove": { "/.*/": true },
+        // * 尽管使用了“/.*/”，但有些还是会失败，因为有几个错误的默认值：
+        // * https://github.com/microsoft/vscode/issues/266651#issuecomment-3292581459
+
         "tasks": {
           "version": "2.0.0",
           "tasks": [
@@ -68,11 +79,6 @@
               "group": { "kind": "build", "isDefault": false }
             }
           ]
-        },
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": "explicit"
         },
         "terminal.integrated.defaultProfile.linux": "💲zsh",
         "terminal.integrated.profiles.linux": {
