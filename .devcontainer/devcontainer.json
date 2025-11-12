@@ -51,6 +51,7 @@
         "vitest.explorer",
         "antfu.unocss",
         "vicanent.gcmp",
+        "gruntfuggly.todo-tree",
         // <<<<<
         // 代码质量 / 格式化 / Lint
         "editorconfig.editorconfig",
