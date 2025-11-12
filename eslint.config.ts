@@ -1,4 +1,5 @@
 import vueI18n from '@intlify/eslint-plugin-vue-i18n';
+// import stylistic from '@stylistic/eslint-plugin';
 import pluginVitest from '@vitest/eslint-plugin';
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 import {
@@ -83,6 +84,9 @@ export default defineConfigWithVueTs(
   },
 
   {
+    // plugins: {
+    //   '@stylistic': stylistic,
+    // },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       'vue/block-order': [
@@ -97,6 +101,12 @@ export default defineConfigWithVueTs(
       ],
       'vue/attributes-order': 'error',
       'vue/multi-word-component-names': 'off',
+      // '@stylistic/padding-line-between-statements': [
+      //   'error',
+      //   { blankLine: 'always', prev: '*', next: ['const', 'let', 'var'] },
+      //   { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+      //   { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
+      // ],
     },
   },
 

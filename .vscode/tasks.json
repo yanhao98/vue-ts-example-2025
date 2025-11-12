@@ -6,7 +6,6 @@
       "script": "dev",
       "label": "🚀 dev",
       "detail": "启动开发服务器",
-      "runOptions": { "runOn": "folderOpen" },
       "problemMatcher": {
         "pattern": { "regexp": "." },
         "background": {

@@ -61,6 +61,29 @@
         "esbenp.prettier-vscode"
       ],
       "settings": {
+        "tasks": {
+          "version": "2.0.0",
+          "tasks": [
+            {
+              "type": "npm",
+              "script": "dev",
+              "label": "🚀 dev-in-container",
+              "detail": "启动开发服务器",
+              "runOptions": { "runOn": "folderOpen" },
+              "problemMatcher": {
+                "pattern": { "regexp": "." },
+                "background": {
+                  "activeOnStart": true,
+                  "beginsPattern": "VITE.*ready in",
+                  "endsPattern": "(Local|Network):.*http"
+                }
+              },
+              "isBackground": true,
+              "presentation": { "reveal": "always", "panel": "dedicated" },
+              "group": { "kind": "build", "isDefault": false }
+            }
+          ]
+        },
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.codeActionsOnSave": {

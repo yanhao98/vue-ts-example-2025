@@ -44,9 +44,6 @@
     "{src/locales-utils,src/locales}/**/*": "node scripts/type-check-for-lint-staged.mjs"
   },
   "pnpm": {
-    "overrides": {
-      "vue-tsc": "$vue-tsc"
-    },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "esbuild",
@@ -95,6 +92,7 @@
     "@primevue/metadata": "^4.3.9",
     "@stylelint-types/stylelint-order": "^7.0.0",
     "@stylelint-types/stylelint-scss": "^6.11.0",
+    "@stylistic/eslint-plugin": "^5.5.0",
     "@tsconfig/node22": "^22.0.2",
     "@types/html-minifier-terser": "^7.0.2",
     "@types/jsdom": "^27.0.0",
@@ -158,5 +156,11 @@
     "vue-macros": "3.1.1",
     "vue-tsc": "^3.1.0",
     "wrangler": "^4.37.1"
-  }
+  },
+  "overrides": {
+    "vue-tsc": "$vue-tsc"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
