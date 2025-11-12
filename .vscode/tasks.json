@@ -6,16 +6,12 @@
       "script": "dev",
       "label": "🚀 dev",
       "detail": "启动开发服务器",
-      "problemMatcher": {
-        "pattern": { "regexp": "." },
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "VITE.*ready in",
-          "endsPattern": "(Local|Network):.*http"
-        }
-      },
+      "problemMatcher": [],
       "isBackground": true,
-      "presentation": { "reveal": "always", "panel": "dedicated" },
+      "presentation": {
+        "reveal": "always", // 控制运行任务的终端是否显示。可按选项 "revealProblems" 进行替代。默认设置为“始终”。
+        "panel": "dedicated" // dedicated：一个任务独占一个终端，方便查看特定任务的日志，不会被其他任务干扰。
+      },
       "group": { "kind": "build", "isDefault": false }
     },
     {
@@ -23,7 +19,6 @@
       "script": "build-only",
       "label": "🔨 build-only",
       "detail": "" /* 如果为空或省略，VSCode 将自动使用 package.json 中 scripts[scriptName] 的值作为 detail */,
-      "problemMatcher": ["$tsc"],
       "presentation": { "reveal": "always", "panel": "shared" },
       "group": { "kind": "none", "isDefault": false }
     },
@@ -33,14 +28,7 @@
       "label": "☁️ wrangler:dev",
       "detail": "启动 Cloudflare Workers 开发服务器，相当于预览",
       "dependsOn": ["🔨 build-only"],
-      "problemMatcher": {
-        "pattern": { "regexp": "." },
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "wrangler dev",
-          "endsPattern": "Ready on"
-        }
-      },
+      "problemMatcher": [],
       "isBackground": true,
       "presentation": { "reveal": "always", "panel": "dedicated" },
       "group": { "kind": "build", "isDefault": false }

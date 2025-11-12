@@ -6,23 +6,8 @@
  */
 {
   "name": "SBX",
-  "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
-  "portsAttributes": {
-    "4730": {
-      "label": "开发服务器端口",
-      "onAutoForward": "notify"
-    },
-    "4731": {
-      "label": "预览服务器端口",
-      "onAutoForward": "notify"
-    }
-  },
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      //
-    }
-  },
+  "image": "my-dev-container",
+  // "build": { "dockerfile": "Dockerfile", "args": {} },
   "runArgs": [
     // -----
     // "--network=host",
@@ -36,22 +21,29 @@
     "--add-host=host.docker.internal:host-gateway",
     "--name=${localWorkspaceFolderBasename}-devcontainer"
   ],
+  "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
+  "portsAttributes": {
+    "4730": { "label": "开发服务器端口", "onAutoForward": "openPreview" },
+    "4731": { "label": "预览服务器端口", "onAutoForward": "notify" }
+  },
   "customizations": {
     "vscode": {
       "extensions": [
         // AI
+        "github.copilot",
+        "github.copilot-chat",
+        "vicanent.gcmp",
         "anthropic.claude-code",
         "google.gemini-cli-vscode-ide-companion",
         "kilocode.kilo-code",
         "alibaba-cloud.tongyi-lingma",
         // >>>>>
-        "vue.volar",
-        "lokalise.i18n-ally",
+        "gruntfuggly.todo-tree",
         "eamodio.gitlens",
+        "lokalise.i18n-ally",
         "vitest.explorer",
         "antfu.unocss",
-        "vicanent.gcmp",
-        "gruntfuggly.todo-tree",
+        "vue.volar",
         // <<<<<
         // 代码质量 / 格式化 / Lint
         "editorconfig.editorconfig",
@@ -67,17 +59,10 @@
             {
               "type": "npm",
               "script": "dev",
-              "label": "🚀 dev-in-container",
+              "label": "🚀 Dev: Run on Folder Open",
               "detail": "启动开发服务器",
               "runOptions": { "runOn": "folderOpen" },
-              "problemMatcher": {
-                "pattern": { "regexp": "." },
-                "background": {
-                  "activeOnStart": true,
-                  "beginsPattern": "VITE.*ready in",
-                  "endsPattern": "(Local|Network):.*http"
-                }
-              },
+              "problemMatcher": [],
               "isBackground": true,
               "presentation": { "reveal": "always", "panel": "dedicated" },
               "group": { "kind": "build", "isDefault": false }
@@ -89,16 +74,13 @@
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": "explicit"
         },
-        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.defaultProfile.linux": "💲zsh",
         "terminal.integrated.profiles.linux": {
-          "🐚bash": {
-            "path": "bash",
-            "icon": "terminal-bash"
-          },
           "💲zsh": {
             "path": "zsh",
             "icon": "terminal-cmd",
-            "overrideName": true
+            "overrideName": true,
+            "color": "terminal.ansiGreen"
           }
         },
         // https://stackoverflow.com/questions/75708866/vscode-dev-container-fails-to-load-ms-vscode-js-debug-extension-correctly

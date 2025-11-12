@@ -1,3 +1,4 @@
+# docker build -t my-dev-container .
 FROM debian:13.1-slim
 
 # 元数据
