@@ -9,6 +9,7 @@ Vue 3 TypeScript application with Vite.
 ## 开发服务器
 
 - **不要启动开发服务器**: 开发服务器通常已经由用户启动。除非特别要求，否则不要执行 `pnpm dev` 之类的命令。
+- **不要执行 Playwright 测试**: 除非用户明确要求，否则不要运行 Playwright 端到端测试。
 
 ### Routing & Layouts
 
