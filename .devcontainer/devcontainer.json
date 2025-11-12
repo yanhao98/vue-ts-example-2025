@@ -108,6 +108,7 @@
   "remoteUser": "usr_vscode",
   "mounts": [
     "source=${localWorkspaceFolderBasename}---bashhistory,target=/commandhistory,type=volume",
+    "source=${localWorkspaceFolderBasename}---iflow,target=/home/usr_vscode/.iflow,type=volume",
     "source=${localWorkspaceFolderBasename}---gemini,target=/home/usr_vscode/.gemini,type=volume",
     "source=${localWorkspaceFolderBasename}---claude-code-router,target=/home/usr_vscode/.claude-code-router,type=volume",
     "source=${localWorkspaceFolderBasename}---claude-code,target=/home/usr_vscode/.claude,type=volume",
@@ -136,7 +137,7 @@
   },
   "updateContentCommand": /* 容器内执行（创建后或内容更新） */ "pnpm install",
   "postCreateCommand": /* 容器内执行（创建完成后） */ {
-    "install-global-cli": "pnpm install -g @google/gemini-cli@latest @anthropic-ai/claude-code@latest @musistudio/claude-code-router@latest"
+    "install-global-cli": "pnpm install -g @google/gemini-cli@latest @anthropic-ai/claude-code@latest @musistudio/claude-code-router@latest @iflow-ai/iflow-cli@latest"
   },
   "postStartCommand": /* 容器内执行（每次启动） */ "echo '容器已启动！'",
   "postAttachCommand": /* 容器内执行（每次附加） */ "echo '开发环境已就绪！${containerWorkspaceFolder}'",
