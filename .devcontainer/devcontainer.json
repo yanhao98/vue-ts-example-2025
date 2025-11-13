@@ -116,7 +116,6 @@
     "SANDBOX": "sandbox-devcontainer", // gemini 显示这个。
     "TZ": "${localEnv:TZ:Asia/Shanghai}"
   },
-  "remoteUser": "usr_vscode",
   "mounts": [
     "source=${localWorkspaceFolderBasename}---bashhistory,target=/commandhistory,type=volume",
     "source=${localWorkspaceFolderBasename}---iflow,target=/home/usr_vscode/.iflow,type=volume",
@@ -124,6 +123,7 @@
     "source=${localWorkspaceFolderBasename}---claude-code-router,target=/home/usr_vscode/.claude-code-router,type=volume",
     "source=${localWorkspaceFolderBasename}---claude-code,target=/home/usr_vscode/.claude,type=volume",
     "source=${localWorkspaceFolderBasename}---pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume",
+    "source=${localWorkspaceFolderBasename}---cache-pnpm,target=/home/usr_vscode/.cache/pnpm,type=volume",
     "source=${localWorkspaceFolderBasename}---node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
   ],
   /**
@@ -155,6 +155,7 @@
   "postAttachCommand": /* 容器内执行（每次附加） */ "echo '开发环境已就绪！${containerWorkspaceFolder}'",
   // "updateRemoteUserUID": true,
   "waitFor": "updateContentCommand",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind,consistency=delegated",
-  "workspaceFolder": "/${localWorkspaceFolderBasename}"
+  // "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind,consistency=delegated",
+  // "workspaceFolder": "/${localWorkspaceFolderBasename}",
+  "remoteUser": "usr_vscode"
 }
