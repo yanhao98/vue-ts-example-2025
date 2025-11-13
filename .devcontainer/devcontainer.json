@@ -30,7 +30,6 @@
     "vscode": {
       "extensions": [
         // AI
-        "github.copilot",
         "github.copilot-chat",
         "vicanent.gcmp",
         "anthropic.claude-code",
@@ -38,8 +37,9 @@
         "kilocode.kilo-code",
         "alibaba-cloud.tongyi-lingma",
         // >>>>>
+        // "eamodio.gitlens",
+        "tu6ge.naive-ui-intelligence",
         "gruntfuggly.todo-tree",
-        "eamodio.gitlens",
         "lokalise.i18n-ally",
         "vitest.explorer",
         "antfu.unocss",
@@ -59,8 +59,9 @@
           "source.fixAll.eslint": "explicit"
         },
 
-        "chat.tools.autoApprove": true,
+        "chat.extensionUnification.enabled": true,
         "chat.tools.terminal.autoApprove": { "/.*/": true },
+        "chat.tools.terminal.ignoreDefaultAutoApproveRules": false,
         // * 尽管使用了“/.*/”，但有些还是会失败，因为有几个错误的默认值：
         // * https://github.com/microsoft/vscode/issues/266651#issuecomment-3292581459
 
