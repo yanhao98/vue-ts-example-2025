@@ -101,6 +101,8 @@ export default defineConfigWithVueTs(
       ],
       'vue/attributes-order': 'error',
       'vue/multi-word-component-names': 'off',
+      'vue/padding-line-between-blocks': ['error', 'always'],
+
       // '@stylistic/padding-line-between-statements': [
       //   'error',
       //   { blankLine: 'always', prev: '*', next: ['const', 'let', 'var'] },

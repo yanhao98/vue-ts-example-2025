@@ -24,6 +24,7 @@ const FComponent: FunctionalComponent<{ prop: string }> = (props /* context */) 
   </>
 );
 </script>
+
 <template>
   <NCard title="函数式组件（TSX）示例">
     <FComponent prop="some-prop-value" />
