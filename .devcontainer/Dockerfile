@@ -88,7 +88,7 @@ RUN sh -c "$(curl -L -o - https://github.com/deluan/zsh-in-docker/releases/downl
     && echo "" >> /home/usr_vscode/.zshrc \
     && echo "alias gemini='gemini --yolo -m gemini-2.5-pro'" >> /home/usr_vscode/.zshrc \
     && echo "alias claude='claude --dangerously-skip-permissions'" >> /home/usr_vscode/.zshrc \
-    && echo '[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"' >> /home/usr_vscode/.zshrc
+    && echo '# [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"' >> /home/usr_vscode/.zshrc
 
 # 安装 pnpm
 # https://pnpm.io/installation#in-a-docker-container
