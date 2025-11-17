@@ -1,41 +1,31 @@
-/**
- * 一些参考链接：
- * https://containers.dev/implementors/json_reference/#variables-in-devcontainerjson
- * https://code.claude.com/docs/zh-CN/devcontainer
- * https://github.com/Kilo-Org/kilocode/blob/main/cli/Dockerfile
- */
 {
-  "name": "SBX",
-  "image": "my-dev-container",
-  // "build": { "dockerfile": "Dockerfile", "args": {} },
-  "runArgs": [
-    // -----
-    // "--network=host",
-    // "--add-host=myservice.local:127.0.0.1",
-    // -----
-    // "--env-file",
-    // ".devcontainer/.env",
-    // -----
-    "--cap-add=NET_ADMIN",
-    "--cap-add=NET_RAW",
-    "--add-host=host.docker.internal:host-gateway",
-    "--name=${localWorkspaceFolderBasename}-devcontainer"
-  ],
+  "image": "ghcr.io/yanhao98/h-devcontainer:oncreatecommand.d",
+  "runArgs": ["--name=${localWorkspaceFolderBasename}-devcontainer"],
   "forwardPorts": [4730, 4731], // vscode://settings/remote.localPortHost -> 默认只监听 localhost
   "portsAttributes": {
     "4730": { "label": "开发服务器端口", "onAutoForward": "notify" },
     "4731": { "label": "预览服务器端口", "onAutoForward": "notify" }
+  },
+  "remoteEnv": {
+    "ANTHROPIC_AUTH_TOKEN": "${localEnv:ANTHROPIC_AUTH_TOKEN}",
+    "ANTHROPIC_BASE_URL": "${localEnv:ANTHROPIC_BASE_URL}",
+    "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
+    "GOOGLE_GEMINI_BASE_URL": "${localEnv:GOOGLE_GEMINI_BASE_URL}",
+    "PATH": "${containerEnv:PATH}:${containerWorkspaceFolder}/node_modules/.bin:${containerEnv:HOME}/.bun/bin:${containerEnv:HOME}/.bun/bin/bun-node-fallback-bin"
+  },
+  "containerEnv": {
+    "HOME": "/home/usr_vscode",
+    // "NODE_OPTIONS": "--max-old-space-size=4096",
+    "TZ": "${localEnv:TZ:Asia/Shanghai}"
   },
   "customizations": {
     "vscode": {
       "extensions": [
         // AI
         "github.copilot-chat",
-        "vicanent.gcmp",
         "anthropic.claude-code",
         "google.gemini-cli-vscode-ide-companion",
-        "kilocode.kilo-code",
-        "alibaba-cloud.tongyi-lingma",
+        "vicanent.gcmp",
         // >>>>>
         // "eamodio.gitlens",
         "tu6ge.naive-ui-intelligence",
@@ -46,7 +36,6 @@
         "vue.volar",
         // <<<<<
         // 代码质量 / 格式化 / Lint
-        "editorconfig.editorconfig",
         "dbaeumer.vscode-eslint",
         "stylelint.vscode-stylelint",
         "oxc.oxc-vscode",
@@ -58,13 +47,14 @@
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": "explicit"
         },
-
         "chat.extensionUnification.enabled": true,
-        "chat.tools.terminal.autoApprove": { "/.*/": true },
-        "chat.tools.terminal.ignoreDefaultAutoApproveRules": false,
+        "chat.tools.terminal.autoApprove": {
+          "/.*/": true,
+          "git push": false
+        },
         // * 尽管使用了“/.*/”，但有些还是会失败，因为有几个错误的默认值：
         // * https://github.com/microsoft/vscode/issues/266651#issuecomment-3292581459
-
+        "chat.tools.terminal.ignoreDefaultAutoApproveRules": true,
         "tasks": {
           "version": "2.0.0",
           "tasks": [
@@ -72,23 +62,15 @@
               "type": "npm",
               "script": "dev",
               "label": "🚀 Dev: Run on Folder Open",
-              "detail": "启动开发服务器",
-              "runOptions": { "runOn": "folderOpen" },
-              "problemMatcher": [],
+              "runOptions": {
+                "runOn": "folderOpen"
+              },
               "isBackground": true,
-              "presentation": { "reveal": "always", "panel": "dedicated" },
-              "group": { "kind": "build", "isDefault": false }
+              "presentation": {
+                "panel": "dedicated"
+              }
             }
           ]
-        },
-        "terminal.integrated.defaultProfile.linux": "💲zsh",
-        "terminal.integrated.profiles.linux": {
-          "💲zsh": {
-            "path": "zsh",
-            "icon": "terminal-cmd",
-            "overrideName": true,
-            "color": "terminal.ansiGreen"
-          }
         },
         // https://stackoverflow.com/questions/75708866/vscode-dev-container-fails-to-load-ms-vscode-js-debug-extension-correctly
         // https://davidwesst.com/blog/missing-bootloader-in-vscode-devcontainer/
@@ -100,62 +82,61 @@
          *   Error: illegal value for flag --max-old-space-size=4096--max-old-space-size=4096 of type size_t
          * 将其设置为 "disabled" 以规避该问题。
          */
-        "debug.javascript.autoAttachFilter": "disabled"
+        // "debug.javascript.autoAttachFilter": "disabled",
+        "terminal.integrated.defaultProfile.linux": "💲zsh",
+        "terminal.integrated.profiles.linux": {
+          "💲zsh": {
+            "path": "zsh",
+            "icon": "terminal-cmd",
+            "overrideName": true,
+            "color": "terminal.ansiGreen"
+          }
+        }
       }
     }
   },
-  "containerEnv": {
-    // "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
-    "ANTHROPIC_AUTH_TOKEN": "${localEnv:ANTHROPIC_AUTH_TOKEN}",
-    "ANTHROPIC_BASE_URL": "${localEnv:ANTHROPIC_BASE_URL}",
-    "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}",
-    "GOOGLE_GEMINI_BASE_URL": "${localEnv:GOOGLE_GEMINI_BASE_URL}",
-    "NODE_OPTIONS": "--max-old-space-size=4096",
-    "CLAUDE_CONFIG_DIR": "/home/usr_vscode/.claude",
-    "DEVCONTAINER": "true", // https://github.com/anthropics/claude-code/blob/1fe9e369a7c30805189cbbb72eb69c15ed4ec96b/.devcontainer/Dockerfile#L42
-    "SANDBOX": "sandbox-devcontainer", // gemini 显示这个。
-    "TZ": "${localEnv:TZ:Asia/Shanghai}"
-  },
   "mounts": [
-    "source=${localWorkspaceFolderBasename}---bashhistory,target=/commandhistory,type=volume",
-    "source=${localWorkspaceFolderBasename}---iflow,target=/home/usr_vscode/.iflow,type=volume",
-    "source=${localWorkspaceFolderBasename}---gemini,target=/home/usr_vscode/.gemini,type=volume",
-    "source=${localWorkspaceFolderBasename}---claude-code-router,target=/home/usr_vscode/.claude-code-router,type=volume",
-    "source=${localWorkspaceFolderBasename}---claude-code,target=/home/usr_vscode/.claude,type=volume",
-    "source=${localWorkspaceFolderBasename}---pnpm-store,target=/home/usr_vscode/.pnpm-store,type=volume",
-    "source=${localWorkspaceFolderBasename}---cache-pnpm,target=/home/usr_vscode/.cache/pnpm,type=volume",
-    "source=${localWorkspaceFolderBasename}---node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+    {
+      // 不挂载可能会遇到：`Cannot run macOS (Mach-O) executable in Docker: Exec format error`
+      "type": "volume",
+      "source": "${localWorkspaceFolderBasename}-node_modules",
+      "target": "${containerWorkspaceFolder}/node_modules"
+    },
+    {
+      "type": "volume",
+      "source": "devcontainer-pnpm-store",
+      "target": "/home/usr_vscode/.pnpm-store"
+    },
+    {
+      "type": "volume",
+      "source": "devcontainer-bun-install-cache",
+      "target": "/home/usr_vscode/.bun/install/cache"
+      // rm -rf ~/.bun/install/cache/*
+    },
+    {
+      "type": "bind",
+      "source": "${localWorkspaceFolder}/.devcontainer/onCreateCommand.d",
+      "target": "/usr/local/etc/onCreateCommand.d"
+    }
   ],
   /**
    * 执行顺序总结
-    1. initializeCommand (本地主机)
+    1. initializeCommand (本地主机，容器创建前)
     2. 容器创建
-    3. onCreateCommand (容器内，仅首次)
-    4. updateContentCommand (容器内)
-    5. postCreateCommand (容器内)
+    3. onCreateCommand (容器首次创建时执行一次)
+    4. updateContentCommand ()
+    5. postCreateCommand (每次容器启动时执行)
     6. 容器启动
     7. postStartCommand (容器内，每次启动)
     8. VS Code 附加到容器
     9. postAttachCommand (容器内，每次附加)
   */
-  "initializeCommand": /* 本地执行（容器创建前） */ "echo '准备创建容器...'",
-  "onCreateCommand": /* 容器内执行（仅首次创建） */ {
-    "setup-node": "pnpm env use lts --global",
-    "fix-claude-code-router": "sudo chown -R usr_vscode /home/usr_vscode/.claude-code-router",
-    "fix-claude": "sudo chown -R usr_vscode /home/usr_vscode/.claude",
-    "fix-gemini": "sudo chown -R usr_vscode /home/usr_vscode/.gemini",
-    "fix-iflow": "sudo chown -R usr_vscode /home/usr_vscode/.iflow",
-    "fix-node_modules": "sudo chown usr_vscode node_modules"
-  },
-  "updateContentCommand": /* 容器内执行（创建后或内容更新） */ "pnpm install",
-  "postCreateCommand": /* 容器内执行（创建完成后） */ {
-    "install-global-cli": "pnpm install -g @google/gemini-cli@latest @anthropic-ai/claude-code@latest @musistudio/claude-code-router@latest @iflow-ai/iflow-cli@latest"
-  },
-  "postStartCommand": /* 容器内执行（每次启动） */ "echo '容器已启动！'",
-  "postAttachCommand": /* 容器内执行（每次附加） */ "echo '开发环境已就绪！${containerWorkspaceFolder}'",
-  // "updateRemoteUserUID": true,
+  "initializeCommand": "echo '↘️ 准备创建容器...'; docker pull ghcr.io/yanhao98/h-devcontainer:oncreatecommand.d;",
+  "onCreateCommand": "echo '↘️ 容器首次创建！'; /usr/local/bin/onCreateCommand.sh",
+  "updateContentCommand": "echo '↘️ 容器内容已更新！';  zsh -c 'time pnpm install;'",
+  "postCreateCommand": "echo '↘️ 容器已创建！';",
+  "postStartCommand": "echo '↘️ 容器启动了！'",
+  "postAttachCommand": "echo '↘️ VS Code 已附加到容器！'; zsh -c 'source ~/.zshrc; echo \"$(date +%Y-%m-%dT%H:%M:%S%z) - Welcome to your Dev Container!\"';",
   "waitFor": "updateContentCommand",
-  // "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind,consistency=delegated",
-  // "workspaceFolder": "/${localWorkspaceFolderBasename}",
   "remoteUser": "usr_vscode"
 }
