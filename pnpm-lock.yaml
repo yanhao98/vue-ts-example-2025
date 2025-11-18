@@ -271,8 +271,8 @@ importers:
         specifier: ^29.2.0
         version: 29.2.0(vite@7.2.2(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.3)(sass@1.93.3)(terser@5.44.0)(yaml@2.8.1))
       unplugin-vue-router:
-        specifier: ^0.16.0
-        version: 0.16.2(@vue/compiler-sfc@3.5.24)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.24(typescript@5.9.2)))(vue@3.5.24(typescript@5.9.2))
+        specifier: ^0.17.0
+        version: 0.17.0(@vue/compiler-sfc@3.5.24)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.24(typescript@5.9.2)))(vue@3.5.24(typescript@5.9.2))
       vite:
         specifier: ^7.1.5
         version: 7.2.2(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.3)(sass@1.93.3)(terser@5.44.0)(yaml@2.8.1)
@@ -5746,8 +5746,8 @@ packages:
     peerDependencies:
       vite: ^2.0.0 || ^3.0.0-0 || ^4.0.0-0 || ^5.0.0-0 || ^6.0.0 || ^7.0.0
 
-  unplugin-vue-router@0.16.2:
-    resolution: {integrity: sha512-lE6ZjnHaXfS2vFI/PSEwdKcdOo5RwAbCKUnPBIN9YwLgSWas3x+qivzQvJa/uxhKzJldE6WK43aDKjGj9Rij9w==}
+  unplugin-vue-router@0.17.0:
+    resolution: {integrity: sha512-cQYRlybeOZWANyjipekbJxnUH3LnqbOHmUFXNzJ6BplH8BeiEEA7lZnNUc0EIktR8fe2I+zghAEPb+Jod8o6TQ==}
     peerDependencies:
       '@vue/compiler-sfc': ^3.5.17
       vue-router: ^4.6.0
@@ -11825,7 +11825,7 @@ snapshots:
       unplugin-utils: 0.3.1
       vite: 7.2.2(@types/node@22.18.13)(jiti@2.6.1)(lightningcss@1.30.1)(sass-embedded@1.93.3)(sass@1.93.3)(terser@5.44.0)(yaml@2.8.1)
 
-  unplugin-vue-router@0.16.2(@vue/compiler-sfc@3.5.24)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.24(typescript@5.9.2)))(vue@3.5.24(typescript@5.9.2)):
+  unplugin-vue-router@0.17.0(@vue/compiler-sfc@3.5.24)(typescript@5.9.2)(vue-router@4.6.3(vue@3.5.24(typescript@5.9.2)))(vue@3.5.24(typescript@5.9.2)):
     dependencies:
       '@babel/generator': 7.28.5
       '@vue-macros/common': 3.1.1(vue@3.5.24(typescript@5.9.2))
