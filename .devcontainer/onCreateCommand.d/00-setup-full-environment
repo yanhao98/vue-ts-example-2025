@@ -1,0 +1,8 @@
+#!/bin/zsh -eu
+
+# 修复 node_modules 权限问题:
+sudo chown -R $(whoami):$(whoami) node_modules || true
+
+h-setup-locale
+h-setup-zsh
+h-setup-bun
