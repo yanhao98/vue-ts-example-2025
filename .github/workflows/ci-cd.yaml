@@ -17,7 +17,7 @@ jobs:
     container: mcr.microsoft.com/playwright:v1.56.1-noble
     steps:
       - name: ⚙️ 设置 Node 环境
-        uses: yanhao98/composite-actions/setup-node-environment@94776edf02c64cf4a9393702dbc79de41c0d596d
+        uses: yanhao98/composite-actions/setup-node-environment@faab20ac2f9c85dfce1a4147fca493bf632bd744
       # - name: 📥 安装 Playwright 浏览器
       #   run: pnpm exec playwright install --with-deps
       - name: 📦 构建项目
@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: 🛠️ 设置Node环境
-        uses: yanhao98/composite-actions/setup-node-environment@94776edf02c64cf4a9393702dbc79de41c0d596d
+        uses: yanhao98/composite-actions/setup-node-environment@faab20ac2f9c85dfce1a4147fca493bf632bd744
 
       - name: 🔍 静态代码分析
         run: pnpm run lint
