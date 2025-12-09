@@ -58,7 +58,7 @@
     "@commitlint/config-conventional": "^20.0.0",
     "@formkit/auto-animate": "^0.9.0",
     "@pinia/colada": "^0.17.8",
-    "@primeuix/themes": "^1.2.5",
+    "@primeuix/themes": "^2.0.0",
     "@sa/materials": "workspace:*",
     "@unhead/vue": "^2.0.19",
     "@vueuse/core": "^14.0.0",
