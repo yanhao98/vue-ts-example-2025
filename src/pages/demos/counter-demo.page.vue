@@ -128,7 +128,7 @@ const resetCount = () => {
             </button>
 
             <!-- Naive UI 按钮 -->
-            <n-button
+            <NButton
               type="warning"
               size="large"
               block
@@ -148,7 +148,7 @@ const resetCount = () => {
                 </svg>
               </template>
               点击 +1 (Naive UI)
-            </n-button>
+            </NButton>
 
             <!-- 重置按钮 -->
             <button

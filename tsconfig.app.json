@@ -17,5 +17,12 @@
       "@/*": ["./src/*"],
       "~/*": ["./src/*"]
     }
+  },
+  "vueCompilerOptions": {
+    "plugins": [
+      "vue-macros/volar",
+      "unplugin-vue-router/volar/sfc-route-blocks",
+      "unplugin-vue-router/volar/sfc-typed-router"
+    ]
   }
 }

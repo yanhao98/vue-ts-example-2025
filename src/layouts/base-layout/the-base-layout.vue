@@ -29,11 +29,11 @@ const appStore = useAppStore();
       <BaseLayoutSider />
     </template>
     <!-- <div>GlobalContent</div> -->
-    <router-view v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade" mode="out-in">
         <component :is="Component" />
-      </transition>
-    </router-view>
+      </Transition>
+    </RouterView>
     <!-- <div>ThemeDrawer</div> -->
     <template #footer>
       <div

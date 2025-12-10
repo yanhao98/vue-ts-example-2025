@@ -2,6 +2,6 @@
 
 <template>
   <div>
-    <n-button @click="$router.push({ name: 'DemosCreate' })">DemosCreate</n-button>
+    <NButton @click="$router.push({ name: 'DemosCreate' })">DemosCreate</NButton>
   </div>
 </template>

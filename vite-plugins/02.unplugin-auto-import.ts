@@ -76,7 +76,7 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
         createUtils4uAutoImports(['primevue']),
         {
           'consola/browser': ['consola'],
-          'vue-router/auto': ['useLink'],
+          'unplugin-vue-router/data-loaders/basic': ['defineBasicLoader'],
           'naive-ui': [
             'useModal',
             'useDialog',

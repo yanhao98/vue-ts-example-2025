@@ -1,10 +1,12 @@
-import type { PluginOption } from 'vite';
+import type { ConfigEnv, PluginOption } from 'vite';
 import UnoCSS from 'unocss/vite';
 
-export default [
-  // https://github.com/antfu/unocss
-  // see uno.config.ts for config
-  UnoCSS({
-    checkImport: true,
-  }),
-] satisfies PluginOption;
+export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
+  return [
+    // https://github.com/antfu/unocss
+    // see uno.config.ts for config
+    UnoCSS({
+      checkImport: true,
+    }),
+  ];
+}

@@ -9,10 +9,10 @@ import AppNaiveUIProvider from './AppNaiveUIProvider.vue';
   <Toast style="z-index: 5000" />
 
   <AppNaiveUIProvider>
-    <router-view v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
+    <RouterView v-slot="{ Component }">
+      <Transition name="fade" mode="out-in">
         <component :is="Component" />
-      </transition>
-    </router-view>
+      </Transition>
+    </RouterView>
   </AppNaiveUIProvider>
 </template>

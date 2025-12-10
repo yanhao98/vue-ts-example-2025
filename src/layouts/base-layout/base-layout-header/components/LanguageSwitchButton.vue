@@ -25,7 +25,7 @@ function handleSelect(key: string) {
   <NDropdown trigger="hover" placement="bottom-end" :options="options" @select="handleSelect">
     <NButton quaternary class="flex items-center gap-1">
       <template #icon>
-        <icon-clarity-language-line w-4.5 h-4.5 />
+        <IconClarityLanguageLine w-4.5 h-4.5 />
       </template>
       <span>{{ languageLabels[locale] }}</span>
     </NButton>

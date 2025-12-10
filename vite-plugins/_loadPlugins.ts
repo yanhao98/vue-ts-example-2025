@@ -18,6 +18,8 @@ export async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]>
       '**/*.d.ts',
       '**/*.disabled.ts',
       '**/x-*.ts', // 禁用以 x- 开头的插件文件
+      '**/*-x.ts', // 禁用以 -x 结尾的插件文件
+      '**/*-X.ts', // 禁用以 -X 结尾的插件文件
       '**/_*',
     ],
   });
@@ -33,32 +35,22 @@ export async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]>
     const imported = await import(pathToFileURL(entry).href);
 
     const loadPlugin = imported.loadPlugin as LoadPluginFunction | undefined;
-    let plugin: PluginOption | undefined;
-    let loadMethod = '';
 
-    // 优先使用 loadPlugin 函数（接收 configEnv 参数）
-    if (loadPlugin && typeof loadPlugin === 'function') {
-      plugin = loadPlugin(configEnv);
-      loadMethod = 'loadPlugin';
-    } else if (imported.default) {
-      plugin = imported.default;
-      loadMethod = 'default';
-    } else {
-      consola.warn(`插件未导出有效内容: ${paddedName}`);
-      continue; // 跳过无效插件
+    if (!loadPlugin || typeof loadPlugin !== 'function') {
+      consola.warn(`插件未导出 loadPlugin 函数: ${paddedName}`);
+      continue;
     }
 
-    if (plugin) {
-      const pluginArray = Array.isArray(plugin) ? plugin : [plugin];
-      const validPlugins = pluginArray.filter(Boolean); // 过滤掉 null/undefined
-      const pluginCount = validPlugins.length;
+    const plugin = loadPlugin(configEnv);
+    const pluginArray = Array.isArray(plugin) ? plugin : [plugin];
+    const validPlugins = pluginArray.filter(Boolean);
+    const pluginCount = validPlugins.length;
 
-      if (pluginCount > 0) {
-        plugins.push(...validPlugins);
-        consola.success(`${paddedName} → ${pluginCount} 个实例 (${loadMethod})`);
-      } else {
-        consola.info(`${paddedName} 返回了空数组或无效值`);
-      }
+    if (pluginCount > 0) {
+      plugins.push(...validPlugins);
+      consola.success(`${paddedName} → ${pluginCount} 个实例`);
+    } else {
+      consola.info(`${paddedName} 返回了空数组或无效值`);
     }
   }
 

@@ -42,17 +42,17 @@ declare global {
     :theme="appStore.isDark ? darkTheme : null"
     abstract
   >
-    <n-loading-bar-provider>
-      <n-message-provider>
-        <n-notification-provider>
-          <n-modal-provider>
-            <n-dialog-provider>
+    <NLoadingBarProvider>
+      <NMessageProvider>
+        <NNotificationProvider>
+          <NModalProvider>
+            <NDialogProvider>
               <slot></slot>
               <ContextHolder />
-            </n-dialog-provider>
-          </n-modal-provider>
-        </n-notification-provider>
-      </n-message-provider>
-    </n-loading-bar-provider>
+            </NDialogProvider>
+          </NModalProvider>
+        </NNotificationProvider>
+      </NMessageProvider>
+    </NLoadingBarProvider>
   </NConfigProvider>
 </template>

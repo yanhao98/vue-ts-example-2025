@@ -13,17 +13,17 @@ const themeLabels: Record<AppThemeMode, string> = {
     {{ themeLabels[appStore.themeMode] }}
     <template #trigger>
       <NButton quaternary @click="appStore.cycleTheme()">
-        <icon-line-md-sunny-filled-loop-to-moon-filled-loop-transition
+        <IconLineMdSunnyFilledLoopToMoonFilledLoopTransition
           v-if="appStore.themeMode === 'light'"
           w-4.5
           h-4.5
         />
-        <icon-line-md-moon-filled-to-sunny-filled-loop-transition
+        <IconLineMdMoonFilledToSunnyFilledLoopTransition
           v-else-if="appStore.themeMode === 'dark'"
           w-4.5
           h-4.5
         />
-        <icon-line-md-computer v-else w-4.5 h-4.5 />
+        <IconLineMdComputer v-else w-4.5 h-4.5 />
       </NButton>
     </template>
   </NTooltip>

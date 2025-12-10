@@ -9,29 +9,29 @@ function setLocale(newLocale: 'en-US' | 'zh-CN') {
 
 <template>
   <div class="p-4">
-    <n-h1>{{ t('page.i18n-demo.title') }}</n-h1>
+    <NH1>{{ t('page.i18n-demo.title') }}</NH1>
 
-    <n-card :title="t('page.i18n-demo.change-language')">
-      <n-p>
+    <NCard :title="t('page.i18n-demo.change-language')">
+      <NP>
         {{ t('page.i18n-demo.current-language') }}:
         <span class="font-bold">{{ locale }}</span>
-      </n-p>
+      </NP>
 
-      <n-p>
+      <NP>
         {{ t('page.i18n-demo.hello', { name: 'Kilo' }) }}
-      </n-p>
+      </NP>
 
-      <n-space>
-        <n-button type="primary" @click="setLocale('en-US')"> English </n-button>
-        <n-button type="success" @click="setLocale('zh-CN')"> 简体中文 </n-button>
-      </n-space>
-    </n-card>
+      <NSpace>
+        <NButton type="primary" @click="setLocale('en-US')"> English </NButton>
+        <NButton type="success" @click="setLocale('zh-CN')"> 简体中文 </NButton>
+      </NSpace>
+    </NCard>
 
     <!-- 这里响应式有问题: -->
-    <n-p> $route.meta.title: {{ $route.meta.title }} </n-p>
+    <NP> $route.meta.title: {{ $route.meta.title }} </NP>
     <!-- 这样才正常 -->
-    <n-p>
+    <NP>
       routeI18nInstance.global.t($route.name): {{ routeI18nInstance.global.t($route.name) }}
-    </n-p>
+    </NP>
   </div>
 </template>

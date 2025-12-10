@@ -39,7 +39,7 @@ function handleSelect(key: string) {
 <template>
   <NDropdown :options="options" placement="bottom-end" @select="handleSelect">
     <NButton quaternary circle>
-      <icon-material-symbols-account-circle w-5 h-5 />
+      <IconMaterialSymbolsAccountCircle w-5 h-5 />
     </NButton>
   </NDropdown>
 </template>

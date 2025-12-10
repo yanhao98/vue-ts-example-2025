@@ -10,6 +10,7 @@ import {
 import pluginImport from 'eslint-plugin-import';
 import pluginJsonc from 'eslint-plugin-jsonc';
 import pluginOxlint from 'eslint-plugin-oxlint';
+import pluginPerfectionist from 'eslint-plugin-perfectionist';
 import pluginPlaywright from 'eslint-plugin-playwright';
 import pluginVue from 'eslint-plugin-vue';
 import { globalIgnores } from 'eslint/config';
@@ -24,7 +25,14 @@ export default defineConfigWithVueTs(
     files: ['**/*.{ts,mts,tsx,vue}'],
   },
 
-  globalIgnores(['worker-configuration.d.ts', '**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  globalIgnores([
+    'worker-configuration.d.ts',
+    '**/dist/**',
+    '**/dist-ssr/**',
+    '**/coverage/**',
+    '**/public/**',
+    '**/-----TEMP-----/**',
+  ]),
 
   pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
@@ -45,6 +53,13 @@ export default defineConfigWithVueTs(
   {
     rules: {
       '@intlify/vue-i18n/no-raw-text': 'off',
+      '@intlify/vue-i18n/no-unused-keys': [
+        'error',
+        {
+          src: './src',
+          extensions: ['.js', '.ts', '.tsx', '.vue'],
+        },
+      ],
     },
     settings: {
       'vue-i18n': {
@@ -54,9 +69,7 @@ export default defineConfigWithVueTs(
     },
   },
   {
-    plugins: {
-      import: pluginImport,
-    },
+    plugins: { import: pluginImport },
     rules: {
       'import/first': 'error',
       'import/no-duplicates': 'error',
@@ -69,6 +82,8 @@ export default defineConfigWithVueTs(
       'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     },
   },
+
+  { plugins: { perfectionist: pluginPerfectionist } },
 
   {
     /**
@@ -102,7 +117,11 @@ export default defineConfigWithVueTs(
       'vue/attributes-order': 'error',
       'vue/multi-word-component-names': 'off',
       'vue/padding-line-between-blocks': ['error', 'always'],
-
+      'vue/component-name-in-template-casing': [
+        'error',
+        'PascalCase',
+        { registeredComponentsOnly: false, ignores: [] },
+      ],
       // '@stylistic/padding-line-between-statements': [
       //   'error',
       //   { blankLine: 'always', prev: '*', next: ['const', 'let', 'var'] },
