@@ -117,9 +117,9 @@ export function useMetaLayoutsNMenuOptions({ menuInstRef }: { menuInstRef: Ref<M
 
       const menuOption: MenuOption = {
         label: () =>
-          route.meta?.link === false ? text : <RouterLink to={route}>{text}</RouterLink>,
+          route.meta?.link === false ? text : <RouterLink to={route.path}>{text}</RouterLink>,
         key: route.path,
-        icon: () => <IconMenuRounded style="width: 1em; height: 1em;" />,
+        icon: () => <IconMenuRounded style={{ width: '1em', height: '1em' }} />,
       };
 
       // 如果是根路径或只有一级路径，直接添加到根菜单
