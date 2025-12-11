@@ -5,7 +5,9 @@ import type { FunctionalComponent } from 'vue';
 
 hljs.registerLanguage('json', json);
 
-definePage({ meta: { link: true } });
+definePage({
+  meta: { link: true },
+});
 const FComponent: FunctionalComponent<{ prop: string }> = (props /* context */) => (
   <>
     <NBlockquote>
