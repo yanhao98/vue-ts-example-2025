@@ -1,3 +1,6 @@
 packages:
   - 'packages/*'
 # shamefullyHoist: false # https://pnpm.io/zh/settings#shamefullyhoist
+
+overrides:
+  vue-tsc: $vue-tsc

@@ -1,10 +1,11 @@
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import vueRouter from 'unplugin-vue-router/vite';
-import type { ConfigEnv, PluginOption } from 'vite';
 import VueMacros from 'vue-macros/vite';
 
-export async function loadPlugin(_configEnv: ConfigEnv): Promise<PluginOption> {
+import type { LoadPluginFunction } from './_loadPlugins';
+
+export const loadPlugin: LoadPluginFunction = async (_pluginLoadOptions) => {
   return [
     VueMacros({
       plugins: {
@@ -24,9 +25,9 @@ export async function loadPlugin(_configEnv: ConfigEnv): Promise<PluginOption> {
               route.addToMeta({ _: route.fullPath });
             }
           },
-          logs: true,
+          logs: !true,
         }),
       },
     }),
   ];
-}
+};

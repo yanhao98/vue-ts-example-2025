@@ -14,6 +14,9 @@
   // 代码格式化相关配置
   // ============================================================
   "prettier.enable": true,
+  "files.readonlyInclude": {
+    "dist/**": true
+  },
   "eslint.enable": true,
   "oxc.enable": true,
   "stylelint.enable": true,

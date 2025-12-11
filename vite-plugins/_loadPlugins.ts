@@ -1,19 +1,29 @@
+import boxen from 'boxen';
+import consola from 'consola';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-
-import consola from 'consola';
 import { glob } from 'tinyglobby';
 import type { ConfigEnv, PluginOption } from 'vite';
+import { loadEnv } from 'vite';
 
-type LoadPluginFunction = (configEnv: ConfigEnv) => PluginOption;
+export type LoadPluginFunction = (
+  configEnv: ConfigEnv & {
+    env: Record<string, string>;
+  },
+) => PluginOption | LoadPluginResult;
+export interface LoadPluginResult {
+  plugins: PluginOption;
+  message?: string;
+}
+
 export async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]> {
   const plugins: PluginOption[] = [];
 
-  consola.start('开始加载 Vite 插件...');
+  const cwd = path.resolve(import.meta.dirname);
 
   const pluginEntries = await glob('**/*.ts', {
     absolute: true,
-    cwd: path.resolve(import.meta.dirname),
+    cwd,
     ignore: [
       '**/*.d.ts',
       '**/*.disabled.ts',
@@ -24,7 +34,14 @@ export async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]>
     ],
   });
 
-  consola.info(`找到 ${pluginEntries.length} 个插件文件`);
+  const relativeCwd = path.relative(process.cwd(), cwd);
+  console.time('加载插件');
+  consola.log(
+    boxen(`正在加载 Vite 插件... (./${relativeCwd})`, {
+      borderStyle: 'classic',
+      borderColor: 'cyan',
+    }),
+  );
 
   // 计算最长的文件名长度，用于对齐输出
   const maxNameLength = Math.max(...pluginEntries.map((entry) => path.basename(entry).length));
@@ -41,20 +58,33 @@ export async function loadPlugins(configEnv: ConfigEnv): Promise<PluginOption[]>
       continue;
     }
 
-    const plugin = loadPlugin(configEnv);
+    const env = loadEnv(configEnv.mode, process.cwd());
+    const result = loadPlugin({ ...configEnv, env });
+
+    // 判断是否是 LoadPluginResult 对象
+    const isResultObject = (val: unknown): val is LoadPluginResult =>
+      typeof val === 'object' && val !== null && 'plugins' in val;
+
+    const plugin = isResultObject(result) ? result.plugins : result;
+    const message = isResultObject(result) ? result.message : undefined;
+
     const pluginArray = Array.isArray(plugin) ? plugin : [plugin];
     const validPlugins = pluginArray.filter(Boolean);
     const pluginCount = validPlugins.length;
 
     if (pluginCount > 0) {
       plugins.push(...validPlugins);
-      consola.success(`${paddedName} → ${pluginCount} 个实例`);
+      const suffix = message ? ` (${message})` : '';
+      consola.info(`${paddedName} → ${pluginCount} 个实例${suffix}`);
+    } else if (message) {
+      consola.info(`${paddedName} → ${message}`);
     } else {
       consola.info(`${paddedName} 返回了空数组或无效值`);
     }
   }
 
-  consola.success(`✅ 总共加载了 ${plugins.length} 个插件实例`);
+  consola.success(`共 ${pluginEntries.length} 个插件文件，已加载 ${plugins.length} 个实例`);
+  console.timeEnd('加载插件');
 
   return plugins;
 }

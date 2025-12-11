@@ -1,6 +1,7 @@
 import { minify as minifyHtml } from 'html-minifier-terser';
-import { loadEnv } from 'vite';
-import type { ConfigEnv, PluginOption } from 'vite';
+import type { PluginOption } from 'vite';
+
+import type { LoadPluginFunction } from './_loadPlugins';
 
 function IndexHtmlPlugin(): PluginOption {
   return {
@@ -91,8 +92,14 @@ function ___(): PluginOption {
   };
 }
 
-export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
+export const loadPlugin: LoadPluginFunction = (pluginLoadOptions) => {
+  const { mode, env } = pluginLoadOptions;
   // return [___()];
-  const env = loadEnv(_configEnv.mode, process.cwd());
-  if (env.VITE_BUILD_MINIFY === 'true') return IndexHtmlPlugin();
-}
+  if (mode !== 'production') {
+    return { plugins: [], message: '仅在生产模式下启用' };
+  }
+  if (env.VITE_BUILD_MINIFY !== 'true') {
+    return { plugins: [], message: `已通过环境变量禁用: VITE_BUILD_MINIFY=${env.VITE_BUILD_MINIFY}` };
+  }
+  return IndexHtmlPlugin();
+};

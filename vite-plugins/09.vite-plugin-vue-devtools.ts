@@ -1,23 +1,27 @@
-import consola from 'consola';
-import type { ConfigEnv, PluginOption } from 'vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 
-export function loadPlugin(configEnv: ConfigEnv): PluginOption {
-  if (configEnv.mode !== 'development') {
-    consola.info('vue-devtools 插件仅在开发模式下使用。');
-    return [];
+import type { LoadPluginFunction } from './_loadPlugins';
+
+export const loadPlugin: LoadPluginFunction = (_pluginLoadOptions) => {
+  const { mode } = _pluginLoadOptions;
+  if (mode !== 'development') {
+    return { plugins: [], message: '仅在开发模式下启用' };
   }
 
   let launchEditor = 'code';
+  let message: string | undefined;
 
   if (process.env.TERM_PROGRAM_VERSION?.toLowerCase()?.includes('insider')) {
-    consola.info('检测到 VSCode Insiders 环境。');
     launchEditor = 'code-insiders';
+    message = '检测到 VSCode Insiders 环境';
   }
 
-  return [
-    vueDevTools({
-      launchEditor: launchEditor,
-    }),
-  ];
-}
+  return {
+    plugins: [
+      vueDevTools({
+        launchEditor: launchEditor,
+      }),
+    ],
+    message,
+  };
+};

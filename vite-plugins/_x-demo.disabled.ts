@@ -1,13 +1,16 @@
-import type { ConfigEnv, PluginOption } from 'vite';
-import { loadEnv } from 'vite';
+import type { LoadPluginFunction } from './_loadPlugins';
 
-export default [
-  // ...
-] satisfies PluginOption;
+export const loadPlugin: LoadPluginFunction = (_pluginLoadOptions) => {
+  const env = _pluginLoadOptions.env;
 
-export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
-  const env = loadEnv(_configEnv.mode, process.cwd());
-  console.debug(`env :>> `, env);
-  // ...
-  return undefined;
-}
+  // 示例：根据环境变量禁用插件并返回消息
+  if (env.VITE_DEMO_ENABLED !== 'true') {
+    return {
+      plugins: [],
+      message: `已通过环境变量禁用: VITE_DEMO_ENABLED=${env.VITE_DEMO_ENABLED}`,
+    };
+  }
+
+  // 正常返回插件
+  return [];
+};

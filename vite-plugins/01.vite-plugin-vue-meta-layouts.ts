@@ -1,7 +1,8 @@
-import type { ConfigEnv, PluginOption } from 'vite';
 import MetaLayouts from 'vite-plugin-vue-meta-layouts';
 
-export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
+import type { LoadPluginFunction } from './_loadPlugins';
+
+export const loadPlugin: LoadPluginFunction = (_pluginLoadOptions) => {
   return [
     // https://github.com/dishait/vite-plugin-vue-meta-layouts
     MetaLayouts({
@@ -16,4 +17,4 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
       skipTopLevelRouteLayout: true, // 打开修复 https://github.com/JohnCampionJr/vite-plugin-vue-layouts/issues/134，默认为 false 关闭
     }),
   ];
-}
+};

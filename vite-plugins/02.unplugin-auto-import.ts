@@ -9,7 +9,6 @@ import Icons from 'unplugin-icons/vite';
 import Components from 'unplugin-vue-components/vite';
 import { VueRouterAutoImports } from 'unplugin-vue-router';
 import { createUtils4uAutoImports } from 'utils4u/auto-imports';
-import type { ConfigEnv, PluginOption } from 'vite';
 
 // >>>>>
 // eslint-disable-next-line import/no-duplicates
@@ -25,6 +24,8 @@ import { PrimeVueResolver } from '@primevue/auto-import-resolver';
 
 import { VantResolver } from '@vant/auto-import-resolver';
 // <<<<<
+
+import type { LoadPluginFunction } from './_loadPlugins';
 
 function _getNaiveUiComponentNames() {
   // [dtsTsx](https://github.com/unplugin/unplugin-vue-components/pull/673/files/84e80738885cfe11298f41f070cda94a7a779276)
@@ -55,7 +56,7 @@ function _getNaiveUiComponentNames() {
   return [];
 }
 
-export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
+export const loadPlugin: LoadPluginFunction = (_pluginLoadOptions) => {
   return [
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
@@ -141,4 +142,4 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
       },
     }),
   ];
-}
+};

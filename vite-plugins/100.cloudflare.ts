@@ -1,16 +1,17 @@
 import { cloudflare } from '@cloudflare/vite-plugin';
-import { loadEnv   } from 'vite';
-import type {ConfigEnv, PluginOption} from 'vite';
 
-export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
-  const env = loadEnv(_configEnv.mode, process.cwd());
-  if (_configEnv.mode === 'test') {
-    console.log('cloudflare plugin disabled in test mode');
-    return [];
+import type { LoadPluginFunction } from './_loadPlugins';
+
+export const loadPlugin: LoadPluginFunction = (pluginLoadOptions) => {
+  const { mode, env } = pluginLoadOptions;
+  if (mode === 'test') {
+    return { plugins: [], message: '在测试模式下禁用' };
   }
   if (env.VITE_CLOUDFLARE_SERVER_ENABLED !== 'true') {
-    console.log('cloudflare plugin disabled by env');
-    return [];
+    return {
+      plugins: [],
+      message: `已通过环境变量禁用: VITE_CLOUDFLARE_SERVER_ENABLED=${env.VITE_CLOUDFLARE_SERVER_ENABLED}`,
+    };
   }
   return [cloudflare()];
-}
+};

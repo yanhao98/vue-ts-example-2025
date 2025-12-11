@@ -1,7 +1,8 @@
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
-import type { ConfigEnv, PluginOption } from 'vite';
 
-export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
+import type { LoadPluginFunction } from './_loadPlugins';
+
+export const loadPlugin: LoadPluginFunction = (_pluginLoadOptions) => {
   return [
     // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
     VueI18nPlugin({
@@ -17,4 +18,4 @@ export function loadPlugin(_configEnv: ConfigEnv): PluginOption {
       // },
     }),
   ];
-}
+};
