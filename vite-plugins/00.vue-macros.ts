@@ -8,6 +8,11 @@ import type { LoadPluginFunction } from './_loadPlugins';
 export const loadPlugin: LoadPluginFunction = async (_pluginLoadOptions) => {
   return [
     VueMacros({
+      jsxDirective: {
+        // There is a conflict with definePage in unplugin-vue-router
+        // https://github.com/posva/unplugin-vue-router/discussions/429
+        exclude: [/[?&]definePage&vue&lang\.tsx/],
+      },
       plugins: {
         vue: vue({ include: [/\.vue$/, /\.md$/] }),
         vueJsx: vueJsx(),
