@@ -91,7 +91,7 @@
     "@primevue/auto-import-resolver": "^4.4.1",
     "@primevue/metadata": "^4.4.1",
     "@stylelint-types/stylelint-order": "^7.0.0",
-    "@stylelint-types/stylelint-scss": "^6.11.0",
+    "@stylelint-types/stylelint-scss": "^7.0.0",
     "@stylistic/eslint-plugin": "^5.6.1",
     "@tsconfig/node22": "^22.0.5",
     "@types/html-minifier-terser": "^7.0.2",
