@@ -1,5 +1,5 @@
 {
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.34.5",
   "name": "vue-ts-example-2025",
   "version": "0.0.0",
   "private": true,
