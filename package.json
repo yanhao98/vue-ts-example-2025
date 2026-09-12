@@ -118,7 +118,7 @@
     "happy-dom": "^20.0.10",
     "html-minifier-terser": "^7.2.0",
     "husky": "^9.1.7",
-    "jsdom": "^27.2.0",
+    "jsdom": "^30.0.0",
     "lint-staged": "^16.2.7",
     "nodemon": "^3.1.11",
     "npm-run-all2": "^8.0.4",
