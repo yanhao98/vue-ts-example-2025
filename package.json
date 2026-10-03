@@ -121,7 +121,7 @@
     "jsdom": "^27.2.0",
     "lint-staged": "^16.2.7",
     "nodemon": "^3.1.11",
-    "npm-run-all2": "^8.0.4",
+    "npm-run-all2": "^9.0.0",
     "nprogress": "^0.2.0",
     "oxlint": "~1.29.0",
     "postcss-html": "^1.8.0",
