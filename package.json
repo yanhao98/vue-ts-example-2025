@@ -60,7 +60,7 @@
     "@pinia/colada": "^0.18.0",
     "@primeuix/themes": "^2.0.0",
     "@sa/materials": "workspace:*",
-    "@unhead/vue": "^2.0.19",
+    "@unhead/vue": "^3.0.0",
     "@vueuse/core": "^14.0.0",
     "highlight.js": "^11.11.1",
     "jsonc-eslint-parser": "^2.4.1",
